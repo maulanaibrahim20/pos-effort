@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware(['guest'])->group(function () {
-
     Route::get('/', function () {
         return view('auth.login.index');
     });
@@ -30,15 +30,25 @@ Route::middleware(['guest'])->group(function () {
     });
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::prefix('admin')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.pages.dashboard.index');
+Route::middleware(['auth'])->name('web.')->group(function () {
+    Route::get('/logout', LogoutController::class)
+        ->name('auth.logout');
+});
+
+Route::middleware(['autentikasi'])->group(function () {
+    Route::group(['middleware' => ['can:admin']], function () {
+        Route::prefix('admin')->group(function () {
+            Route::get('/dashboard', function () {
+                return view('admin.pages.dashboard.index');
+            });
         });
     });
-    Route::prefix('member')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('member.pages.dashboard.index');
+
+    Route::group(['middleware' => ['can:member']], function () {
+        Route::prefix('member')->group(function () {
+            Route::get('/dashboard', function () {
+                return view('welcome');
+            });
         });
     });
 });

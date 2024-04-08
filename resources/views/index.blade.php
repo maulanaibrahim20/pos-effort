@@ -57,6 +57,7 @@
     <!-- END: Footer-->
 
     @include('template.component.style_js')
+    @include('sweetalert::alert')
     @yield('js')
 </body>
 <!-- END: Body-->

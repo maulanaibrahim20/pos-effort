@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Auth\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
@@ -17,5 +22,32 @@ class LoginController extends Controller
     public function index()
     {
         return view('auth.login.index');
+    }
+
+    public function proccess(LoginRequest $request)
+    {
+        $user = $this->user->whereEmail($request->email)->first();
+        if (!$user) {
+            Alert::error('Maaf Akun Anda Tidak Terdaftar');
+            return redirect(route('login.index'))->with('error', 'Maaf Akun Anda Tidak Terdaftar');
+        }
+        if (!Hash::check($request->password, $user->password)) {
+            Alert::error('Maaf Pasword Anda Salah!');
+            return back()->with('error', 'Maaf Password Anda Salah!');
+        }
+        if (!$user->email_verified_at) {
+            Alert::warning('Maaf Akun Anda Belum Terverifikasi');
+            return back()->with('error', 'Maaf Akun Anda Belum Terverifikasi');
+        }
+        if (Auth::attempt($request->validated())) {
+            $request->session()->regenerate();
+
+            if ($user->role_id == Role::ADMIN) {
+                return redirect('/admin/dashboard');
+            } elseif ($user->role_id == Role::MEMBER) {
+                return redirect('/member/dashboard');
+            }
+        }
+        return back()->with('error', 'Gagal melakukan autentikasi');
     }
 }

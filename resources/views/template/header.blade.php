@@ -283,13 +283,19 @@
                         Inbox</a><a class="dropdown-item" href="app-todo.html"><i class="me-50"
                             data-feather="check-square"></i> Task</a><a class="dropdown-item" href="app-chat.html"><i
                             class="me-50" data-feather="message-square"></i> Chats</a>
-                    <div class="dropdown-divider"></div><a class="dropdown-item"
-                        href="page-account-settings-account.html"><i class="me-50" data-feather="settings"></i>
-                        Settings</a><a class="dropdown-item" href="page-pricing.html"><i class="me-50"
-                            data-feather="credit-card"></i> Pricing</a><a class="dropdown-item"
-                        href="page-faq.html"><i class="me-50" data-feather="help-circle"></i> FAQ</a><a
-                        class="dropdown-item" href="auth-login-cover.html"><i class="me-50"
-                            data-feather="power"></i> Logout</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="page-account-settings-account.html"><i class="me-50"
+                            data-feather="settings"></i>
+                        Settings
+                    </a>
+                    <a class="dropdown-item" href="page-pricing.html"><i class="me-50"
+                            data-feather="credit-card"></i> Pricing
+                    </a>
+                    <a class="dropdown-item" href="page-faq.html"><i class="me-50" data-feather="help-circle"></i>
+                        FAQ</a>
+                    <a class="dropdown-item" href="{{ route('web.auth.logout') }}"><i class="me-50"
+                            data-feather="power"></i> Logout
+                    </a>
                 </div>
             </li>
         </ul>
