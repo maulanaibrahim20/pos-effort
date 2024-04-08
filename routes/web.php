@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Route::middleware(['guest'])->group(function () {
+
+    Route::get('/', function () {
+        return view('auth.login.index');
+    });
+
+    Route::prefix('login')->name('login.')->group(function () {
+        Route::get('/', [LoginController::class, 'index'])
+            ->name('index');
+        Route::post('/proccess', [LoginController::class, 'proccess'])
+            ->name('proccess');
+    });
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::get('/dashboard', function () {
+            return view('admin.pages.dashboard.index');
+        });
+    });
+    Route::prefix('member')->group(function () {
+        Route::get('/dashboard', function () {
+            return view('member.pages.dashboard.index');
+        });
+    });
 });
