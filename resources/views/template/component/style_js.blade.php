@@ -13,7 +13,12 @@
 <!-- END: Theme JS-->
 
 <!-- BEGIN: Page JS-->
-<script src="{{ url('app-assets') }}/js/scripts/pages/dashboard-ecommerce.js"></script>
+@if (Auth::user()->getAkses->id == 1)
+    <script src="{{ url('app-assets') }}/js/scripts/pages/dashboard-ecommerce.js"></script>
+@elseif (Auth::user()->getAkses->id == 2)
+    <script src="{{ url('app-assets') }}/js/scripts/pages/dashboard-analytics.js"></script>
+    <script src="{{ url('app-assets') }}/js/scripts/pages/app-invoice-list.js"></script>
+@endif
 <!-- END: Page JS-->
 
 <script>

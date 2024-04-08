@@ -45,7 +45,7 @@ class LoginController extends Controller
             if ($user->role_id == Role::ADMIN) {
                 return redirect('/admin/dashboard');
             } elseif ($user->role_id == Role::MEMBER) {
-                return redirect('/member/dashboard');
+                return redirect('/member/home');
             }
         }
         return back()->with('error', 'Gagal melakukan autentikasi');

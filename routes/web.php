@@ -46,8 +46,11 @@ Route::middleware(['autentikasi'])->group(function () {
 
     Route::group(['middleware' => ['can:member']], function () {
         Route::prefix('member')->group(function () {
-            Route::get('/dashboard', function () {
+            Route::get('/home', function () {
                 return view('welcome');
+            });
+            Route::get('/dashboard', function () {
+                return view('member.pages.dashboard.index');
             });
         });
     });
