@@ -1,149 +1,127 @@
-<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
-    <div class="navbar-header">
-        <ul class="nav navbar-nav flex-row">
-            <li class="nav-item me-auto"><a class="navbar-brand"
-                    href="../../../html/ltr/vertical-menu-template/index.html"><span class="brand-logo">
-                        <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" height="24">
-                            <defs>
-                                <lineargradient id="linearGradient-1" x1="100%" y1="10.5120544%" x2="50%"
-                                    y2="89.4879456%">
-                                    <stop stop-color="#000000" offset="0%"></stop>
-                                    <stop stop-color="#FFFFFF" offset="100%"></stop>
-                                </lineargradient>
-                                <lineargradient id="linearGradient-2" x1="64.0437835%" y1="46.3276743%" x2="37.373316%"
-                                    y2="100%">
-                                    <stop stop-color="#EEEEEE" stop-opacity="0" offset="0%"></stop>
-                                    <stop stop-color="#FFFFFF" offset="100%"></stop>
-                                </lineargradient>
-                            </defs>
-                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <g id="Artboard" transform="translate(-400.000000, -178.000000)">
-                                    <g id="Group" transform="translate(400.000000, 178.000000)">
-                                        <path class="text-primary" id="Path"
-                                            d="M-5.68434189e-14,2.84217094e-14 L39.1816085,2.84217094e-14 L69.3453773,32.2519224 L101.428699,2.84217094e-14 L138.784583,2.84217094e-14 L138.784199,29.8015838 C137.958931,37.3510206 135.784352,42.5567762 132.260463,45.4188507 C128.736573,48.2809251 112.33867,64.5239941 83.0667527,94.1480575 L56.2750821,94.1480575 L6.71554594,44.4188507 C2.46876683,39.9813776 0.345377275,35.1089553 0.345377275,29.8015838 C0.345377275,24.4942122 0.230251516,14.560351 -5.68434189e-14,2.84217094e-14 Z"
-                                            style="fill:currentColor"></path>
-                                        <path id="Path1"
-                                            d="M69.3453773,32.2519224 L101.428699,1.42108547e-14 L138.784583,1.42108547e-14 L138.784199,29.8015838 C137.958931,37.3510206 135.784352,42.5567762 132.260463,45.4188507 C128.736573,48.2809251 112.33867,64.5239941 83.0667527,94.1480575 L56.2750821,94.1480575 L32.8435758,70.5039241 L69.3453773,32.2519224 Z"
-                                            fill="url(#linearGradient-1)" opacity="0.2"></path>
-                                        <polygon id="Path-2" fill="#000000" opacity="0.049999997"
-                                            points="69.3922914 32.4202615 32.8435758 70.5039241 54.0490008 16.1851325">
-                                        </polygon>
-                                        <polygon id="Path-21" fill="#000000" opacity="0.099999994"
-                                            points="69.3922914 32.4202615 32.8435758 70.5039241 58.3683556 20.7402338">
-                                        </polygon>
-                                        <polygon id="Path-3" fill="url(#linearGradient-2)" opacity="0.099999994"
-                                            points="101.428699 0 83.0667527 94.1480575 130.378721 47.0740288">
-                                        </polygon>
-                                    </g>
-                                </g>
-                            </g>
-                        </svg></span>
-                    <h2 class="brand-text">Vuexy</h2>
-                </a></li>
-            <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse"><i
-                        class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i
-                        class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc"
-                        data-ticon="disc"></i></a></li>
-        </ul>
-    </div>
-    <div class="shadow-bottom"></div>
-    <div class="main-menu-content">
-        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Main &amp; Menu</span><i
-                    data-feather="more-horizontal"></i>
-            </li>
-            @if (Auth::user()->getAkses->id == 1)
-                <li class="nav-item {{ Request::is('*/dashboard') ? 'active' : '' }}"><a
-                        class="d-flex align-items-center" href="{{ url('/admin/dashboard') }}"><i
-                            data-feather="home"></i><span class="menu-title text-truncate"
-                            data-i18n="Dashboard">Dashboard</span></a>
-                </li>
-            @elseif (Auth::user()->getAkses->id == 2)
-                <li class="nav-item {{ Request::is('*/dashboard') ? 'active' : '' }}"><a
-                        class="d-flex align-items-center" href="{{ url('/member/dashboard') }}"><i
-                            data-feather="home"></i><span class="menu-title text-truncate"
-                            data-i18n="Dashboard">Dashboard</span></a>
-                </li>
+<div class="sticky">
+    <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
+    <div class="app-sidebar">
+        <div class="side-header">
+            @if (Auth::user()->role_id == 1)
+                <a class="header-brand1" href="{{ url('/admin/dashboard') }}">
+                @elseif (Auth::user()->role_id == 2)
+                    <a class="header-brand1" href="{{ url('/member/dashboard') }}">
             @endif
-            {{-- <li class=" nav-item"><a class="d-flex align-items-center" href="index.html"><i
-                        data-feather="home"></i><span class="menu-title text-truncate"
-                        data-i18n="Dashboards">Dashboards</span><span
-                        class="badge badge-light-warning rounded-pill ms-auto me-1">2</span></a>
-                <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="dashboard-analytics.html"><i
-                                data-feather="circle"></i><span class="menu-item text-truncate"
-                                data-i18n="Analytics">Analytics</span></a>
+            <img src="{{ url('/assets') }}/images/brand/logo.png" class="header-brand-img main-logo" alt="Sparic logo">
+            <img src="{{ url('/assets') }}/images/brand/logo-light.png" class="header-brand-img darklogo"
+                alt="Sparic logo">
+            <img src="{{ url('/assets') }}/images/brand/icon.png" class="header-brand-img icon-logo" alt="Sparic logo">
+            <img src="{{ url('/assets') }}/images/brand/icon2.png" class="header-brand-img icon-logo2"
+                alt="Sparic logo">
+            </a>
+        </div>
+        <!-- logo-->
+        <div class="main-sidemenu">
+            <div class="slide-left disabled" id="slide-left"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"
+                    width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z" />
+                </svg></div>
+            <ul class="side-menu">
+                <li class="sub-category">
+                    <h3>Main</h3>
+                </li>
+                @auth
+                    @if (Auth::user()->role_id == 1)
+                        <li>
+                            <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
+                                href="{{ url('/admin/dashboard') }}"><i class="side-menu__icon fa fa-home"></i><span
+                                    class="side-menu__label">Dashboard</span></a>
+                        </li>
+                    @elseif(Auth::user()->role_id == 2)
+                        <li>
+                            <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
+                                href="{{ url('/member/dashboard') }}"><i class="side-menu__icon fa fa-home"></i><span
+                                    class="side-menu__label">Dashboard</span></a>
+                        </li>
+                    @endif
+                @endauth
+                @can('admin')
+                    <li class="sub-category">
+                        <h3>Master Data</h3>
                     </li>
-                    <li class="active"><a class="d-flex align-items-center" href="dashboard-ecommerce.html"><i
-                                data-feather="circle"></i><span class="menu-item text-truncate"
-                                data-i18n="eCommerce">eCommerce</span></a>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(3) == 'kategori' ? 'active' : '' }}"
+                            href="{{ url('/admin/master/kategori') }}"><i class="side-menu__icon fe fe-box"></i><span
+                                class="side-menu__label">Kategori</span></a>
                     </li>
-                </ul>
-            </li> --}}
-            @can('admin')
-                <li class=" navigation-header"><span data-i18n="Master &amp; Data">Master &amp; Data</span><i
-                        data-feather="more-horizontal"></i>
-                </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ url('/admin/dashboard') }}"><i
-                            data-feather="box"></i><span class="menu-title text-truncate"
-                            data-i18n="Kategori">Kategori</span></a>
-                </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ url('/admin/dashboard') }}"><i
-                            data-feather="codepen"></i><span class="menu-title text-truncate"
-                            data-i18n="Produk">Produk</span></a>
-                </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ url('/admin/dashboard') }}"><i
-                            data-feather="credit-card"></i><span class="menu-title text-truncate"
-                            data-i18n="Member">Member</span></a>
-                </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ url('/admin/dashboard') }}"><i
-                            data-feather="truck"></i><span class="menu-title text-truncate"
-                            data-i18n="Supplier">Supplier</span></a>
-                </li>
-                <li class=" navigation-header"><span data-i18n="Transaksi &amp; Data">Transaksi &amp; Data</span><i
-                        data-feather="more-horizontal"></i>
-                </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ url('/admin/dashboard') }}"><i
-                            data-feather="dollar-sign"></i><span class="menu-title text-truncate"
-                            data-i18n="Pengeluaran">Pengeluaran</span></a>
-                </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ url('/admin/dashboard') }}"><i
-                            data-feather="arrow-down-circle"></i><span class="menu-title text-truncate"
-                            data-i18n="Pembelian">Pembelian</span></a>
-                </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ url('/admin/dashboard') }}"><i
-                            data-feather="arrow-up-circle"></i><span class="menu-title text-truncate"
-                            data-i18n="Penjualan">Penjualan</span></a>
-                </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ url('/admin/dashboard') }}"><i
-                            data-feather="shopping-bag"></i><span class="menu-title text-truncate"
-                            data-i18n="Transaksi Lama">Transaksi Lama</span></a>
-                </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ url('/admin/dashboard') }}"><i
-                            data-feather="shopping-cart"></i><span class="menu-title text-truncate"
-                            data-i18n="Transaksi Baru">Transaksi Baru</span></a>
-                </li>
-                <li class=" navigation-header"><span data-i18n="Report">Report</span><i
-                        data-feather="more-horizontal"></i>
-                </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ url('/admin/dashboard') }}"><i
-                            data-feather="file-text"></i><span class="menu-title text-truncate"
-                            data-i18n="Laporan">Laporan</span></a>
-                </li>
-                <li class=" navigation-header"><span data-i18n="Pengaturan">Pengaturan</span><i
-                        data-feather="more-horizontal"></i>
-                </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ url('/admin/dashboard') }}"><i
-                            data-feather="users"></i><span class="menu-title text-truncate"
-                            data-i18n="User">User</span></a>
-                </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ url('/admin/dashboard') }}"><i
-                            data-feather="settings"></i><span class="menu-title text-truncate"
-                            data-i18n="Setting">Setting</span></a>
-                </li>
-            @endcan
-
-        </ul>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
+                            href="{{ url('/admin/master/produk') }}"><i class="side-menu__icon fe fe-package"></i><span
+                                class="side-menu__label">Produk</span></a>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
+                            href="{{ url('/admin/dashboard') }}"><i class="side-menu__icon fe fe-credit-card"></i><span
+                                class="side-menu__label">Member</span></a>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
+                            href="{{ url('/admin/dashboard') }}"><i class="side-menu__icon fe fe-truck"></i><span
+                                class="side-menu__label">Supplier</span></a>
+                    </li>
+                    <li class="sub-category">
+                        <h3>Transaksi</h3>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
+                            href="{{ url('/admin/dashboard') }}"><i class="side-menu__icon fe fe-dollar-sign"></i><span
+                                class="side-menu__label">Pengeluaran</span></a>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
+                            href="{{ url('/admin/dashboard') }}"><i
+                                class="side-menu__icon fe fe-arrow-down-circle"></i><span
+                                class="side-menu__label">Pembelian</span></a>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
+                            href="{{ url('/admin/dashboard') }}"><i class="side-menu__icon fe fe-arrow-up-circle"></i><span
+                                class="side-menu__label">Penjualan</span></a>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
+                            href="{{ url('/admin/dashboard') }}"><i class="side-menu__icon fe fe-shopping-bag"></i><span
+                                class="side-menu__label">Transaksi Lama</span></a>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
+                            href="{{ url('/admin/dashboard') }}"><i class="side-menu__icon fe fe-shopping-cart"></i><span
+                                class="side-menu__label">Transaksi Baru</span></a>
+                    </li>
+                    <li class="sub-category">
+                        <h3>Report</h3>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
+                            href="{{ url('/admin/dashboard') }}"><i class="side-menu__icon fe fe-file-text"></i><span
+                                class="side-menu__label">Laporan</span></a>
+                    </li>
+                    <li class="sub-category">
+                        <h3>Pengaturan</h3>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
+                            href="{{ url('/admin/dashboard') }}"><i class="side-menu__icon fe fe-users"></i><span
+                                class="side-menu__label">User</span></a>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
+                            href="{{ url('/admin/dashboard') }}"><i class="side-menu__icon fe fe-settings"></i><span
+                                class="side-menu__label">Pengaturan</span></a>
+                    </li>
+                @endcan
+                @can('member')
+                @endcan
+            </ul>
+            <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"
+                    width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z" />
+                </svg></div>
+        </div>
     </div>
 </div>

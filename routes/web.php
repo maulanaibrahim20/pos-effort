@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Master\KategoriController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +39,18 @@ Route::middleware(['auth'])->name('web.')->group(function () {
 Route::middleware(['autentikasi'])->group(function () {
     Route::group(['middleware' => ['can:admin']], function () {
         Route::prefix('admin')->group(function () {
+            Route::prefix('master')->group(function () {
+                Route::resource('kategori', KategoriController::class);
+                Route::get('produk', function () {
+                    return view('admin.pages.master.produk.index');
+                });
+                Route::get('member', function () {
+                    return view('admin.pages.member.index');
+                });
+                Route::get('supplier', function () {
+                    return view('admin.pages.supplier.index');
+                });
+            });
             Route::get('/dashboard', function () {
                 return view('admin.pages.dashboard.index');
             });

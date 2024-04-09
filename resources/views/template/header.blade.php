@@ -1,406 +1,456 @@
-<nav
-    class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl">
-    <div class="navbar-container d-flex content">
-        <div class="bookmark-wrapper d-flex align-items-center">
-            <ul class="nav navbar-nav d-xl-none">
-                <li class="nav-item"><a class="nav-link menu-toggle" href="#"><i class="ficon"
-                            data-feather="menu"></i></a></li>
-            </ul>
-            <ul class="nav navbar-nav bookmark-icons">
-                <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-email.html"
-                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Email"><i class="ficon"
-                            data-feather="mail"></i></a></li>
-                <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-chat.html" data-bs-toggle="tooltip"
-                        data-bs-placement="bottom" title="Chat"><i class="ficon"
-                            data-feather="message-square"></i></a></li>
-                <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-calendar.html"
-                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Calendar"><i class="ficon"
-                            data-feather="calendar"></i></a></li>
-                <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-todo.html" data-bs-toggle="tooltip"
-                        data-bs-placement="bottom" title="Todo"><i class="ficon" data-feather="check-square"></i></a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav">
-                <li class="nav-item d-none d-lg-block"><a class="nav-link bookmark-star"><i class="ficon text-warning"
-                            data-feather="star"></i></a>
-                    <div class="bookmark-input search-input">
-                        <div class="bookmark-input-icon"><i data-feather="search"></i></div>
-                        <input class="form-control input" type="text" placeholder="Bookmark" tabindex="0"
-                            data-search="search">
-                        <ul class="search-list search-list-bookmark"></ul>
+<div class="app-header header sticky">
+    <div class="container-fluid main-container">
+        <div class="d-flex">
+            <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="javascript:void(0)"></a>
+            <!-- sidebar-toggle-->
+            <a class="logo-horizontal" href="index.html">
+                <img src="{{ url('/assets') }}/images/brand/logo.png" class="header-brand-img main-logo"
+                    alt="Sparic logo">
+                <img src="{{ url('/assets') }}/images/brand/logo-light.png" class="header-brand-img darklogo"
+                    alt="Sparic logo">
+            </a>
+            <!-- LOGO -->
+            <div class="main-header-center ms-3 d-none d-lg-block">
+                <input type="text" class="form-control" id="typehead" placeholder="Search for results..."
+                    autocomplete="off">
+                <button class="btn px-2"><i class="fe fe-search" aria-hidden="true"></i></button>
+            </div>
+            <div class="d-flex order-lg-2 ms-auto header-right-icons">
+                <div class="dropdown d-none">
+                    <a href="javascript:void(0)" class="nav-link icon" data-bs-toggle="dropdown">
+                        <i class="fe fe-search"></i>
+                    </a>
+                    <div class="dropdown-menu header-search dropdown-menu-start">
+                        <div class="input-group w-100 p-2">
+                            <input type="text" class="form-control" placeholder="Search....">
+                            <div class="input-group-text btn btn-primary">
+                                <i class="fe fe-search" aria-hidden="true"></i>
+                            </div>
+                        </div>
                     </div>
-                </li>
-            </ul>
+                </div>
+                <!-- SEARCH -->
+                <button class="navbar-toggler navresponsive-toggler d-lg-none ms-auto" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4"
+                    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon fe fe-more-vertical"></span>
+                </button>
+                <div class="navbar navbar-collapse responsive-navbar p-0">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                        <div class="d-flex order-lg-2">
+                            <div class="dropdown d-lg-none d-flex">
+                                <a href="javascript:void(0)" class="nav-link icon" data-bs-toggle="dropdown">
+                                    <i class="fe fe-search"></i>
+                                </a>
+                                <div class="dropdown-menu header-search dropdown-menu-start">
+                                    <div class="input-group w-100 p-2">
+                                        <input type="text" class="form-control" placeholder="Search....">
+                                        <div class="input-group-text btn btn-primary">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown d-flex country">
+                                <a class="nav-link icon text-center" data-bs-toggle="dropdown">
+                                    <i class="ri-global-line"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <div class="drop-heading border-bottom">
+                                        <h6 class="mt-1 mb-0 fs-14 fw-semibold text-dark"> Choose Language
+                                        </h6>
+                                    </div>
+                                    <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);"> <img
+                                            src="{{ url('/assets') }}/images/flag-images/3.png" alt="img"
+                                            class="me-2 country language-img"> <span
+                                            class="fs-13 text-wrap text-dark fw-semibold"> Germany</span>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);"> <img
+                                            src="{{ url('/assets') }}/images/flag-images/5.png" alt="img"
+                                            class="me-2 country language-img"> <span
+                                            class="fs-13 text-wrap text-dark fw-semibold"> Russia</span>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);"> <img
+                                            src="{{ url('/assets') }}/images/flag-images/6.png" alt="img"
+                                            class="me-2 country language-img"> <span
+                                            class="fs-13 text-wrap text-dark fw-semibold"> United
+                                            Kingdom</span> </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);"> <img
+                                            src="{{ url('/assets') }}/images/flag-images/2.png" alt="img"
+                                            class=" me-2 country language-img"> <span
+                                            class="fs-13 text-wrap text-dark fw-semibold"> Canada</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- COUNTRY -->
+                            <div class="d-flex country">
+                                <a class="nav-link icon theme-layout nav-link-bg layout-setting">
+                                    <span class="dark-layout mt-1"><i class="ri-moon-clear-line"></i></span>
+                                    <span class="light-layout mt-1"><i class="ri-sun-line"></i></span>
+                                </a>
+                            </div>
+                            <!-- Theme-Layout -->
+                            <div class="dropdown d-flex shopping-cart">
+                                <a class="nav-link icon text-center" data-bs-toggle="dropdown">
+                                    <i class="ri-shopping-bag-line"></i><span
+                                        class="badge bg-secondary header-badge">4</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <div class="drop-heading border-bottom">
+                                        <h6 class="mt-1 mb-0 fs-14 fw-semibold text-dark"> My Shopping
+                                            Cart</h6>
+                                    </div>
+                                    <div class="header-dropdown-list message-menu">
+                                        <div class="dropdown-item d-flex">
+                                            <a href="cart.html" class="p-0">
+                                                <img class="avatar avatar-lg br-7 me-3 align-self-center cover-image"
+                                                    alt="product-image"
+                                                    src="{{ url('/assets') }}/images/products/7.jpg">
+                                            </a>
+                                            <div class="wd-50p d-flex flex-column">
+                                                <a href="cart.html" class="p-0 h6 text-dark fw-semibold mb-0">Flower
+                                                    pot
+                                                    home decores</a>
+                                                <span>Qty: 1</span>
+                                                <span>Status: <span class="text-success">In
+                                                        Stock</span></span>
+                                            </div>
+                                            <div class="my-auto ms-auto text-end">
+                                                <p class="fs-16 fw-semibold text-dark d-none d-sm-block px-3 mb-0">
+                                                    $438
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-item d-flex">
+                                            <a href="cart.html" class="p-0">
+                                                <img class="avatar avatar-lg br-7 me-3 align-self-center cover-image"
+                                                    alt="product-image"
+                                                    src="{{ url('/assets') }}/images/products/4.jpg">
+                                            </a>
+                                            <div class="wd-50p d-flex flex-column">
+                                                <a href="cart.html" class="p-0 h6 text-dark fw-semibold mb-0">Smart
+                                                    watch</a>
+                                                <span>Qty: 3</span>
+                                                <span>Status: <span class="text-danger">Out
+                                                        Stock</span></span>
+                                            </div>
+                                            <div class="my-auto ms-auto text-end">
+                                                <p class="fs-16 fw-semibold text-dark d-none d-sm-block px-3 mb-0">
+                                                    $323
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-item d-flex">
+                                            <a href="cart.html" class="p-0">
+                                                <img class="avatar avatar-lg br-7 me-3 align-self-center cover-image"
+                                                    alt="product-image"
+                                                    src="{{ url('/assets') }}/images/products/5.jpg">
+                                            </a>
+                                            <div class="wd-50p d-flex flex-column">
+                                                <a href="cart.html"
+                                                    class="p-0 h6 text-dark fw-semibold mb-0">Headphones</a>
+                                                <span>Qty: 2</span>
+                                                <span>Status: <span class="text-success">In
+                                                        Stock</span></span>
+                                            </div>
+                                            <div class="my-auto ms-auto text-end">
+                                                <p class="fs-16 fw-semibold text-dark d-none d-sm-block px-3 mb-0">
+                                                    $867
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-item d-flex">
+                                            <a href="cart.html" class="p-0">
+                                                <img class="avatar avatar-lg br-7 me-3 align-self-center cover-image"
+                                                    alt="product-image"
+                                                    src="{{ url('/assets') }}/images/products/30.jpg">
+                                            </a>
+                                            <div class="wd-50p d-flex flex-column">
+                                                <a href="cart.html"
+                                                    class="p-0 h6 text-dark fw-semibold mb-0">Furniture
+                                                    (chair)</a>
+                                                <span>Qty: 1</span>
+                                                <span>Status: <span class="text-success">In
+                                                        Stock</span></span>
+                                            </div>
+                                            <div class="my-auto ms-auto text-end">
+                                                <p class="fs-16 fw-semibold text-dark d-none d-sm-block px-3 mb-0">
+                                                    $456
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-item d-flex border-bottom-0">
+                                            <a href="cart.html" class="p-0">
+                                                <img class="avatar avatar-lg br-7 me-3 align-self-center cover-image"
+                                                    alt="product-image"
+                                                    src="{{ url('/assets') }}/images/products/8.jpg">
+                                            </a>
+                                            <div class="wd-50p d-flex flex-column">
+                                                <a href="cart.html" class="p-0 h6 text-dark fw-semibold mb-0">Running
+                                                    Shoes</a>
+                                                <span>Qty: 4</span>
+                                                <span>Status: <span class="text-danger">In
+                                                        Stock</span></span>
+                                            </div>
+                                            <div class="my-auto ms-auto text-end">
+                                                <p class="fs-16 fw-semibold text-dark d-none d-sm-block px-3 mb-0">
+                                                    $438
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-divider m-0"></div>
+                                    <div class="dropdown-footer d-felx justify-content-between align-items-center">
+                                        <a class="btn btn-primary btn-pill btn-sm" href="checkout.html"><i
+                                                class="fe fe-check-circle"></i>
+                                            CHECKOUT</a>
+                                        <span class="float-end fs-17 fw-semibold text-dark"><span
+                                                class="text-muted-dark">Total:</span> $4206</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- CART -->
+                            <div class="dropdown d-flex">
+                                <a class="nav-link icon full-screen-link" id="fullscreen-button">
+                                    <i class="ri-fullscreen-exit-line fullscreen-button"></i>
+                                </a>
+                            </div>
+                            <!-- FULL-SCREEN -->
+                            <div class="dropdown d-flex notifications">
+                                <a class="nav-link icon" data-bs-toggle="dropdown"><i
+                                        class="ri-notification-line"></i><span class=" pulse"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow ">
+                                    <div class="drop-heading border-bottom">
+                                        <h6 class="mt-1 mb-0 fs-14 text-dark fw-semibold">Notifications
+                                        </h6>
+                                    </div>
+                                    <div class="notifications-menu header-dropdown-scroll">
+                                        <a class="dropdown-item border-bottom d-flex" href="notify-list.html">
+                                            <div>
+                                                <span
+                                                    class="avatar avatar-md fs-20 brround fw-semibold text-center bg-primary-transparent"><i
+                                                        class="fe fe-message-square text-primary"></i></span>
+                                            </div>
+                                            <div class="wd-80p ms-3 my-auto">
+                                                <h5 class="text-dark mb-0 fw-semibold">Gladys Dare <span
+                                                        class="text-muted">commented on</span>
+                                                    Ecosystems</h5>
+                                                <span class="notification-subtext">2m ago</span>
+                                            </div>
+                                        </a>
+                                        <a class="dropdown-item border-bottom d-flex" href="notify-list.html">
+                                            <div>
+                                                <span
+                                                    class="avatar avatar-md fs-20 brround fw-semibold text-danger bg-danger-transparent"><i
+                                                        class="fe fe-user"></i></span>
+                                            </div>
+                                            <div class="wd-80p ms-3 my-auto">
+                                                <h5 class="text-dark mb-0 fw-semibold">Jackson Wisky
+                                                    <span class="text-muted"> followed
+                                                        you</span>
+                                                </h5>
+                                                <span class="notification-subtext">15 min ago</span>
+                                            </div>
+                                        </a>
+                                        <a class="dropdown-item border-bottom d-flex" href="notify-list.html">
+                                            <span
+                                                class="avatar avatar-md fs-20 brround fw-semibold text-center bg-success-transparent"><i
+                                                    class="fe fe-check text-success"></i></span>
+                                            <div class="wd-80p ms-3 my-auto">
+                                                <h5 class="text-muted fw-semibold mb-0">You swapped exactly
+                                                    <span class="text-dark fw-bold">2.054 BTC</span> for
+                                                    <Span class="text-dark fw-bold">14,124.00</Span>
+                                                </h5>
+                                                <span class="notification-subtext">1 day ago</span>
+                                            </div>
+                                        </a>
+                                        <a class="dropdown-item border-bottom d-flex" href="notify-list.html">
+                                            <div>
+                                                <span
+                                                    class="avatar avatar-md fs-20 brround fw-semibold text-center bg-warning-transparent"><i
+                                                        class="fe fe-dollar-sign text-warning"></i></span>
+                                            </div>
+                                            <div class="wd-80p ms-3 my-auto">
+                                                <h5 class="text-dark mb-0 fw-semibold">Laurel <span
+                                                        class="text-muted">donated</span> <span
+                                                        class="text-success fw-semibold">$100</span> <span
+                                                        class="text-muted">for</span> carbon removal</h5>
+                                                <span class="notification-subtext">15 min ago</span>
+                                            </div>
+                                        </a>
+                                        <a class="dropdown-item d-flex" href="notify-list.html">
+                                            <div>
+                                                <span
+                                                    class="avatar avatar-md fs-20 brround fw-semibold text-center bg-info-transparent"><i
+                                                        class="fe fe-thumbs-up text-info"></i></span>
+                                            </div>
+                                            <div class="wd-80p ms-3 my-auto">
+                                                <h5 class="text-dark mb-0 fw-semibold">Sunny Grahm <span
+                                                        class="text-muted">voted for</span> carbon capture
+                                                </h5>
+                                                <span class="notification-subtext">2 hors ago</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="text-center dropdown-footer">
+                                        <a class="btn btn-primary btn-sm btn-block text-center"
+                                            href="notify-list.html">VIEW ALL NOTIFICATIONS</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- NOTIFICATIONS -->
+                            <div class="dropdown d-flex message">
+                                <a class="nav-link icon text-center" data-bs-toggle="dropdown">
+                                    <i class="ri-chat-1-line"></i><span class="pulse-danger"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <div class="drop-heading border-bottom">
+                                        <h6 class="mt-1 mb-0 fs-14 fw-semibold text-dark">You have 5
+                                            Messages</h6>
+                                    </div>
+                                    <div class="message-menu message-menu-scroll">
+                                        <a class="dropdown-item border-bottom d-flex align-items-center"
+                                            href="chat.html">
+                                            <img class="avatar avatar-md brround cover-image"
+                                                src="{{ url('/assets') }}/images/users/male/28.jpg"
+                                                alt="person-image">
+                                            <div class="wd-90p ms-2">
+                                                <div class="d-flex">
+                                                    <h5 class="mb-0 text-dark fw-semibold ">Madeleine</h5>
+                                                    <small class="text-muted ms-auto">
+                                                        2 min ago
+                                                    </small>
+                                                </div>
+                                                <span class="fw-semibold mb-0">Just completed <span
+                                                        class="text-info">Project</span></span>
+                                            </div>
+                                        </a>
+                                        <a class="dropdown-item border-bottom d-flex align-items-center"
+                                            href="chat.html">
+                                            <img class="avatar avatar-md brround me-3 align-self-center cover-image"
+                                                src="{{ url('/assets') }}/images/users/male/32.jpg"
+                                                alt="person-image">
+                                            <div class="wd-90p">
+                                                <div class="d-flex">
+                                                    <h5 class="mb-0 text-dark fw-semibold ">Anthony</h5>
+                                                    <small class="text-muted ms-auto text-end">
+                                                        1 hour ago
+                                                    </small>
+                                                </div>
+                                                <span class="fw-semibold">Updates the new <span class="text-info">Task
+                                                        Names</span></span>
+                                            </div>
+                                        </a>
+                                        <a class="dropdown-item border-bottom d-flex align-items-center"
+                                            href="chat.html">
+                                            <img class="avatar avatar-md brround me-3 cover-image"
+                                                src="{{ url('/assets') }}/images/users/female/23.jpg"
+                                                alt="person-image">
+                                            <div class="wd-90p">
+                                                <div class="d-flex">
+                                                    <h5 class="mb-0 text-dark fw-semibold ">Olivia</h5>
+                                                    <small class="text-muted ms-auto text-end">
+                                                        1 hour ago
+                                                    </small>
+                                                </div>
+                                                <span class="fw-semibold">Added a file into <span
+                                                        class="text-info">Project Name</span></span>
+                                            </div>
+                                        </a>
+                                        <a class="dropdown-item d-flex align-items-center" href="chat.html">
+                                            <img class="avatar avatar-md brround me-3 cover-image"
+                                                src="{{ url('/assets') }}/images/users/male/33.jpg"
+                                                alt="person-image">
+                                            <div class="wd-90p">
+                                                <div class="d-flex">
+                                                    <h5 class="mb-0 text-dark fw-semibold ">Sanderson</h5>
+                                                    <small class="text-muted ms-auto text-end">
+                                                        1 days ago
+                                                    </small>
+                                                </div>
+                                                <span class="fw-semibold">Assigned 9 Upcoming <span
+                                                        class="text-info">Projects</span></span>
+                                            </div>
+                                        </a>
+                                        <a class="dropdown-item border-bottom d-flex align-items-center border-bottom-0"
+                                            href="chat.html">
+                                            <img class="avatar avatar-md brround cover-image"
+                                                src="{{ url('/assets') }}/images/users/male/8.jpg"
+                                                alt="person-image">
+                                            <div class="wd-90p ms-2">
+                                                <div class="d-flex">
+                                                    <h5 class="mb-0 text-dark fw-semibold ">Madeleine</h5>
+                                                    <small class="text-muted ms-auto">
+                                                        2 min ago
+                                                    </small>
+                                                </div>
+                                                <span class="fw-semibold mb-0">Just completed <span
+                                                        class="text-info">Project</span></span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="dropdown-divider m-0">
+
+                                    </div>
+                                    <div class="text-center dropdown-footer">
+                                        <a class="btn btn-primary btn-sm btn-block text-center" href="chat.html">MARK
+                                            ALL AS READ</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- MESSAGE-BOX -->
+                            <div class="dropdown d-flex header-settings">
+                                <a class="nav-link icon siderbar-link" data-bs-toggle="sidebar-right"
+                                    data-bs-target=".sidebar-right">
+                                    <i class="ri-menu-fold-fill"></i>
+                                </a>
+                            </div>
+                            <!-- SIDE-MENU -->
+                            <div class="dropdown d-flex profile-1">
+                                <a href="javascript:void(0)" data-bs-toggle="dropdown"
+                                    class="nav-link leading-none d-flex">
+                                    <img src="{{ url('/assets') }}/images/users/male/15.jpg" alt="profile-user"
+                                        class="avatar  profile-user brround cover-image">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                                    data-bs-popper="none">
+                                    <div class="drop-heading">
+                                        <div class="text-center">
+                                            <h5 class="text-dark mb-0 fw-semibold">{{ Auth::user()->name }}</h5>
+                                            <span class="text-muted fs-12">{{ Auth::user()->getAkses->name }}</span>
+                                            @if (Auth::user()->role_id == '4')
+                                                <span class="text-muted fs-12">
+                                                    {{ Auth::user()->penyuluh->kecamatan->name }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <a class="dropdown-item text-dark fw-semibold border-top" href="profile.html">
+                                        <i class="dropdown-icon fe fe-user"></i> Profile
+                                    </a>
+                                    <a class="dropdown-item text-dark fw-semibold" href="email-inbox.html">
+                                        <i class="dropdown-icon fe fe-mail"></i> Inbox
+                                        <span class="badge bg-success float-end">3</span>
+                                    </a>
+                                    <a class="dropdown-item text-dark fw-semibold" href="settings.html">
+                                        <i class="dropdown-icon fe fe-settings"></i> Settings
+                                    </a>
+                                    <a class="dropdown-item text-dark fw-semibold" href="faq.html">
+                                        <i class="dropdown-icon fe fe-alert-triangle"></i>
+                                        Support ?
+                                    </a>
+                                    <a class="dropdown-item text-dark fw-semibold"
+                                        href="{{ route('web.auth.logout') }}">
+                                        <i class="dropdown-icon fe fe-log-out"></i> Sign
+                                        out
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <ul class="nav navbar-nav align-items-center ms-auto">
-            <li class="nav-item dropdown dropdown-language"><a class="nav-link dropdown-toggle" id="dropdown-flag"
-                    href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
-                        class="flag-icon flag-icon-us"></i><span class="selected-language">English</span></a>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-flag"><a class="dropdown-item"
-                        href="#" data-language="en"><i class="flag-icon flag-icon-us"></i> English</a><a
-                        class="dropdown-item" href="#" data-language="fr"><i class="flag-icon flag-icon-fr"></i>
-                        French</a><a class="dropdown-item" href="#" data-language="de"><i
-                            class="flag-icon flag-icon-de"></i> German</a><a class="dropdown-item" href="#"
-                        data-language="pt"><i class="flag-icon flag-icon-pt"></i> Portuguese</a></div>
-            </li>
-            <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon"
-                        data-feather="moon"></i></a></li>
-            <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon"
-                        data-feather="search"></i></a>
-                <div class="search-input">
-                    <div class="search-input-icon"><i data-feather="search"></i></div>
-                    <input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="-1"
-                        data-search="search">
-                    <div class="search-input-close"><i data-feather="x"></i></div>
-                    <ul class="search-list search-list-main"></ul>
-                </div>
-            </li>
-            <li class="nav-item dropdown dropdown-cart me-25"><a class="nav-link" href="#"
-                    data-bs-toggle="dropdown"><i class="ficon" data-feather="shopping-cart"></i><span
-                        class="badge rounded-pill bg-primary badge-up cart-item-count">6</span></a>
-                <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
-                    <li class="dropdown-menu-header">
-                        <div class="dropdown-header d-flex">
-                            <h4 class="notification-title mb-0 me-auto">My Cart</h4>
-                            <div class="badge rounded-pill badge-light-primary">4 Items</div>
-                        </div>
-                    </li>
-                    <li class="scrollable-container media-list">
-                        <div class="list-item align-items-center"><img class="d-block rounded me-1"
-                                src="{{ url('app-assets') }}/images/pages/eCommerce/1.png" alt="donuts"
-                                width="62">
-                            <div class="list-item-body flex-grow-1"><i class="ficon cart-item-remove"
-                                    data-feather="x"></i>
-                                <div class="media-heading">
-                                    <h6 class="cart-item-title"><a class="text-body"
-                                            href="app-ecommerce-details.html"> Apple watch 5</a></h6><small
-                                        class="cart-item-by">By Apple</small>
-                                </div>
-                                <div class="cart-item-qty">
-                                    <div class="input-group">
-                                        <input class="touchspin-cart" type="number" value="1">
-                                    </div>
-                                </div>
-                                <h5 class="cart-item-price">$374.90</h5>
-                            </div>
-                        </div>
-                        <div class="list-item align-items-center"><img class="d-block rounded me-1"
-                                src="{{ url('app-assets') }}/images/pages/eCommerce/7.png" alt="donuts"
-                                width="62">
-                            <div class="list-item-body flex-grow-1"><i class="ficon cart-item-remove"
-                                    data-feather="x"></i>
-                                <div class="media-heading">
-                                    <h6 class="cart-item-title"><a class="text-body"
-                                            href="app-ecommerce-details.html"> Google Home Mini</a></h6><small
-                                        class="cart-item-by">By Google</small>
-                                </div>
-                                <div class="cart-item-qty">
-                                    <div class="input-group">
-                                        <input class="touchspin-cart" type="number" value="3">
-                                    </div>
-                                </div>
-                                <h5 class="cart-item-price">$129.40</h5>
-                            </div>
-                        </div>
-                        <div class="list-item align-items-center"><img class="d-block rounded me-1"
-                                src="{{ url('app-assets') }}/images/pages/eCommerce/2.png" alt="donuts"
-                                width="62">
-                            <div class="list-item-body flex-grow-1"><i class="ficon cart-item-remove"
-                                    data-feather="x"></i>
-                                <div class="media-heading">
-                                    <h6 class="cart-item-title"><a class="text-body"
-                                            href="app-ecommerce-details.html"> iPhone 11 Pro</a></h6><small
-                                        class="cart-item-by">By Apple</small>
-                                </div>
-                                <div class="cart-item-qty">
-                                    <div class="input-group">
-                                        <input class="touchspin-cart" type="number" value="2">
-                                    </div>
-                                </div>
-                                <h5 class="cart-item-price">$699.00</h5>
-                            </div>
-                        </div>
-                        <div class="list-item align-items-center"><img class="d-block rounded me-1"
-                                src="{{ url('app-assets') }}/images/pages/eCommerce/3.png" alt="donuts"
-                                width="62">
-                            <div class="list-item-body flex-grow-1"><i class="ficon cart-item-remove"
-                                    data-feather="x"></i>
-                                <div class="media-heading">
-                                    <h6 class="cart-item-title"><a class="text-body"
-                                            href="app-ecommerce-details.html"> iMac Pro</a></h6><small
-                                        class="cart-item-by">By Apple</small>
-                                </div>
-                                <div class="cart-item-qty">
-                                    <div class="input-group">
-                                        <input class="touchspin-cart" type="number" value="1">
-                                    </div>
-                                </div>
-                                <h5 class="cart-item-price">$4,999.00</h5>
-                            </div>
-                        </div>
-                        <div class="list-item align-items-center"><img class="d-block rounded me-1"
-                                src="{{ url('app-assets') }}/images/pages/eCommerce/5.png" alt="donuts"
-                                width="62">
-                            <div class="list-item-body flex-grow-1"><i class="ficon cart-item-remove"
-                                    data-feather="x"></i>
-                                <div class="media-heading">
-                                    <h6 class="cart-item-title"><a class="text-body"
-                                            href="app-ecommerce-details.html"> MacBook Pro</a></h6><small
-                                        class="cart-item-by">By Apple</small>
-                                </div>
-                                <div class="cart-item-qty">
-                                    <div class="input-group">
-                                        <input class="touchspin-cart" type="number" value="1">
-                                    </div>
-                                </div>
-                                <h5 class="cart-item-price">$2,999.00</h5>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="dropdown-menu-footer">
-                        <div class="d-flex justify-content-between mb-1">
-                            <h6 class="fw-bolder mb-0">Total:</h6>
-                            <h6 class="text-primary fw-bolder mb-0">$10,999.00</h6>
-                        </div><a class="btn btn-primary w-100" href="app-ecommerce-checkout.html">Checkout</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown dropdown-notification me-25"><a class="nav-link" href="#"
-                    data-bs-toggle="dropdown"><i class="ficon" data-feather="bell"></i><span
-                        class="badge rounded-pill bg-danger badge-up">5</span></a>
-                <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
-                    <li class="dropdown-menu-header">
-                        <div class="dropdown-header d-flex">
-                            <h4 class="notification-title mb-0 me-auto">Notifications</h4>
-                            <div class="badge rounded-pill badge-light-primary">6 New</div>
-                        </div>
-                    </li>
-                    <li class="scrollable-container media-list"><a class="d-flex" href="#">
-                            <div class="list-item d-flex align-items-start">
-                                <div class="me-1">
-                                    <div class="avatar"><img
-                                            src="{{ url('app-assets') }}/images/portrait/small/avatar-s-15.jpg"
-                                            alt="avatar" width="32" height="32"></div>
-                                </div>
-                                <div class="list-item-body flex-grow-1">
-                                    <p class="media-heading"><span class="fw-bolder">Congratulation Sam
-                                            🎉</span>winner!</p><small class="notification-text"> Won the monthly
-                                        best seller badge.</small>
-                                </div>
-                            </div>
-                        </a><a class="d-flex" href="#">
-                            <div class="list-item d-flex align-items-start">
-                                <div class="me-1">
-                                    <div class="avatar"><img
-                                            src="{{ url('app-assets') }}/images/portrait/small/avatar-s-3.jpg"
-                                            alt="avatar" width="32" height="32"></div>
-                                </div>
-                                <div class="list-item-body flex-grow-1">
-                                    <p class="media-heading"><span class="fw-bolder">New
-                                            message</span>&nbsp;received</p><small class="notification-text"> You
-                                        have 10 unread messages</small>
-                                </div>
-                            </div>
-                        </a><a class="d-flex" href="#">
-                            <div class="list-item d-flex align-items-start">
-                                <div class="me-1">
-                                    <div class="avatar bg-light-danger">
-                                        <div class="avatar-content">MD</div>
-                                    </div>
-                                </div>
-                                <div class="list-item-body flex-grow-1">
-                                    <p class="media-heading"><span class="fw-bolder">Revised Order
-                                            👋</span>&nbsp;checkout</p><small class="notification-text"> MD Inc.
-                                        order updated</small>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="list-item d-flex align-items-center">
-                            <h6 class="fw-bolder me-auto mb-0">System Notifications</h6>
-                            <div class="form-check form-check-primary form-switch">
-                                <input class="form-check-input" id="systemNotification" type="checkbox"
-                                    checked="">
-                                <label class="form-check-label" for="systemNotification"></label>
-                            </div>
-                        </div><a class="d-flex" href="#">
-                            <div class="list-item d-flex align-items-start">
-                                <div class="me-1">
-                                    <div class="avatar bg-light-danger">
-                                        <div class="avatar-content"><i class="avatar-icon" data-feather="x"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="list-item-body flex-grow-1">
-                                    <p class="media-heading"><span class="fw-bolder">Server
-                                            down</span>&nbsp;registered</p><small class="notification-text"> USA
-                                        Server is down due to high CPU usage</small>
-                                </div>
-                            </div>
-                        </a><a class="d-flex" href="#">
-                            <div class="list-item d-flex align-items-start">
-                                <div class="me-1">
-                                    <div class="avatar bg-light-success">
-                                        <div class="avatar-content"><i class="avatar-icon" data-feather="check"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="list-item-body flex-grow-1">
-                                    <p class="media-heading"><span class="fw-bolder">Sales
-                                            report</span>&nbsp;generated</p><small class="notification-text"> Last
-                                        month sales report generated</small>
-                                </div>
-                            </div>
-                        </a><a class="d-flex" href="#">
-                            <div class="list-item d-flex align-items-start">
-                                <div class="me-1">
-                                    <div class="avatar bg-light-warning">
-                                        <div class="avatar-content"><i class="avatar-icon"
-                                                data-feather="alert-triangle"></i></div>
-                                    </div>
-                                </div>
-                                <div class="list-item-body flex-grow-1">
-                                    <p class="media-heading"><span class="fw-bolder">High memory</span>&nbsp;usage
-                                    </p><small class="notification-text"> BLR Server using high memory</small>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="dropdown-menu-footer"><a class="btn btn-primary w-100" href="#">Read all
-                            notifications</a></li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link"
-                    id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <div class="user-nav d-sm-flex d-none"><span class="user-name fw-bolder">John Doe</span><span
-                            class="user-status">Admin</span></div><span class="avatar"><img class="round"
-                            src="{{ url('app-assets') }}/images/portrait/small/avatar-s-11.jpg" alt="avatar"
-                            height="40" width="40"><span class="avatar-status-online"></span></span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user"><a class="dropdown-item"
-                        href="page-profile.html"><i class="me-50" data-feather="user"></i> Profile</a><a
-                        class="dropdown-item" href="app-email.html"><i class="me-50" data-feather="mail"></i>
-                        Inbox</a><a class="dropdown-item" href="app-todo.html"><i class="me-50"
-                            data-feather="check-square"></i> Task</a><a class="dropdown-item" href="app-chat.html"><i
-                            class="me-50" data-feather="message-square"></i> Chats</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="page-account-settings-account.html"><i class="me-50"
-                            data-feather="settings"></i>
-                        Settings
-                    </a>
-                    <a class="dropdown-item" href="page-pricing.html"><i class="me-50"
-                            data-feather="credit-card"></i> Pricing
-                    </a>
-                    <a class="dropdown-item" href="page-faq.html"><i class="me-50" data-feather="help-circle"></i>
-                        FAQ</a>
-                    <a class="dropdown-item" href="{{ route('web.auth.logout') }}"><i class="me-50"
-                            data-feather="power"></i> Logout
-                    </a>
-                </div>
-            </li>
-        </ul>
     </div>
-</nav>
-<ul class="main-search-list-defaultlist d-none">
-    <li class="d-flex align-items-center"><a href="#">
-            <h6 class="section-label mt-75 mb-0">Files</h6>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between w-100"
-            href="app-file-manager.html">
-            <div class="d-flex">
-                <div class="me-75"><img src="{{ url('app-assets') }}/images/icons/xls.png" alt="png"
-                        height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">Two new item submitted</p><small class="text-muted">Marketing
-                        Manager</small>
-                </div>
-            </div><small class="search-data-size me-50 text-muted">&apos;17kb</small>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between w-100"
-            href="app-file-manager.html">
-            <div class="d-flex">
-                <div class="me-75"><img src="{{ url('app-assets') }}/images/icons/jpg.png" alt="png"
-                        height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">52 JPG file Generated</p><small class="text-muted">FontEnd
-                        Developer</small>
-                </div>
-            </div><small class="search-data-size me-50 text-muted">&apos;11kb</small>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between w-100"
-            href="app-file-manager.html">
-            <div class="d-flex">
-                <div class="me-75"><img src="{{ url('app-assets') }}/images/icons/pdf.png" alt="png"
-                        height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">25 PDF File Uploaded</p><small class="text-muted">Digital
-                        Marketing Manager</small>
-                </div>
-            </div><small class="search-data-size me-50 text-muted">&apos;150kb</small>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between w-100"
-            href="app-file-manager.html">
-            <div class="d-flex">
-                <div class="me-75"><img src="{{ url('app-assets') }}/images/icons/doc.png" alt="png"
-                        height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">Anna_Strong.doc</p><small class="text-muted">Web
-                        Designer</small>
-                </div>
-            </div><small class="search-data-size me-50 text-muted">&apos;256kb</small>
-        </a></li>
-    <li class="d-flex align-items-center"><a href="#">
-            <h6 class="section-label mt-75 mb-0">Members</h6>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between py-50 w-100"
-            href="app-user-view-account.html">
-            <div class="d-flex align-items-center">
-                <div class="avatar me-75"><img src="{{ url('app-assets') }}/images/portrait/small/avatar-s-8.jpg"
-                        alt="png" height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">John Doe</p><small class="text-muted">UI designer</small>
-                </div>
-            </div>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between py-50 w-100"
-            href="app-user-view-account.html">
-            <div class="d-flex align-items-center">
-                <div class="avatar me-75"><img src="{{ url('app-assets') }}/images/portrait/small/avatar-s-1.jpg"
-                        alt="png" height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">Michal Clark</p><small class="text-muted">FontEnd
-                        Developer</small>
-                </div>
-            </div>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between py-50 w-100"
-            href="app-user-view-account.html">
-            <div class="d-flex align-items-center">
-                <div class="avatar me-75"><img src="{{ url('app-assets') }}/images/portrait/small/avatar-s-14.jpg"
-                        alt="png" height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">Milena Gibson</p><small class="text-muted">Digital Marketing
-                        Manager</small>
-                </div>
-            </div>
-        </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between py-50 w-100"
-            href="app-user-view-account.html">
-            <div class="d-flex align-items-center">
-                <div class="avatar me-75"><img src="{{ url('app-assets') }}/images/portrait/small/avatar-s-6.jpg"
-                        alt="png" height="32"></div>
-                <div class="search-data">
-                    <p class="search-data-title mb-0">Anna Strong</p><small class="text-muted">Web
-                        Designer</small>
-                </div>
-            </div>
-        </a></li>
-</ul>
-<ul class="main-search-list-defaultlist-other-list d-none">
-    <li class="auto-suggestion justify-content-between"><a
-            class="d-flex align-items-center justify-content-between w-100 py-50">
-            <div class="d-flex justify-content-start"><span class="me-75"
-                    data-feather="alert-circle"></span><span>No results found.</span></div>
-        </a></li>
-</ul>
-<!-- END: Header-->
+</div>

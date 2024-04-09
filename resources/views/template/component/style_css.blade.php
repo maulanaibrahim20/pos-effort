@@ -1,25 +1,19 @@
-<!-- BEGIN: Vendor CSS-->
-<link rel="stylesheet" type="text/css" href="{{ url('app-assets') }}/vendors/css/vendors.min.css">
-<link rel="stylesheet" type="text/css" href="{{ url('app-assets') }}/vendors/css/charts/apexcharts.css">
-<link rel="stylesheet" type="text/css" href="{{ url('app-assets') }}/vendors/css/extensions/toastr.min.css">
-<!-- END: Vendor CSS-->
+<!--Bootstrap.min css-->
+<link id="style" rel="stylesheet" href="{{ url('/assets') }}/plugins/bootstrap/css/bootstrap.min.css">
 
-<!-- BEGIN: Theme CSS-->
-<link rel="stylesheet" type="text/css" href="{{ url('app-assets') }}/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="{{ url('app-assets') }}/css/bootstrap-extended.css">
-<link rel="stylesheet" type="text/css" href="{{ url('app-assets') }}/css/colors.css">
-<link rel="stylesheet" type="text/css" href="{{ url('app-assets') }}/css/components.css">
-<link rel="stylesheet" type="text/css" href="{{ url('app-assets') }}/css/themes/dark-layout.css">
-<link rel="stylesheet" type="text/css" href="{{ url('app-assets') }}/css/themes/bordered-layout.css">
-<link rel="stylesheet" type="text/css" href="{{ url('app-assets') }}/css/themes/semi-dark-layout.css">
+<!-- Style css -->
+<link href="{{ url('/assets') }}/css/style.css" rel="stylesheet">
 
-<!-- BEGIN: Page CSS-->
-<link rel="stylesheet" type="text/css" href="{{ url('app-assets') }}/css/core/menu/menu-types/vertical-menu.css">
-<link rel="stylesheet" type="text/css" href="{{ url('app-assets') }}/css/pages/dashboard-ecommerce.css">
-<link rel="stylesheet" type="text/css" href="{{ url('app-assets') }}/css/plugins/charts/chart-apex.css">
-<link rel="stylesheet" type="text/css" href="{{ url('app-assets') }}/css/plugins/extensions/ext-component-toastr.css">
-<!-- END: Page CSS-->
+<!-- Plugin css -->
+<link href="{{ url('/assets') }}/css/plugins.css" rel="stylesheet">
 
-<!-- BEGIN: Custom CSS-->
-<link rel="stylesheet" type="text/css" href="{{ url('app-assets') }}/css/style.css">
-<!-- END: Custom CSS-->
+<!-- Animate css -->
+<link href="{{ url('/assets') }}/css/animated.css" rel="stylesheet">
+
+<!---Icons css-->
+<link href="{{ url('/assets') }}/css/icons.css" rel="stylesheet">
+
+<!-- Switcher css -->
+<link href="{{ url('/assets') }}/switcher/css/switcher.css" rel="stylesheet" id="switcher-css" type="text/css"
+    media="all">
+<link href="{{ url('/assets') }}/switcher/demo.css" rel="stylesheet">
