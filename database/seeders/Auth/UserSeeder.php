@@ -15,12 +15,19 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'email' => 'admin.app@mail.com',
-            'role_id' => Role::ADMIN,
+            'nama' => 'Maulana Ibrahim',
+            'email' => 'maul@gmail.com',
+            'password' => bcrypt('maulana123'),
+            'akses' => 1,
+            'status' => 1,
         ]);
+
         User::factory()->create([
-            'email' => 'member.app@mail.com',
-            'role_id' => Role::MEMBER,
+            'nama' => 'Ultramen Polindra',
+            'email' => 'ultramen@gmail.com',
+            'password' => bcrypt('ultramen123'),
+            'akses' => 1,
+            'status' => 1,
         ]);
     }
 }
