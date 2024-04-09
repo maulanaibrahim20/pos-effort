@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('kategori', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->string("nama", 150);
-            $table->string('email', 255)->unique();
-            $table->string('password');
-            $table->string("foto")->nullable();
-            $table->tinyInteger("akses");
-            $table->enum("status", [1, 0])->default(0);
+            $table->string("nama_kategori", 50);
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('kategori');
     }
 };
