@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        User::create([
             'nama' => 'Maulana Ibrahim',
             'email' => 'maul@gmail.com',
             'password' => bcrypt('maulana123'),
@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'status' => 1,
         ]);
 
-        User::factory()->create([
+        User::create([
             'nama' => 'Ultramen Polindra',
             'email' => 'ultramen@gmail.com',
             'password' => bcrypt('ultramen123'),

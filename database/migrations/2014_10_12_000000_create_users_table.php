@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email', 255)->unique();
             $table->string('password');
             $table->string("foto")->nullable();
-            $table->tinyInteger("akses");
+            $table->tinyInteger("akses")->comment("1 = Super Admin, 2 = Pelanggan");
             $table->enum("status", [1, 0])->default(0);
             $table->timestamps();
         });
