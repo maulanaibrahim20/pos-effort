@@ -37,33 +37,33 @@ Route::middleware(['auth'])->name('web.')->group(function () {
 });
 
 Route::middleware(['autentikasi'])->group(function () {
-    Route::group(['middleware' => ['can:admin']], function () {
-        Route::prefix('admin')->group(function () {
+    Route::group(['middleware' => ['can:super_admin']], function () {
+        Route::prefix('super_admin')->group(function () {
             Route::prefix('master')->group(function () {
                 Route::resource('kategori', KategoriController::class);
                 Route::get('produk', function () {
-                    return view('admin.pages.master.produk.index');
+                    return view('super_admin.pages.master.produk.index');
                 });
                 Route::get('member', function () {
-                    return view('admin.pages.member.index');
+                    return view('super_admin.pages.member.index');
                 });
                 Route::get('supplier', function () {
-                    return view('admin.pages.supplier.index');
+                    return view('super_admin.pages.supplier.index');
                 });
             });
             Route::get('/dashboard', function () {
-                return view('admin.pages.dashboard.index');
+                return view('super_admin.pages.dashboard.index');
             });
         });
     });
 
-    Route::group(['middleware' => ['can:member']], function () {
-        Route::prefix('member')->group(function () {
+    Route::group(['middleware' => ['can:pelanggan']], function () {
+        Route::prefix('pelanggan')->group(function () {
             Route::get('/home', function () {
                 return view('welcome');
             });
             Route::get('/dashboard', function () {
-                return view('member.pages.dashboard.index');
+                return view('pelanggan.pages.dashboard.index');
             });
         });
     });

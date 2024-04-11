@@ -26,18 +26,18 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define("admin", function ($user) {
+        Gate::define("super_admin", function ($user) {
             if (empty($user->getAkses)) {
                 return redirect("/logout");
             } else {
-                return $user->getAkses->id == Role::ADMIN;
+                return $user->akses == 1;
             }
         });
-        Gate::define("member", function ($user) {
+        Gate::define("pelanggan", function ($user) {
             if (empty($user->getAkses)) {
                 return redirect("/logout");
             } else {
-                return $user->getAkses->id == Role::MEMBER;
+                return $user->akses == 2;
             }
         });
     }

@@ -35,16 +35,12 @@ class LoginController extends Controller
             Alert::error('Maaf Pasword Anda Salah!');
             return back()->with('error', 'Maaf Password Anda Salah!');
         }
-        if (!$user->email_verified_at) {
-            Alert::warning('Maaf Akun Anda Belum Terverifikasi');
-            return back()->with('error', 'Maaf Akun Anda Belum Terverifikasi');
-        }
         if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
 
-            if ($user->role_id == Role::ADMIN) {
+            if ($user->akses == 1) {
                 return redirect('/admin/dashboard');
-            } elseif ($user->role_id == Role::MEMBER) {
+            } elseif ($user->akses == 2) {
                 return redirect('/member/home');
             }
         }

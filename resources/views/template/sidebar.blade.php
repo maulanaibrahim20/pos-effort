@@ -40,7 +40,7 @@
                         </li>
                     @endif
                 @endauth
-                @can('admin')
+                @can('super_admin')
                     <li class="sub-category">
                         <h3>Master Data</h3>
                     </li>
@@ -115,7 +115,7 @@
                                 class="side-menu__label">Pengaturan</span></a>
                     </li>
                 @endcan
-                @can('member')
+                @can('pelanggan')
                 @endcan
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"

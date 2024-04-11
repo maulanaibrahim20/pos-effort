@@ -22,4 +22,14 @@ class User extends Authenticatable
     public $primaryKey = "id";
 
     public $autoIncrement = false;
+
+    public function getAksesNameAttribute()
+    {
+        $aksesNames = [
+            1 => 'Super Admin',
+            2 => 'Pelanggan',
+        ];
+
+        return $aksesNames[$this->akses] ?? 'Tidak Diketahui';
+    }
 }
