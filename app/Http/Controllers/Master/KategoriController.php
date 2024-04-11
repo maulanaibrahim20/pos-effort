@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
-
 class KategoriController extends Controller
 {
     protected $kategori;
@@ -19,13 +18,13 @@ class KategoriController extends Controller
     public function index()
     {
         $data = [
-            'kategori' => $this->kategori::all(),
+            'kategori' => $this->kategori->orderBy('nama_kategori', 'asc')->get(),
         ];
         $content = [
             'title' => 'Table Kategori',
             'breadcrumb' => 'Dashboard',
             'breadcrumb_active' => 'Table Kategori',
-            'button_create' => 'Create Kategori',
+            'button_create' => 'Tambah Kategori',
         ];
         return view('super_admin.pages.master.kategori.index', $content, $data);
     }
