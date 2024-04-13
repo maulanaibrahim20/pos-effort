@@ -152,4 +152,25 @@ class ProdukController extends Controller
             return back()->with('error', 'Terjadi kesalahan, silakan coba lagi.');
         }
     }
+
+    public function changeStatus($id)
+    {
+        try {
+            DB::beginTransaction();
+            $produk = $this->produk::find($id);
+            if ($produk) {
+                $produk->status = $produk->status == '0' ? '1' : '0';
+                $produk->save();
+                DB::commit();
+                Alert::success('Berhasil', 'Status produk berhasil diubah.');
+                return redirect('/super_admin/master/produk')->with('success', 'Status produk berhasil diubah.');
+            } else {
+                throw new \Exception('Produk tidak ditemukan.');
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            Alert::error('Error', 'Gagal mengubah status produk: ' . $e->getMessage());
+            return back()->with('error', 'Gagal mengubah status produk: ' . $e->getMessage());
+        }
+    }
 }

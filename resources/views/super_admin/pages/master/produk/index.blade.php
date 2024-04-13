@@ -55,9 +55,27 @@
                                         </td>
                                         <td>
                                             @if ($data->status == '1')
-                                                <span class="badge badge-gradient-success me-1 my-1">Aktif</span>
+                                                <form id="changeStatus{{ $data->id }}"
+                                                    action="{{ url('/super_admin/master/produk/changeStatus/' . $data->id) }}"
+                                                    style="display: inline;" method="POST">
+                                                    @csrf
+                                                    <button type="button"
+                                                        class="btn btn-outline-success mt-1 mb-1 me-3 changeStatusBtn"
+                                                        data-id="{{ $data->id }}">
+                                                        <span>Aktif</span>
+                                                    </button>
+                                                </form>
                                             @elseif ($data->status == '0')
-                                                <span class="badge badge-gradient-danger me-1 my-1">Non Aktif</span>
+                                                <form id="changeStatus{{ $data->id }}"
+                                                    action="{{ url('/super_admin/master/produk/changeStatus/' . $data->id) }}"
+                                                    style="display: inline;" method="POST">
+                                                    @csrf
+                                                    <button type="button"
+                                                        class="btn btn-outline-danger mt-1 mb-1 me-3 changeStatusBtn"
+                                                        data-id="{{ $data->id }}">
+                                                        <span>Nonaktif</span>
+                                                    </button>
+                                                </form>
                                             @endif
                                         </td>
                                         <td class="text-center">
@@ -87,6 +105,27 @@
 @endsection
 @section('script')
     <script>
+        $('.changeStatusBtn').on('click', function(e) {
+            e.preventDefault();
+            var id = $(this).data('id'); // Mengambil ID dari data-id attribute
+            var changeStatus = $('#changeStatus' + id); // Mencari form dengan ID yang sesuai
+            var statusText = $(this).text().trim() === 'Aktif' ? 'Data akan diubah menjadi Nonaktif!' :
+                'Data akan diubah menjadi Aktif!';
+            Swal.fire({
+                title: 'Anda yakin?',
+                text: statusText,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, ubah!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    changeStatus.submit();
+                }
+            });
+        });
         $('.deleteBtn').on('click', function(e) {
             e.preventDefault();
             var id = $(this).data('id');

@@ -43,6 +43,7 @@ Route::middleware(['autentikasi'])->group(function () {
             Route::prefix('master')->group(function () {
                 Route::resource('kategori', KategoriController::class);
                 Route::resource('produk', ProdukController::class);
+                Route::post('produk/changeStatus/{id}', [ProdukController::class, 'changeStatus']);
                 Route::get('member', function () {
                     return view('super_admin.pages.member.index');
                 });
