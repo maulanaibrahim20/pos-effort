@@ -39,9 +39,9 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             if ($user->akses == 1) {
-                return redirect('/admin/dashboard');
+                return redirect('/super_admin/dashboard');
             } elseif ($user->akses == 2) {
-                return redirect('/member/home');
+                return redirect('/pelanggan/home');
             }
         }
         return back()->with('error', 'Gagal melakukan autentikasi');

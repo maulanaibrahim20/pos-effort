@@ -1,5 +1,5 @@
 @extends('index')
-@section('title', 'Dashboard Operator')
+@section('title', 'Dashboard Super Admin')
 @section('content')
     <div class="page-header d-sm-flex d-block">
         <ol class="breadcrumb mb-sm-0 mb-3">

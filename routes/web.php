@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Master\KategoriController;
+use App\Http\Controllers\Master\ProdukController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,9 +42,7 @@ Route::middleware(['autentikasi'])->group(function () {
         Route::prefix('super_admin')->group(function () {
             Route::prefix('master')->group(function () {
                 Route::resource('kategori', KategoriController::class);
-                Route::get('produk', function () {
-                    return view('super_admin.pages.master.produk.index');
-                });
+                Route::resource('produk', ProdukController::class);
                 Route::get('member', function () {
                     return view('super_admin.pages.member.index');
                 });
