@@ -7,20 +7,12 @@
             <li class="breadcrumb-item"><a href="{{ url('/super_admin/dashboard') }}">{{ $breadcrumb }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ $breadcrumb_active }}</li>
         </ol><!-- End breadcrumb -->
-        <div class="ms-auto">
-            <div>
-                <a href="{{ url('/super_admin/master/produk/create') }}" class="btn bg-primary-transparent"
-                    data-bs-toggle="tooltip" title="Add New User" data-bs-placement="bottom">
-                    <span>
-                        <i class="fa fa-plus"></i>
-                    </span>
-                    {{ $button_create }}
-                </a>
-            </div>
-        </div>
     </div>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-4">
+            @include('super_admin.pages.master.produk.create')
+        </div>
+        <div class="col-lg-8">
             <div class="card">
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -36,11 +28,10 @@
                             <thead>
                                 <tr>
                                     <th class="wd-15p border-bottom-0">No</th>
-                                    <th class="wd-15p border-bottom-0">Nama</th>
-                                    <th class="wd-15p border-bottom-0">Slug</th>
+                                    <th class="wd-15p border-bottom-0">Kategori</th>
                                     <th class="wd-15p border-bottom-0">Harga</th>
                                     <th class="wd-15p border-bottom-0">Foto</th>
-                                    <th class="wd-15p border-bottom-0">status</th>
+                                    <th class="wd-15p border-bottom-0">Status</th>
                                     <th class="text-center wd-10p border-bottom-0">Actions</th>
                                 </tr>
                             </thead>
@@ -48,11 +39,9 @@
                                 @foreach ($produk as $data)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $data->nama_produk }}</td>
-                                        <td>{{ $data->slug }}</td>
-                                        <td>{{ $data->harga }}</td>
-                                        <td><img src="{{ asset('' . $data->foto) }}" style="width:60px;height:60">
-                                        </td>
+                                        <td>{{ $data->kategori }}</td>
+                                        <td>Rp. {{ number_format($data->hargaProduk, 0, ',', '.') }}</td>
+                                        <td><img src="{{ asset('' . $data->fotoProduk) }}" style="width:60px;height:60">
                                         <td>
                                             @if ($data->status == '1')
                                                 <form id="changeStatus{{ $data->id }}"
@@ -79,13 +68,11 @@
                                             @endif
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('/super_admin/master/produk/' . $data->id . '/edit') }}"
-                                                class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                            <a href="{{ url('/super_admin/master/produk/' . $data->id) }}"
-                                                class="btn btn-primary">
-                                                <i class="ti ti-eye"></i></a>
+                                            <button type="button" class="btn br-7 btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal3{{ $data->id }}"> <i
+                                                    class="fa fa-edit"></i></button>
                                             <form id="deleteForm{{ $data->id }}"
-                                                action="{{ url('/super_admin/master/produk/' . $data->id) }}"
+                                                action="{{ url('/super_admin/master/kategori_bahan/' . $data->id) }}"
                                                 style="display: inline;" method="POST">
                                                 @method('DELETE')
                                                 @csrf
@@ -102,13 +89,117 @@
             </div>
         </div>
     </div>
+
+    {{-- start edit modal --}}
+    @foreach ($produk as $item)
+        <div class="modal fade" id="exampleModal3{{ $item->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="example-Modal3">Edit Data</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <form action="{{ url('super_admin/master/produk/' . $item->id) }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="recipient-name" class="form-control-label">Nama Kategori Bahan</label>
+                                <select name="kategori" class="form-control select2 form-select" id="kategori">
+                                    <option value="">-- Pilih --</option>
+                                    <option value="makanan" {{ $item->kategori == 'Makanan' ? 'selected' : '' }}>Makanan
+                                    </option>
+                                    <option value="minuman" {{ $item->kategori == 'Minuman' ? 'selected' : '' }}>Minuman
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Harga</label>
+                                <input id="editHargaInput" class="form-control" value="{{ $item->hargaProduk }}"
+                                    name="harga" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="place-bottom-right" class="form-label">Foto</label>
+                                <input type="file" name="foto" class="dropify" data-height="200">
+                                <td><img src="{{ asset('' . $item->fotoProduk) }}" style="width:100px;height:100">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary br-7" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary br-7">Send message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    {{-- end edit modal --}}
 @endsection
 @section('script')
     <script>
+        $(document).ready(function() {
+            $('#exampleModal3{{ $item->id }}').on('shown.bs.modal', function() {
+                let hargaFormatted = formatRupiah($('#editHargaInput').val());
+                $('#editHargaInput').val(hargaFormatted);
+            });
+
+            $('#editHargaInput').on('input', function() {
+                let hargaInput = $(this).val();
+
+                let harga = hargaInput.replace(/\D/g, '');
+
+                let hargaFormatted = formatRupiah(harga);
+
+                $(this).val(hargaFormatted);
+            });
+
+            $('#exampleModal3{{ $item->id }} form').submit(function(event) {
+                let hargaInput = $('#editHargaInput').val();
+
+                let harga = hargaInput.replace(/\D/g, '');
+
+                $('#editHargaInput').val(harga);
+            });
+
+            function formatRupiah(angka) {
+                var reverse = angka.toString().split('').reverse().join(''),
+                    ribuan = reverse.match(/\d{1,3}/g);
+                ribuan = ribuan.join('.').split('').reverse().join('');
+                return 'Rp.' + ribuan;
+            }
+            $('#hargaInput').on('input', function() {
+                let harga = $(this).val();
+                let hargaFormatted = formatRupiah(harga);
+                $(this).val(hargaFormatted);
+            });
+
+            function formatRupiah(angka) {
+                var number_string = angka.toString().replace(/[^,\d]/g, ''),
+                    split = number_string.split(','),
+                    sisa = split[0].length % 3,
+                    rupiah = split[0].substr(0, sisa),
+                    ribuan = split[0].substr(sisa).match(/\d{1,3}/gi);
+
+                if (ribuan) {
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return 'Rp. ' + rupiah;
+            }
+            $('form').submit(function(event) {
+                let hargaInput = $('#hargaInput').val();
+                let harga = hargaInput.replace(/\D/g, '');
+                $('#hargaInput').val(harga);
+            });
+        });
         $('.changeStatusBtn').on('click', function(e) {
             e.preventDefault();
-            var id = $(this).data('id'); // Mengambil ID dari data-id attribute
-            var changeStatus = $('#changeStatus' + id); // Mencari form dengan ID yang sesuai
+            var id = $(this).data('id');
+            var changeStatus = $('#changeStatus' + id);
             var statusText = $(this).text().trim() === 'Aktif' ? 'Data akan diubah menjadi Nonaktif!' :
                 'Data akan diubah menjadi Aktif!';
             Swal.fire({

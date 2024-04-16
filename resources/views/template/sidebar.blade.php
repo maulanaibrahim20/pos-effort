@@ -45,25 +45,26 @@
                         <h3>Master Data</h3>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(3) == 'kategori' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/master/kategori') }}"><i class="side-menu__icon fe fe-box"></i><span
-                                class="side-menu__label">Kategori</span></a>
+                        <a class="side-menu__item {{ Request::segment(3) == 'kategori_bahan' ? 'active' : '' }}"
+                            href="{{ url('/super_admin/master/kategori_bahan') }}"><i
+                                class="side-menu__icon fe fe-box"></i><span class="side-menu__label">Kategori
+                                Bahan</span></a>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(3) == 'bahan' ? 'active' : '' }}"
+                            href="{{ url('/super_admin/master/bahan') }}"><i
+                                class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Bahan</span></a>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(3) == 'satuan_bahan' ? 'active' : '' }}"
+                            href="{{ url('/super_admin/master/satuan_bahan') }}"><i
+                                class="side-menu__icon fe fe-hard-drive"></i><span class="side-menu__label">Satuan
+                                Bahan</span></a>
                     </li>
                     <li>
                         <a class="side-menu__item {{ Request::segment(3) == 'produk' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/master/produk') }}"><i
-                                class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Produk</span></a>
-                    </li>
-                    <li>
-                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/dashboard') }}"><i
-                                class="side-menu__icon fe fe-credit-card"></i><span
-                                class="side-menu__label">Member</span></a>
-                    </li>
-                    <li>
-                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/dashboard') }}"><i class="side-menu__icon fe fe-truck"></i><span
-                                class="side-menu__label">Supplier</span></a>
+                            href="{{ url('/super_admin/master/produk') }}"><i class="side-menu__icon fe fe-truck"></i><span
+                                class="side-menu__label">Produk</span></a>
                     </li>
                     <li class="sub-category">
                         <h3>Transaksi</h3>

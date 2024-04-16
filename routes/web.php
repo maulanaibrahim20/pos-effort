@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\Master\KategoriController;
+use App\Http\Controllers\Master\KategoriBahanController;
+use App\Http\Controllers\Master\BahanController;
 use App\Http\Controllers\Master\ProdukController;
+use App\Http\Controllers\Master\SatuanBahanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,9 +43,14 @@ Route::middleware(['autentikasi'])->group(function () {
     Route::group(['middleware' => ['can:super_admin']], function () {
         Route::prefix('super_admin')->group(function () {
             Route::prefix('master')->group(function () {
-                Route::resource('kategori', KategoriController::class);
+
+                Route::resource('kategori_bahan', KategoriBahanController::class);
+                Route::resource('bahan', BahanController::class);
+                Route::resource('satuan_bahan', SatuanBahanController::class);
+                Route::post('satuan_bahan/changeStatus/{id}', [SatuanBahanController::class, 'changeStatus']);
                 Route::resource('produk', ProdukController::class);
                 Route::post('produk/changeStatus/{id}', [ProdukController::class, 'changeStatus']);
+
                 Route::get('member', function () {
                     return view('super_admin.pages.member.index');
                 });

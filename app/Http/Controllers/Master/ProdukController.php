@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -14,34 +14,24 @@ class ProdukController extends Controller
 {
     protected $produk;
 
-    public function __construct(Product $produk)
+    public function __construct(Produk $produk)
     {
         $this->produk = $produk;
     }
     public function index()
     {
         $content = [
+            'titleCreate' => 'Tambah Data Produk',
             'title' => 'Table Produk',
             'breadcrumb' => 'Dashboard',
             'breadcrumb_active' => 'Table Produk',
             'button_create' => 'Tambah Produk',
         ];
         $data = [
-            'produk' => $this->produk->orderBy('nama_produk', 'asc')->get(),
+            'produk' => $this->produk->all(),
         ];
 
         return view('super_admin.pages.master.produk.index', $content, $data);
-    }
-
-    public function create()
-    {
-        $content = [
-            'title' => 'Tambah Produk',
-            'breadcrumb' => 'Dashboard',
-            'breadcrumb_1' => 'Produk',
-            'breadcrumb_active' => 'Tambah Produk',
-        ];
-        return view('super_admin.pages.master.produk.create', $content);
     }
 
     public function store(Request $request)
@@ -50,7 +40,7 @@ class ProdukController extends Controller
             DB::beginTransaction();
 
             $request->validate([
-                'nama' => 'required|string|max:255',
+                'kategori' => 'required|string|max:255',
                 'harga' => 'required|numeric|min:0',
                 'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             ]);
@@ -62,10 +52,9 @@ class ProdukController extends Controller
             $request->file('foto')->move(public_path('produk_thumbnail'), $newImageName);
 
             $this->produk->create([
-                'nama_produk' => $request->nama,
-                'slug' => Str::slug($request->nama),
-                'harga' => $request->harga,
-                'foto' => $imagePath,
+                'kategori' => $request->kategori,
+                'hargaProduk' => $request->harga,
+                'fotoProduk' => $imagePath,
                 'status' => '0',
             ]);
 
@@ -79,20 +68,6 @@ class ProdukController extends Controller
         }
     }
 
-    public function edit($id)
-    {
-        $content = [
-            'title' => 'Edit Produk',
-            'breadcrumb' => 'Dashboard',
-            'breadcrumb_1' => 'Produk',
-            'breadcrumb_active' => 'Edit Produk',
-        ];
-        $data = [
-            'produk' => $this->produk::find($id),
-        ];
-        return view('super_admin.pages.master.produk.edit', $data, $content);
-    }
-
     public function update(Request $request, $id)
     {
         try {
@@ -101,14 +76,15 @@ class ProdukController extends Controller
             $produk = $this->produk::find($id);
 
             $request->validate([
-                'nama' => 'required|string|max:255',
+                'kategori' => 'required|string|max:255',
                 'harga' => 'required|numeric|min:0',
                 'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             ]);
 
+
             if ($request->hasFile('foto')) {
-                if (File::exists(public_path($produk->foto))) {
-                    File::delete(public_path($produk->foto));
+                if (File::exists(public_path($produk->fotoProduk))) {
+                    File::delete(public_path($produk->fotoProduk));
                 }
 
                 $imageExtension = $request->file('foto')->getClientOriginalExtension();
@@ -116,12 +92,11 @@ class ProdukController extends Controller
                 $imagePath = 'produk_thumbnail/' . $newImageName;
                 $request->file('foto')->move(public_path('produk_thumbnail'), $newImageName);
 
-                $produk->foto = $imagePath;
+                $produk->fotoProduk = $imagePath;
             }
 
-            $produk->nama_produk = $request->nama;
-            $produk->harga = $request->harga;
-            $produk->slug = Str::slug($request->nama);
+            $produk->kategori = $request->kategori;
+            $produk->hargaProduk = $request->harga;
             $produk->save();
 
             DB::commit();
@@ -139,17 +114,21 @@ class ProdukController extends Controller
         try {
             DB::beginTransaction();
             $produk = $this->produk::find($id);
-            if (!$produk) {
-                throw new \Exception('Data Kategori tidak ditemukan');
+            if ($produk) {
+                if (File::exists(public_path($produk->fotoProduk))) {
+                    File::delete(public_path($produk->fotoProduk));
+                }
+                $produk->delete();
+                DB::commit();
+                Alert::success('Berhasil', 'Produk berhasil dihapus.');
+                return back()->with('success', 'Produk berhasil dihapus.');
+            } else {
+                throw new \Exception('Produk tidak ditemukan.');
             }
-            $produk->delete();
-            DB::commit();
-            Alert::success('success', 'Data Kategori Berhasil Dihapus!');
-            return redirect('/super_admin/master/produk')->with('success', 'Data Kategori Berhasil Dihapus!');
         } catch (\Exception $e) {
             DB::rollback();
-            Alert::error('error', 'Terjadi Kesalahan, silahkan coba lagi' . $e->getMessage());
-            return back()->with('error', 'Terjadi kesalahan, silakan coba lagi.');
+            Alert::error('Error', 'Gagal menghapus produk: ' . $e->getMessage());
+            return back()->with('error', 'Gagal menghapus produk: ' . $e->getMessage());
         }
     }
 
@@ -163,7 +142,7 @@ class ProdukController extends Controller
                 $produk->save();
                 DB::commit();
                 Alert::success('Berhasil', 'Status produk berhasil diubah.');
-                return redirect('/super_admin/master/produk')->with('success', 'Status produk berhasil diubah.');
+                return back()->with('success', 'Status produk berhasil diubah.');
             } else {
                 throw new \Exception('Produk tidak ditemukan.');
             }
