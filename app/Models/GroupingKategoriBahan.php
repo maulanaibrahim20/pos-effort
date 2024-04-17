@@ -19,4 +19,13 @@ class GroupingKategoriBahan extends Model
     public $primaryKey = "id";
 
     public $timestamps = false;
+
+    public function getKategori()
+    {
+        return $this->belongsTo(KategoriBahan::class, 'kategoriBahanId');
+    }
+    public function getBahan()
+    {
+        return $this->belongsTo(Bahan::class, 'bahanId');
+    }
 }

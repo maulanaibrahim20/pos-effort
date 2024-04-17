@@ -6,6 +6,7 @@ use App\Http\Controllers\Master\KategoriBahanController;
 use App\Http\Controllers\Master\BahanController;
 use App\Http\Controllers\Master\ProdukController;
 use App\Http\Controllers\Master\SatuanBahanController;
+use App\Http\Controllers\SemiMaster\GroupingKategoriBahanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,7 +44,6 @@ Route::middleware(['autentikasi'])->group(function () {
     Route::group(['middleware' => ['can:super_admin']], function () {
         Route::prefix('super_admin')->group(function () {
             Route::prefix('master')->group(function () {
-
                 Route::resource('kategori_bahan', KategoriBahanController::class);
                 Route::resource('bahan', BahanController::class);
                 Route::resource('satuan_bahan', SatuanBahanController::class);
@@ -57,6 +57,9 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::get('supplier', function () {
                     return view('super_admin.pages.supplier.index');
                 });
+            });
+            Route::prefix('semi_master')->group(function () {
+                Route::resource('grouping_kategori_bahan', GroupingKategoriBahanController::class);
             });
             Route::get('/dashboard', function () {
                 return view('super_admin.pages.dashboard.index');
