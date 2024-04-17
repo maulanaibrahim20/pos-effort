@@ -63,6 +63,12 @@ class BahanController extends Controller
             return back()->with('error', 'Gagal Menambahkan Bahan' . $e->getMessage());
         }
     }
+    public function edit(Request $request, $id)
+    {
+        $data["edit"] = $this->bahan->where("id", $id)->first();
+
+        return view('super_admin.pages.master.bahan.edit', $data);
+    }
 
     public function update(Request $request, $id)
     {

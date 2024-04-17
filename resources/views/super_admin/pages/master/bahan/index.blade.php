@@ -41,8 +41,9 @@
                                         <td><img src="{{ asset('' . $data->fotoBahan) }}" style="width:60px;height:60">
                                         <td class="text-center">
                                             <button type="button" class="btn br-7 btn-warning" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal3{{ $data->id }}"> <i
-                                                    class="fa fa-edit"></i></button>
+                                                data-bs-target="#exampleModal3" onclick="editModal('{{ $data['id'] }}')">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
                                             <form id="deleteForm{{ $data->id }}"
                                                 action="{{ url('/super_admin/master/bahan/' . $data->id) }}"
                                                 style="display: inline;" method="POST">
@@ -62,39 +63,20 @@
         </div>
     </div>
 
-    @foreach ($bahan as $item)
-        <div class="modal fade" id="exampleModal3{{ $item->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="example-Modal3">Edit Data</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        </button>
-                    </div>
-                    <form action="{{ url('super_admin/master/bahan/' . $item->id) }}" method="POST"
-                        enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="recipient-name" class="form-control-label">Nama Kategori Bahan</label>
-                                <input type="text" name="nama" class="form-control" value="{{ $item->namaBahan }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="place-bottom-right" class="form-label">Foto</label>
-                                <input type="file" name="foto" class="dropify" data-height="200">
-                                <td><img src="{{ asset('' . $item->fotoBahan) }}" style="width:100px;height:100">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary br-7" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary br-7">Send message</button>
-                        </div>
-                    </form>
+    <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="example-Modal3">Edit Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div id="modal-content-edit">
+                    {{-- modal content --}}
                 </div>
             </div>
         </div>
-    @endforeach
+    </div>
 @endsection
 @section('script')
     <script>
@@ -117,5 +99,21 @@
                 }
             });
         });
+
+        function editModal(id) {
+            $.ajax({
+                url: '/super_admin/master/bahan/' + id + '/edit',
+                type: 'GET',
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    $("#modal-content-edit").html(response)
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            })
+        }
     </script>
 @endsection

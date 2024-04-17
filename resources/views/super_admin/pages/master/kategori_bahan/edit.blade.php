@@ -1,3 +1,5 @@
+@section('modal-css')
+@endsection
 <form action="{{ url('super_admin/master/kategori_bahan/' . $edit->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
@@ -8,9 +10,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary br-7" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary br-7">
-            Submit
-        </button>
+        @include('template.component.button.button_modal')
     </div>
 </form>
+@section('modal-script')
+@endsection
