@@ -44,6 +44,7 @@ Route::middleware(['autentikasi'])->group(function () {
     Route::group(['middleware' => ['can:super_admin']], function () {
         Route::prefix('super_admin')->group(function () {
             Route::prefix('master')->group(function () {
+                Route::get("kategori_bahan/{id}/edit", [KategoriBahanController::class, "edit"]);
                 Route::resource('kategori_bahan', KategoriBahanController::class);
                 Route::resource('bahan', BahanController::class);
                 Route::resource('satuan_bahan', SatuanBahanController::class);

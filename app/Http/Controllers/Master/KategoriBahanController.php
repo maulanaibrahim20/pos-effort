@@ -56,6 +56,13 @@ class KategoriBahanController extends Controller
         }
     }
 
+    public function edit(Request $request, $id)
+    {
+        $data["edit"] = $this->kategoriBahan->where("id", $id)->first();
+
+        return view('super_admin.pages.master.kategori_bahan.edit', $data);
+    }
+
     public function update(Request $request, $id)
     {
         try {
