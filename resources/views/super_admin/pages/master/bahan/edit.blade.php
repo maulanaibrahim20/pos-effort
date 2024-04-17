@@ -17,3 +17,6 @@
         <button type="submit" class="btn btn-primary br-7">Send message</button>
     </div>
 </form>
+
+<script src="{{ url('/assets') }}/plugins/fileuploads/js/fileupload.js"></script>
+<script src="{{ url('/assets') }}/plugins/fileuploads/js/file-upload.js"></script>
