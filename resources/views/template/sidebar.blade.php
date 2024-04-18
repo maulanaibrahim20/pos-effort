@@ -75,6 +75,12 @@
                                 class="side-menu__icon fe fe-truck"></i><span class="side-menu__label">Group Kategori
                                 Bahan</span></a>
                     </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(3) == 'grouping_satuan_bahan' ? 'active' : '' }}"
+                            href="{{ url('/super_admin/semi_master/grouping_satuan_bahan') }}"><i
+                                class="side-menu__icon fe fe-truck"></i><span class="side-menu__label">Group Satuan
+                                Bahan</span></a>
+                    </li>
                     <li class="sub-category">
                         <h3>Transaksi</h3>
                     </li>

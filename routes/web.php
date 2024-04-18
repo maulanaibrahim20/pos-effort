@@ -7,6 +7,7 @@ use App\Http\Controllers\Master\BahanController;
 use App\Http\Controllers\Master\ProdukController;
 use App\Http\Controllers\Master\SatuanBahanController;
 use App\Http\Controllers\SemiMaster\GroupingKategoriBahanController;
+use App\Http\Controllers\SemiMaster\GroupingSatuanBahanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,6 +64,7 @@ Route::middleware(['autentikasi'])->group(function () {
             });
             Route::prefix('semi_master')->group(function () {
                 Route::resource('grouping_kategori_bahan', GroupingKategoriBahanController::class);
+                Route::resource('grouping_satuan_bahan', GroupingSatuanBahanController::class);
             });
             Route::get('/dashboard', function () {
                 return view('super_admin.pages.dashboard.index');

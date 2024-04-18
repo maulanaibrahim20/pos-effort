@@ -19,4 +19,14 @@ class GroupingSatuanBahan extends Model
     public $primaryKey = "id";
 
     public $timestamps = false;
+
+    public function getSatuanBahan()
+    {
+        return $this->belongsTo(SatuanBahan::class, 'satuanBahanId');
+    }
+
+    public function getBahan()
+    {
+        return $this->belongsTo(Bahan::class, 'bahanId');
+    }
 }
