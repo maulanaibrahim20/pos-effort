@@ -28,7 +28,7 @@
                             <thead>
                                 <tr>
                                     <th class="wd-15p border-bottom-0">No</th>
-                                    <th class="wd-15p border-bottom-0">Nama Kategori</th>
+                                    <th class="wd-15p border-bottom-0">Nama Satuan Bahan</th>
                                     <th class="wd-15p border-bottom-0">Nama Bahan</th>
                                     <th class="text-center wd-10p border-bottom-0">Actions</th>
                                 </tr>
