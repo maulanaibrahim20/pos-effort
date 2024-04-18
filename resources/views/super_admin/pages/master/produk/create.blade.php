@@ -10,6 +10,21 @@
                     {{ session('error') }}
                 </div>
             @endif
+            @error('kategori')
+                <div class="alert alert-danger">
+                    {{ $message }}
+                </div>
+            @enderror
+            @error('harga')
+                <div class="alert alert-danger">
+                    {{ $message }}
+                </div>
+            @enderror
+            @error('foto')
+                <div class="alert alert-danger">
+                    {{ $message }}
+                </div>
+            @enderror
             <div class="d-flex flex-column">
                 <div class="form-group">
                     <label class="form-label">Pilih Kategori</label>
@@ -18,15 +33,24 @@
                         <option value="makanan"> Makanan </option>
                         <option value="minuman"> Minuman </option>
                     </select>
+                    @error('kategori')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label class="form-label">Harga</label>
                     <input id="hargaInput" class="form-control" placeholder="Masukan Harga Produk" name="harga"
                         type="text">
+                    @error('harga')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="place-bottom-right" class="form-label">Foto</label>
                     <input type="file" name="foto" class="dropify" data-height="200">
+                    @error('foto')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <button type="submit" class="btn ripple btn-primary">Submit</button>

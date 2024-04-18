@@ -14,14 +14,20 @@
         </div>
         <div class="col-lg-8">
             <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">{{ $title }}</h3>
+                </div>
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
                     </div>
                 @endif
-                <div class="card-header">
-                    <h3 class="card-title">{{ $title }}</h3>
-                </div>
+                @error('kategori')
+                    <div class="alert alert-danger">{{ $messages_modal }}</div>
+                @enderror
+                @error('bahan')
+                    <div class="alert alert-danger">{{ $messages_modal }}</div>
+                @enderror
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped text-nowrap border-bottom" id="responsive-datatable">
@@ -78,7 +84,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label class="form-label">Pilih Kategori Bahan</label>
-                                <select name="kategori" class="form-control select2 form-select" id="kategori">
+                                <select name="kategori_modal" class="form-control select2 form-select" id="kategori">
                                     <option value="">-- Pilih --</option>
                                     @foreach ($kategoriBahan as $select)
                                         <option value="{{ $select->id }}"
@@ -90,7 +96,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Pilih Bahan</label>
-                                <select name="bahan" class="form-control select2 form-select" id="kategori">
+                                <select name="bahan_modal" class="form-control select2 form-select" id="kategori">
                                     <option value="">-- Pilih --</option>
                                     @foreach ($bahan as $selected)
                                         <option value="{{ $selected->id }}"

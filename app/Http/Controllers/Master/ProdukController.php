@@ -36,14 +36,26 @@ class ProdukController extends Controller
 
     public function store(Request $request)
     {
+        $messages = [
+            'kategori.required' => 'Kategori harus diisi.',
+            'kategori.string' => 'Kategori harus berupa teks.',
+            'harga.required' => 'Harga harus diisi.',
+            'harga.numeric' => 'Harga harus berupa angka.',
+            'harga.min' => 'Harga minimal adalah :min.',
+            'harga.max' => 'Harga maksimal adalah :max.',
+            'foto.image' => 'Foto harus berupa gambar.',
+            'foto.mimes' => 'Format foto harus jpeg, png, jpg.',
+            'foto.max' => 'Ukuran foto maksimal 2048 KB.',
+        ];
+
+        $request->validate([
+            'kategori' => 'required|string',
+            'harga' => 'required|numeric|min:500|max:100000',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ], $messages);
+
         try {
             DB::beginTransaction();
-
-            $request->validate([
-                'kategori' => 'required|string|max:255',
-                'harga' => 'required|numeric|min:0',
-                'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            ]);
 
             $imageExtension = $request->file('foto')->getClientOriginalExtension();
             $newImageName = 'thumbnail_' . (count(File::files(public_path('produk_thumbnail'))) + 1) . '.' . $imageExtension;
@@ -70,33 +82,42 @@ class ProdukController extends Controller
 
     public function update(Request $request, $id)
     {
+        $messages_modal = [
+            'kategori_modal.required' => 'Kategori harus diisi.',
+            'kategori_modal.string' => 'Kategori harus berupa teks.',
+            'harga_modal.required' => 'Harga harus diisi.',
+            'harga_modal.numeric' => 'Harga harus berupa angka.',
+            'harga_modal.min' => 'Harga minimal adalah :min.',
+            'harga_modal.max' => 'Harga maksimal adalah :max',
+            'foto_modal.image' => 'Foto harus berupa gambar.',
+            'foto_modal.mimes' => 'Format foto harus jpeg, png, jpg.',
+            'foto_modal.max' => 'Ukuran foto maksimal 2048 KB.',
+        ];
+
+        $request->validate([
+            'kategori_modal' => 'required|string',
+            'harga_modal' => 'required|numeric|min:500|max:100000',
+            'foto_modal' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ], $messages_modal);
+
         try {
             DB::beginTransaction();
-
             $produk = $this->produk::find($id);
-
-            $request->validate([
-                'kategori' => 'required|string|max:255',
-                'harga' => 'required|numeric|min:0',
-                'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            ]);
-
-
-            if ($request->hasFile('foto')) {
+            if ($request->hasFile('foto_modal')) {
                 if (File::exists(public_path($produk->fotoProduk))) {
                     File::delete(public_path($produk->fotoProduk));
                 }
 
-                $imageExtension = $request->file('foto')->getClientOriginalExtension();
+                $imageExtension = $request->file('foto_modal')->getClientOriginalExtension();
                 $newImageName = 'thumbnail_' . (count(File::files(public_path('produk_thumbnail'))) + 1) . '.' . $imageExtension;
                 $imagePath = 'produk_thumbnail/' . $newImageName;
-                $request->file('foto')->move(public_path('produk_thumbnail'), $newImageName);
+                $request->file('foto_modal')->move(public_path('produk_thumbnail'), $newImageName);
 
                 $produk->fotoProduk = $imagePath;
             }
 
-            $produk->kategori = $request->kategori;
-            $produk->hargaProduk = $request->harga;
+            $produk->kategori = $request->kategori_modal;
+            $produk->hargaProduk = $request->harga_modal;
             $produk->save();
 
             DB::commit();

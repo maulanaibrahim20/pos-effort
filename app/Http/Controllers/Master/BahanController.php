@@ -34,13 +34,24 @@ class BahanController extends Controller
 
     public function store(Request $request)
     {
+        $messages = [
+            'nama.required' => 'Nama harus diisi.',
+            'nama.string' => 'Nama harus berupa teks.',
+            'nama.min' => 'Nama harus memiliki minimal :min karakter.',
+            'nama.max' => 'Nama maksimal :max karakter.',
+            'foto.nullable' => 'Foto harus diisi.',
+            'foto.image' => 'Foto harus berupa gambar.',
+            'foto.mimes' => 'Format foto harus jpeg, png, jpg.',
+            'foto.max' => 'Ukuran foto maksimal 2048 KB.',
+        ];
+
+        $request->validate([
+            'nama' => 'required|string|min:1|max:50',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ], $messages);
+
         try {
             DB::beginTransaction();
-
-            $request->validate([
-                'nama' => 'required|string|max:255',
-                'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            ]);
 
             $imageExtension = $request->file('foto')->getClientOriginalExtension();
             $newImageName = 'thumbnail_' . (count(File::files(public_path('bahan_thumbnail'))) + 1) . '.' . $imageExtension;
@@ -72,15 +83,24 @@ class BahanController extends Controller
 
     public function update(Request $request, $id)
     {
+        $messages = [
+            'nama_modal.required' => 'Nama harus diisi.',
+            'nama_modal.string' => 'Nama harus berupa teks.',
+            'nama_modal.min' => 'Nama harus memiliki minimal :min karakter.',
+            'nama_modal.max' => 'Nama maksimal :max karakter.',
+            'foto.nullable' => 'Foto harus diisi.',
+            'foto.image' => 'Foto harus berupa gambar.',
+            'foto.mimes' => 'Format foto harus jpeg, png, jpg.',
+            'foto.max' => 'Ukuran foto maksimal 2048 KB.',
+        ];
+        $request->validate([
+            'nama_modal' => 'required|string|min:5|max:50',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ], $messages);
         try {
             DB::beginTransaction();
 
             $bahan = $this->bahan::find($id);
-
-            $request->validate([
-                'nama' => 'required|string|max:255',
-                'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            ]);
 
             if ($request->hasFile('foto')) {
                 if (File::exists(public_path($bahan->fotoBahan))) {
@@ -95,8 +115,8 @@ class BahanController extends Controller
                 $bahan->fotoBahan = $imagePath;
             }
 
-            $bahan->namaBahan = $request->nama;
-            $bahan->slugBahan = Str::slug($request->nama);
+            $bahan->namaBahan = $request->nama_modal;
+            $bahan->slugBahan = Str::slug($request->nama_modal);
             $bahan->save();
 
             DB::commit();

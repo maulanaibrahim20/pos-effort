@@ -4,7 +4,7 @@
     <div class="modal-body">
         <div class="form-group">
             <label for="recipient-name" class="form-control-label">Nama Kategori Bahan</label>
-            <input type="text" name="nama" class="form-control" value="{{ $edit->namaBahan }}">
+            <input type="text" name="nama_modal" class="form-control" value="{{ $edit->namaBahan }}">
         </div>
         <div class="form-group">
             <label for="place-bottom-right" class="form-label">Foto</label>

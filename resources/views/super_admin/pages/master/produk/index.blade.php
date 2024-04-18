@@ -14,14 +14,23 @@
         </div>
         <div class="col-lg-8">
             <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">{{ $title }}</h3>
+                </div>
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
                     </div>
                 @endif
-                <div class="card-header">
-                    <h3 class="card-title">{{ $title }}</h3>
-                </div>
+                @error('kategori_modal')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                @error('harga_modal')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                @error('foto_modal')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped text-nowrap border-bottom" id="responsive-datatable">
@@ -107,7 +116,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="recipient-name" class="form-control-label">Nama Kategori Bahan</label>
-                                <select name="kategori" class="form-control select2 form-select" id="kategori">
+                                <select name="kategori_modal" class="form-control select2 form-select" id="kategori">
                                     <option value="">-- Pilih --</option>
                                     <option value="makanan" {{ $item->kategori == 'Makanan' ? 'selected' : '' }}>Makanan
                                     </option>
@@ -118,11 +127,11 @@
                             <div class="form-group">
                                 <label class="form-label">Harga</label>
                                 <input id="editHargaInput" class="form-control" value="{{ $item->hargaProduk }}"
-                                    name="harga" type="text">
+                                    name="harga_modal" type="text">
                             </div>
                             <div class="form-group">
                                 <label for="place-bottom-right" class="form-label">Foto</label>
-                                <input type="file" name="foto" class="dropify" data-height="200">
+                                <input type="file" name="foto_modal" class="dropify" data-height="200">
                                 <td><img src="{{ asset('' . $item->fotoProduk) }}" style="width:100px;height:100">
                             </div>
                         </div>
@@ -140,28 +149,28 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('#exampleModal3{{ $item->id }}').on('shown.bs.modal', function() {
-                let hargaFormatted = formatRupiah($('#editHargaInput').val());
-                $('#editHargaInput').val(hargaFormatted);
-            });
+            @foreach ($produk as $item)
+                $('#exampleModal3{{ $item->id }}').on('shown.bs.modal', function() {
+                    let hargaFormatted = formatRupiah($('#editHargaInput').val());
+                    $('#editHargaInput').val(hargaFormatted);
+                });
 
-            $('#editHargaInput').on('input', function() {
-                let hargaInput = $(this).val();
+                $('#editHargaInput').on('input', function() {
+                    let hargaInput = $(this).val();
+                    let harga = hargaInput.replace(/\D/g, '');
+                    let hargaFormatted = formatRupiah(harga);
+                    $(this).val(hargaFormatted);
+                });
 
-                let harga = hargaInput.replace(/\D/g, '');
+                $('#exampleModal3{{ $item->id }} form').submit(function(event) {
+                    let hargaInput = $('#editHargaInput').val();
 
-                let hargaFormatted = formatRupiah(harga);
+                    let harga = hargaInput.replace(/\D/g, '');
 
-                $(this).val(hargaFormatted);
-            });
+                    $('#editHargaInput').val(harga);
+                });
+            @endforeach
 
-            $('#exampleModal3{{ $item->id }} form').submit(function(event) {
-                let hargaInput = $('#editHargaInput').val();
-
-                let harga = hargaInput.replace(/\D/g, '');
-
-                $('#editHargaInput').val(harga);
-            });
 
             function formatRupiah(angka) {
                 var reverse = angka.toString().split('').reverse().join(''),

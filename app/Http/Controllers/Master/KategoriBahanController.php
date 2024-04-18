@@ -34,11 +34,17 @@ class KategoriBahanController extends Controller
 
     public function store(Request $request)
     {
+        $messages = [
+            'nama.required' => 'Nama harus diisi.',
+            'nama.min' => 'Nama harus memiliki minimal :min karakter.',
+            'nama.max' => 'Nama harus memiliki maksimal :max karakter.',
+        ];
         $request->validate([
-            'nama' => 'required|string|max:255',
-        ]);
-        DB::beginTransaction();
+            'nama' => 'required|string|min:5|max:255',
+        ], $messages);
+
         try {
+            DB::beginTransaction();
             $this->kategoriBahan->create([
                 'namaKategori' => $request->nama,
             ]);
@@ -65,11 +71,21 @@ class KategoriBahanController extends Controller
 
     public function update(Request $request, $id)
     {
+        $messages_modal = [
+            'nama_modal.required' => 'Nama harus diisi Pada Pop Up Input.',
+            'nama_modal.min' => 'Nama harus memiliki minimal :min karakter.',
+            'nama_modal.max' => 'Nama harus memiliki maksimal :max karakter.',
+        ];
+
+        $request->validate([
+            'nama_modal' => 'required|string|min:5|max:255',
+        ], $messages_modal);
+
         try {
             DB::beginTransaction();
             $kategoriBahan = $this->kategoriBahan::find($id);
             $kategoriBahan->update([
-                'namaKategori' => $request->nama,
+                'namaKategori' => $request->nama_modal,
             ]);
             DB::commit();
             Alert::success('success', 'Success Kategori Bahan Berhasil Diubah!');

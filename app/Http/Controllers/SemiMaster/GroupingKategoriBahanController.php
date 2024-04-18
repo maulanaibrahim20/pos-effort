@@ -42,10 +42,17 @@ class GroupingKategoriBahanController extends Controller
     public function store(Request $request)
     {
         try {
+            $messages = [
+                'kategori.required' => 'Kategori harus diisi.',
+                'kategori.string' => 'Kategori harus berupa teks.',
+                'bahan.required' => 'Bahan harus diisi.',
+                'bahan.string' => 'Bahan harus berupa teks.',
+            ];
+
             $request->validate([
-                'kategori' => 'required|string|max:255',
-                'bahan' => 'required|string|max:255',
-            ]);
+                'kategori' => 'required|string',
+                'bahan' => 'required|string',
+            ], $messages);
 
             DB::beginTransaction();
             $this->groupingBahan->create([
@@ -66,16 +73,23 @@ class GroupingKategoriBahanController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            $messages_modal = [
+                'kategori_modal.required' => 'Kategori harus diisi.',
+                'kategori_modal.string' => 'Kategori harus berupa teks.',
+                'bahan_modal.required' => 'Bahan harus diisi.',
+                'bahan_modal.string' => 'Bahan harus berupa teks.',
+            ];
+
             $request->validate([
-                'kategori' => 'required|string|max:255',
-                'bahan' => 'required|string|max:255',
-            ]);
+                'kategori_modal' => 'required|string',
+                'bahan_modal' => 'required|string',
+            ], $messages_modal);
 
             DB::beginTransaction();
             $groupingBahan = $this->groupingBahan::find($id);
             $groupingBahan->update([
-                'kategoriBahanId' => $request->kategori,
-                'bahanId' => $request->bahan,
+                'kategoriBahanId' => $request->kategori_modal,
+                'bahanId' => $request->bahan_modal,
             ]);
 
             DB::commit();
@@ -83,8 +97,8 @@ class GroupingKategoriBahanController extends Controller
             return back()->with('succes', 'Success Data Grouping Kategori Berhasil Diubah!');
         } catch (\Exception $e) {
             DB::rollback();
-            Alert::error('error', 'error Data Grouping Kategori Gagal Diubah!' . $e->getMessage());
-            return back()->with('error', 'Error Data Grouping Kategori Gagal Diubah!' . $e->getMessage());
+            Alert::error('error', 'error Data Grouping Kategori Gagal Diubah!');
+            return back()->with('error', 'Error Data Grouping Kategori Gagal Diubah!');
         }
     }
 

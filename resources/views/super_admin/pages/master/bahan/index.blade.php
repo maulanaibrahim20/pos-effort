@@ -14,15 +14,18 @@
         </div>
         <div class="col-lg-8">
             <div class="card">
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
                 <div class="card-header">
                     <h3 class="card-title">{{ $title }}</h3>
                 </div>
                 <div class="card-body">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @error('nama_modal', 'foto')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     <div class="table-responsive">
                         <table class="table table-striped text-nowrap border-bottom" id="responsive-datatable">
                             <thead>

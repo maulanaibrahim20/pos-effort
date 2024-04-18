@@ -26,11 +26,11 @@ class GroupingSatuanBahanController extends Controller
     public function index()
     {
         $content = [
-            'titleCreate' => 'Tambah Data Grouping Kategori Bahan',
-            'title' => 'Table Grouping Kategori Bahan',
+            'titleCreate' => 'Tambah Data Grouping Satuan Bahan',
+            'title' => 'Table Grouping Satuan Bahan',
             'breadcrumb' => 'Dashboard',
-            'breadcrumb_active' => 'Table Grouping Kategori Bahan',
-            'button_create' => 'Tambah Grouping Kategori Bahan',
+            'breadcrumb_active' => 'Table Grouping Satuan Bahan',
+            'button_create' => 'Tambah Grouping Satuan Bahan',
         ];
         $data = [
             'groupingBahan' => $this->groupingBahan::all(),
@@ -43,10 +43,17 @@ class GroupingSatuanBahanController extends Controller
     public function store(Request $request)
     {
         try {
+            $messages = [
+                'satuanBahan.required' => 'Satuan Bahan harus diisi.',
+                'satuanBahan.string' => 'Satuan Bahan harus berupa teks.',
+                'bahan.required' => 'Bahan harus diisi.',
+                'bahan.string' => 'Bahan harus berupa teks.',
+            ];
+
             $request->validate([
-                'satuanBahan' => 'required|string|max:255',
-                'bahan' => 'required|string|max:255',
-            ]);
+                'satuanBahan' => 'required|string',
+                'bahan' => 'required|string',
+            ], $messages);
 
             DB::beginTransaction();
             $this->groupingBahan->create([
@@ -66,17 +73,24 @@ class GroupingSatuanBahanController extends Controller
 
     public function update(Request $request, $id)
     {
-        try {
-            $request->validate([
-                'satuanBahan' => 'required|string|max:255',
-                'bahan' => 'required|string|max:255',
-            ]);
+        $messages_modal = [
+            'satuanBahan_modal.required' => 'Satuan Bahan harus diisi.',
+            'satuanBahan_modal.string' => 'Satuan Bahan harus berupa teks.',
+            'bahan_modal.required' => 'Bahan harus diisi.',
+            'bahan_modal.string' => 'Bahan harus berupa teks.',
+        ];
 
+        $request->validate([
+            'satuanBahan_modal' => 'required|string',
+            'bahan_modal' => 'required|string',
+        ], $messages_modal);
+
+        try {
             DB::beginTransaction();
             $groupingBahan = $this->groupingBahan::find($id);
             $groupingBahan->update([
-                'satuanBahanId' => $request->satuanBahan,
-                'bahanId' => $request->bahan,
+                'satuanBahanId' => $request->satuanBahan_modal,
+                'bahanId' => $request->bahan_modal,
             ]);
 
             DB::commit();
