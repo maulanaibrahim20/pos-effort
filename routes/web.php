@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\LandingPage\AppController;
 use App\Http\Controllers\Master\KategoriBahanController;
 use App\Http\Controllers\Master\BahanController;
 use App\Http\Controllers\Master\ProdukController;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get("/landingPage", [AppController::class, "landingPage"]);
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/', function () {
