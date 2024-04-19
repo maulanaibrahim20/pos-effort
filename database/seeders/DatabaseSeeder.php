@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
             KategoriBahanSeeder::class,
             SatuanBahanSeeder::class,
             GroupingKategoriBahanSeeder::class,
-            GroupingSatuanBahanSeeder::class
+            GroupingSatuanBahanSeeder::class,
+            ProdukSeeder::class,
+            ProdukDetailSeeder::class
         ]);
     }
 }
