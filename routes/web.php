@@ -22,12 +22,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// LandingPage
+Route::get("/", [AppController::class, "home"]);
 Route::get("/landingPage", [AppController::class, "landingPage"]);
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/', function () {
-        return view('auth.login.index');
-    });
 
     Route::prefix('login')->name('login.')->group(function () {
         Route::get('/', [LoginController::class, 'index'])
