@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('produk', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->enum("kategori", ["Makanan", "Minuman"]);
+            $table->string("nama", 150);
             $table->enum("status", [1, 0])->default(0);
             $table->double("hargaProduk");
             $table->string("fotoProduk")->nullable();
