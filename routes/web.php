@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 // LandingPage
 Route::get("/", [AppController::class, "home"]);
 Route::get("/landingPage", [AppController::class, "landingPage"]);
+Route::get("/keranjang/{id_produk}", [AppController::class, "keranjang"]);
 
 Route::middleware(['guest'])->group(function () {
 
