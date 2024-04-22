@@ -19,7 +19,7 @@
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
                 <li class="nav-item">
-                    <a href="" class="nav-link">Login</a>
+                    <a href="{{url('/login')}}" class="nav-link">Login</a>
                 </li>
                 <li class="nav-item">
                     <a href="" class="nav-link">Riwayat Transaksi</a>

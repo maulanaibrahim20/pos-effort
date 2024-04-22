@@ -33,11 +33,17 @@ class SatuanBahanController extends Controller
 
     public function store(Request $request)
     {
+        $messages = [
+            'nama.required' => 'Nama harus diisi.',
+            'nama.min' => 'Nama harus memiliki minimal :min karakter.',
+            'nama.max' => 'Nama harus memiliki maksimal :max karakter.',
+        ];
         $request->validate([
-            'nama' => 'required|string|max:255',
-        ]);
-        DB::beginTransaction();
+            'nama' => 'required|string|min:1|max:255',
+        ], $messages);
+
         try {
+            DB::beginTransaction();
             $this->satuanBahan->create([
                 'satuanBahan' => $request->nama,
                 'aktif' => '0',
@@ -59,13 +65,18 @@ class SatuanBahanController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            $messages = [
+                'nama_modal.required' => 'Nama harus diisi.',
+                'nama_modal.min' => 'Nama harus memiliki minimal :min karakter.',
+                'nama_modal.max' => 'Nama harus memiliki maksimal :max karakter.',
+            ];
             $request->validate([
-                'nama' => 'required|string|max:255',
-            ]);
+                'nama_modal' => 'required|string|min:1|max:255',
+            ], $messages);
             $satuanBahan = $this->satuanBahan::find($id);
             if ($satuanBahan) {
                 $satuanBahan->update([
-                    'satuanBahan' => $request->nama,
+                    'satuanBahan' => $request->nama_modal,
                 ]);
                 Alert::success('Berhasil', 'Data Satuan Bahan berhasil diubah.');
                 return back()->with('success', 'Data Satuan Bahan berhasil diubah.');

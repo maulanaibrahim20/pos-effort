@@ -102,7 +102,8 @@
                             @method('PUT')
                             <div class="form-group">
                                 <label for="recipient-name" class="form-control-label">Nama Kategori Bahan</label>
-                                <input type="text" name="nama" class="form-control" value="{{ $item->satuanBahan }}">
+                                <input type="text" name="nama_modal" class="form-control"
+                                    value="{{ $item->satuanBahan }}">
                             </div>
                         </form>
                     </div>

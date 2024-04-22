@@ -72,45 +72,40 @@
                     <li>
                         <a class="side-menu__item {{ Request::segment(3) == 'grouping_kategori_bahan' ? 'active' : '' }}"
                             href="{{ url('/super_admin/semi_master/grouping_kategori_bahan') }}"><i
-                                class="side-menu__icon fe fe-truck"></i><span class="side-menu__label">Group Kategori
+                                class="side-menu__icon fa fa-truck"></i><span class="side-menu__label">Group Kategori
                                 Bahan</span></a>
                     </li>
                     <li>
                         <a class="side-menu__item {{ Request::segment(3) == 'grouping_satuan_bahan' ? 'active' : '' }}"
                             href="{{ url('/super_admin/semi_master/grouping_satuan_bahan') }}"><i
-                                class="side-menu__icon fe fe-truck"></i><span class="side-menu__label">Group Satuan
+                                class="side-menu__icon fa fa-balance-scale"></i><span class="side-menu__label">Group Satuan
                                 Bahan</span></a>
                     </li>
                     <li class="sub-category">
                         <h3>Transaksi</h3>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/dashboard') }}"><i
+                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
                                 class="side-menu__icon fe fe-dollar-sign"></i><span
                                 class="side-menu__label">Pengeluaran</span></a>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/dashboard') }}"><i
+                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
                                 class="side-menu__icon fe fe-arrow-down-circle"></i><span
                                 class="side-menu__label">Pembelian</span></a>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/dashboard') }}"><i
+                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
                                 class="side-menu__icon fe fe-arrow-up-circle"></i><span
                                 class="side-menu__label">Penjualan</span></a>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/dashboard') }}"><i
+                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
                                 class="side-menu__icon fe fe-shopping-bag"></i><span class="side-menu__label">Transaksi
                                 Lama</span></a>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/dashboard') }}"><i
+                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
                                 class="side-menu__icon fe fe-shopping-cart"></i><span class="side-menu__label">Transaksi
                                 Baru</span></a>
                     </li>
@@ -118,21 +113,20 @@
                         <h3>Report</h3>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/dashboard') }}"><i class="side-menu__icon fe fe-file-text"></i><span
+                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
+                                class="side-menu__icon fe fe-file-text"></i><span
                                 class="side-menu__label">Laporan</span></a>
                     </li>
                     <li class="sub-category">
                         <h3>Pengaturan</h3>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/dashboard') }}"><i class="side-menu__icon fe fe-users"></i><span
-                                class="side-menu__label">User</span></a>
+                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
+                                class="side-menu__icon fe fe-users"></i><span class="side-menu__label">User</span></a>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/dashboard') }}"><i class="side-menu__icon fe fe-settings"></i><span
+                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
+                                class="side-menu__icon fe fe-settings"></i><span
                                 class="side-menu__label">Pengaturan</span></a>
                     </li>
                 @endcan
