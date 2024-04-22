@@ -19,4 +19,6 @@ class Keranjang extends Model
     protected $keyType = "string";
 
     public $autoIncrement = false;
+
+    public $timestamps = false;
 }

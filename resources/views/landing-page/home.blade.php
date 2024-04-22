@@ -25,7 +25,7 @@
                                 @endif
                             </p>
                             <hr>
-                            <a href="#" class="btn btn-primary shadow">
+                            <a href="{{ url('/keranjang/' . $item['id']) }}" class="btn btn-primary shadow">
                                 <i class="fa fa-edit"></i> Pesan
                             </a>
                             <a href="" class="btn btn-success shadow" style="float: right">

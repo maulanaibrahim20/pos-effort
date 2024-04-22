@@ -19,4 +19,11 @@ class KeranjangDetail extends Model
     protected $keyType = "string";
 
     public $autoIncrement = false;
+
+    public $timestamps = false;
+
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class, "produkId");
+    }
 }
