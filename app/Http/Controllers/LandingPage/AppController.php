@@ -29,8 +29,11 @@ class AppController extends Controller
 
         if (!empty(Auth::user())) {
             $data["keranjang"] = $this->keranjang->where("userId", Auth::user()->id)->first();
-            $data["keranjangDetail"] = $this->keranjangDetail->where("keranjangId", $data["keranjang"]["id"])
-                ->get();
+
+            if (!empty($data["keranjang"])) {
+                $data["keranjangDetail"] = $this->keranjangDetail->where("keranjangId", $data["keranjang"]["id"])
+                    ->get();
+            }
         }
 
         return view("landing-page.home", $data);
@@ -46,21 +49,62 @@ class AppController extends Controller
         try {
             DB::beginTransaction();
 
-            $cart = $this->keranjang->create([
-                "userId" => Auth::user()->id,
-                "tanggal" => date("Y-m-d"),
-                "totalHarga" => 1000,
-                "status" => 1
-            ]);
+            $countKeranjang = $this->keranjang->where("userId", Auth::user()->id)
+                ->where("status", 1)
+                ->count();
 
             $produk = $this->produk->where("id", $idProduk)->first();
 
-            $detailCart = $this->keranjangDetail->create([
-                "keranjangId" => $cart["id"],
-                "produkId" => $idProduk,
-                "qty" => 1,
-                "harga" => $produk["hargaProduk"]
-            ]);
+            if ($countKeranjang == 0) {
+                $cart = $this->keranjang->create([
+                    "userId" => Auth::user()->id,
+                    "tanggal" => date("Y-m-d"),
+                    "totalHarga" => 0,
+                    "status" => 1
+                ]);
+
+                $detailCart = $this->keranjangDetail->create([
+                    "keranjangId" => $cart["id"],
+                    "produkId" => $idProduk,
+                    "qty" => 1,
+                    "harga" => $produk["hargaProduk"]
+                ]);
+
+                $cart->update([
+                    "totalHarga" => $produk["hargaProduk"]
+                ]);
+            } else {
+
+                $keranjangBelanja = $this->keranjang->where("userId", Auth::user()->id)
+                    ->where("status", 1)
+                    ->first();
+
+                $keranjangDetail = $this->keranjangDetail->where("keranjangId", $keranjangBelanja["id"])
+                    ->where("produkId", $produk["id"])
+                    ->first();
+
+                if ($keranjangDetail) {
+                    $keranjangDetail->update([
+                        "qty" => $keranjangDetail['qty'] + 1,
+                        "harga" => $keranjangDetail['harga'] + $produk["hargaProduk"]
+                    ]);
+
+                    $keranjangBelanja->update([
+                        "totalHarga" => $keranjangBelanja["totalHarga"] + $produk["hargaProduk"]
+                    ]);
+                } else {
+                    $this->keranjangDetail->create([
+                        "keranjangId" => $keranjangBelanja["id"],
+                        "produkId" => $produk["id"],
+                        "qty" => 1,
+                        "harga" => $produk["hargaProduk"]
+                    ]);
+
+                    $keranjangBelanja->update([
+                        "totalHarga" => $keranjangBelanja["totalHarga"] + $produk["hargaProduk"]
+                    ]);
+                }
+            }
 
             DB::commit();
 
@@ -68,6 +112,101 @@ class AppController extends Controller
 
         } catch (\Exception $e) {
             DB::rollback();
+
+            die($e->getMessage());
+        }
+    }
+
+    public function detailProduk($idProduk)
+    {
+        try {
+            DB::beginTransaction();
+
+            $data = [
+                "produk" => $this->produk->where("id", $idProduk)->first()
+            ];
+
+            DB::commit();
+
+            return view("landing-page.detail", $data);
+
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            die($e->getMessage());
+        }
+    }
+
+    public function detailQty(Request $request, $idProduk)
+    {
+        try {
+
+            DB::beginTransaction();
+
+            $countKeranjang = $this->keranjang->where("userId", Auth::user()->id)
+                ->where("status", 1)
+                ->count();
+
+            $produk = $this->produk->where("id", $idProduk)->first();
+
+            if ($countKeranjang == 0) {
+                $cart = $this->keranjang->create([
+                    "userId" => Auth::user()->id,
+                    "tanggal" => date("Y-m-d"),
+                    "totalHarga" => 0,
+                    "status" => 1
+                ]);
+
+                $detailCart = $this->keranjangDetail->create([
+                    "keranjangId" => $cart["id"],
+                    "produkId" => $idProduk,
+                    "qty" => $request["qty-produk"],
+                    "harga" => $produk["hargaProduk"]
+                ]);
+
+                $cart->update([
+                    "totalHarga" => $produk["hargaProduk"] * $request["qty-produk"]
+                ]);
+            } else {
+
+                $keranjangBelanja = $this->keranjang->where("userId", Auth::user()->id)
+                    ->where("status", 1)
+                    ->first();
+
+                $keranjangDetail = $this->keranjangDetail->where("keranjangId", $keranjangBelanja["id"])
+                    ->where("produkId", $produk["id"])
+                    ->first();
+
+                if ($keranjangDetail) {
+                    $keranjangDetail->update([
+                        "qty" => $keranjangDetail['qty'] + $request["qty-produk"],
+                        "harga" => $keranjangDetail['harga'] + ($produk["hargaProduk"] * $request["qty-produk"])
+                    ]);
+
+                    $keranjangBelanja->update([
+                        "totalHarga" => $keranjangBelanja["totalHarga"] + ($produk["hargaProduk"] * $request["qty-produk"] )
+                    ]);
+                } else {
+                    $this->keranjangDetail->create([
+                        "keranjangId" => $keranjangBelanja["id"],
+                        "produkId" => $produk["id"],
+                        "qty" => $request["qty-produk"],
+                        "harga" => $produk["hargaProduk"]
+                    ]);
+
+                    $keranjangBelanja->update([
+                        "totalHarga" => $keranjangBelanja["totalHarga"] + ($produk["hargaProduk"] * $request["qty-produk"])
+                    ]);
+                }
+            }
+
+            DB::commit();
+
+            return redirect()->to("/");
+
+        } catch (\Exception $e) {
+            DB::rollBack();
 
             die($e->getMessage());
         }
