@@ -6,19 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Models\Keranjang;
 use App\Models\KeranjangDetail;
 use App\Models\Produk;
+use App\Models\Transaksi;
+use App\Models\TransaksiDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AppController extends Controller
 {
-    protected $keranjang, $keranjangDetail, $produk;
+    protected $keranjang, $keranjangDetail, $produk, $transaksi, $transaksiDetail;
 
     public function __construct()
     {
         $this->keranjang = new Keranjang();
         $this->keranjangDetail = new KeranjangDetail();
         $this->produk = new Produk();
+        $this->transaksi = new Transaksi();
+        $this->transaksiDetail = new TransaksiDetail();
     }
 
     public function home()
@@ -109,7 +113,6 @@ class AppController extends Controller
             DB::commit();
 
             return redirect()->to("/");
-
         } catch (\Exception $e) {
             DB::rollback();
 
@@ -129,8 +132,6 @@ class AppController extends Controller
             DB::commit();
 
             return view("landing-page.detail", $data);
-
-
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -185,7 +186,7 @@ class AppController extends Controller
                     ]);
 
                     $keranjangBelanja->update([
-                        "totalHarga" => $keranjangBelanja["totalHarga"] + ($produk["hargaProduk"] * $request["qty-produk"] )
+                        "totalHarga" => $keranjangBelanja["totalHarga"] + ($produk["hargaProduk"] * $request["qty-produk"])
                     ]);
                 } else {
                     $this->keranjangDetail->create([
@@ -204,11 +205,63 @@ class AppController extends Controller
             DB::commit();
 
             return redirect()->to("/");
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            die($e->getMessage());
+        }
+    }
+
+    public function checkout(Request $request)
+    {
+        try {
+
+            DB::beginTransaction();
+
+            $keranjang = $this->keranjang->where("userId", Auth::user()->id)
+                ->where("status", 1)
+                ->first();
+
+            $keranjangDetail = $this->keranjangDetail->where("keranjangId", $keranjang["id"])
+                ->get();
+
+            $transaksi = $this->transaksi->create([
+                "invoiceId" => "TRX-" . date("YmdHis"),
+                "namaUser" => $request["nama-customer"],
+                "totalHarga" => 0,
+                "status" => 1 // PENDING
+            ]);
+
+            foreach ($keranjangDetail as $item) {
+                $this->transaksiDetail->create([
+                    "transaksiId" => $transaksi["id"],
+                    "namaProduk" => $item["produk"]["nama"],
+                    "hargaProduk" => $item["produk"]["hargaProduk"],
+                    "qtyProduk" => $item["qty"]
+                ]);
+
+                $item->delete();
+            }
+
+            $this->transaksi->where("id", $transaksi["id"])->update([
+                "totalHarga" => $keranjang["totalHarga"]
+            ]);
+
+            $keranjang->delete();
+
+            DB::commit();
+
+            return redirect()->to("/transaksi/" . $transaksi["invoiceId"]);
 
         } catch (\Exception $e) {
             DB::rollBack();
 
             die($e->getMessage());
         }
+    }
+
+    public function invoice($no_invoice)
+    {
+        echo "Invoice";
     }
 }
