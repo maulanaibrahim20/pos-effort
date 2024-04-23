@@ -49,9 +49,22 @@
                         </h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="" method="POST">
+                    <form action="{{ url('/checkout') }}" method="POST">
                         @csrf
                         <div class="modal-body">
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nama" class="mb-2">
+                                            Nama Customer
+                                            <small class="text-danger">
+                                                *
+                                            </small>
+                                        </label>
+                                        <input type="text" class="form-control" name="nama-customer" id="nama-customer" placeholder="Masukkan Nama Customer">
+                                    </div>
+                                </div>
+                            </div>
                             @forelse ($keranjangDetail as $item)
                                 <div class="card shadow mb-3">
                                     <div class="card-body">
