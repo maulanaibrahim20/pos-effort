@@ -28,7 +28,7 @@
                             <a href="{{ url('/keranjang/' . $item['id']) }}" class="btn btn-primary shadow">
                                 <i class="fa fa-edit"></i> Pesan
                             </a>
-                            <a href="" class="btn btn-success shadow" style="float: right">
+                            <a onclick="detailProduk('{{ $item['id'] }}')" class="btn btn-success shadow" style="float: right" data-bs-toggle="modal" data-bs-target="#modalDetail">
                                 <i class="fa fa-search"></i> Detail
                             </a>
                         </div>
@@ -45,5 +45,45 @@
             @endforelse
         </div>
     </div>
+
+    <!-- Modal Detail -->
+    <div class="modal fade" id="modalDetail" tabindex="-1" aria-labelledby="modalDetailLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalDetailLabel">
+                        <i class="fa fa-search"></i> Detail Produk
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="modal-content-detail">
+                    <!-- Modal Content Detail -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End -->
+
+@endpush
+
+@push("javascript")
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+
+        function detailProduk(idProduk) {
+            $.ajax({
+                url: '{{ url("/keranjang") }}' + "/" + idProduk + "/detail",
+                type: "GET",
+                success: function(response) {
+                    $("#modal-content-detail").html(response);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            })
+        }
+
+    </script>
 
 @endpush
