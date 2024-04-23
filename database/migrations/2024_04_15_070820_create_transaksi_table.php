@@ -15,8 +15,7 @@ return new class extends Migration
             $table->uuid("id")->primary();
             $table->string("invoiceId", 50);
             $table->string("namaUser", 100);
-            $table->string("emailUser", 100);
-            $table->string("nomorHpAktif", 30);
+            $table->string("nomorHpAktif", 30)->nullable();
             $table->double("totalHarga");
             $table->tinyInteger("status")->default(1);
         });
