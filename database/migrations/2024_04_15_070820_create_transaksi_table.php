@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("namaUser", 100);
             $table->string("nomorHpAktif", 30)->nullable();
             $table->double("totalHarga");
+            $table->string("kasirId", 50);
             $table->tinyInteger("status")->default(1);
         });
     }
