@@ -1,5 +1,7 @@
 @extends('landing-page.main')
 
+@push('title', 'Home')
+
 @push('content-page')
 
     <div class="container mt-3 mb-3">
@@ -7,30 +9,42 @@
             @forelse ($produk as $item)
                 <div class="col-md-4 mb-3">
                     <div class="card shadow">
-                        <img src="{{ $item['fotoProduk'] == null ? asset('produk_thumbnail/thumbnail_1.jpg') : '' }}" class="card-img-top img-fluid" style="width: 100%" alt="Gambar Produk">
+                        <img src="{{ $item['fotoProduk'] == null ? asset('produk_thumbnail/thumbnail_1.jpg') : '' }}"
+                            class="card-img-top img-fluid" style="width: 100%" alt="Gambar Produk">
                         <div class="card-body">
                             <h5 class="card-title">
                                 {{ $item['nama'] }}
                             </h5>
                             <p class="card-text">
                                 Rp. {{ number_format($item['hargaProduk']) }} -
-                                @if ($item["kategori"] == "Makanan")
+                                @if ($item['kategori'] == 'Makanan')
                                     <span class="badge bg-success">
                                         Makanan
                                     </span>
-                                @elseif($item["kategori"] == "Minuman")
+                                @elseif($item['kategori'] == 'Minuman')
                                     <span class="badge bg-info">
                                         Minuman
                                     </span>
                                 @endif
                             </p>
                             <hr>
-                            <a href="{{ url('/keranjang/' . $item['id']) }}" class="btn btn-primary shadow">
-                                <i class="fa fa-edit"></i> Pesan
-                            </a>
-                            <a onclick="detailProduk('{{ $item['id'] }}')" class="btn btn-success shadow" style="float: right" data-bs-toggle="modal" data-bs-target="#modalDetail">
-                                <i class="fa fa-search"></i> Detail
-                            </a>
+
+                            @if (empty(Auth::user()))
+                                <a onclick="cekAuth()" class="btn btn-primary shadow">
+                                    <i class="fa fa-edit"></i> Pesan
+                                </a>
+                                <a onclick="cekAuth()" class="btn btn-success shadow" style="float: right">
+                                    <i class="fa fa-search"></i> Detail
+                                </a>
+                            @else
+                                <a href="{{ url('/keranjang/' . $item['id']) }}" class="btn btn-primary shadow">
+                                    <i class="fa fa-edit"></i> Pesan
+                                </a>
+                                <a onclick="detailProduk('{{ $item['id'] }}')" class="btn btn-success shadow"
+                                    style="float: right" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                    <i class="fa fa-search"></i> Detail
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -66,14 +80,37 @@
 
 @endpush
 
-@push("javascript")
+@push('javascript')
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script type="text/javascript">
+        function cekAuth() {
+            Swal.fire({
+                title: "Anda Belum Login",
+                text: "Silahkan Login Terlebih Dahulu ",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Iyaa, Saya Akan Login",
+                cancelButtonText: "Tidak Ingin Login"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Berhasil!",
+                        text: "Anda Akan Diarahkan Ke Halaman Login",
+                        icon: "success"
+                    }).then(() => {
+                        window.location.href = "{{ url('/login') }}"
+                    });
+                }
+            });
+        }
 
         function detailProduk(idProduk) {
             $.ajax({
-                url: '{{ url("/keranjang") }}' + "/" + idProduk + "/detail",
+                url: '{{ url('/keranjang') }}' + "/" + idProduk + "/detail",
                 type: "GET",
                 success: function(response) {
                     $("#modal-content-detail").html(response);
@@ -83,7 +120,6 @@
                 }
             })
         }
-
     </script>
 
 @endpush
