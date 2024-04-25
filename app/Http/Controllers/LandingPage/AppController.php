@@ -112,7 +112,7 @@ class AppController extends Controller
 
             DB::commit();
 
-            return redirect()->to("/");
+            return redirect()->to("/")->with("success", "Produk Sudah Masuk Keranjang");
         } catch (\Exception $e) {
             DB::rollback();
 
@@ -204,7 +204,7 @@ class AppController extends Controller
 
             DB::commit();
 
-            return redirect()->to("/");
+            return redirect()->to("/")->with("success", "Produk Sudah Masuk Keranjang");
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -229,6 +229,7 @@ class AppController extends Controller
                 "invoiceId" => "TRX-" . date("YmdHis"),
                 "namaUser" => $request["nama-customer"],
                 "totalHarga" => 0,
+                "kasirId" => Auth::user()->id,
                 "status" => 1 // PENDING
             ]);
 
@@ -262,6 +263,68 @@ class AppController extends Controller
 
     public function invoice($no_invoice)
     {
-        echo "Invoice";
+        try {
+
+            DB::beginTransaction();
+
+            $data = [
+                "invoice" => $this->transaksi->where("invoiceId", $no_invoice)
+                    ->first()
+            ];
+
+            $data["transaksiDetail"] = $this->transaksiDetail->where("transaksiId", $data["invoice"]["id"])->get();
+
+            DB::commit();
+
+            return view("landing-page.invoice", $data);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            die($e->getMessage());
+        }
+    }
+
+    public function updateQty(Request $request, $idKeranjangDetail)
+    {
+        try {
+
+            DB::beginTransaction();
+
+            $keranjangDetail = $this->keranjangDetail->where("id", $idKeranjangDetail)->first();
+
+            $hargaProduk = $keranjangDetail["produk"]["hargaProduk"];
+
+            $keranjangDetail->update([
+                "qty" => $request->qtyNew,
+                "harga" => $request->qtyNew * $hargaProduk
+            ]);
+
+            $keranjangDetailAll = $this->keranjangDetail->where("keranjangId", $keranjangDetail["keranjang"]["id"])->get();
+
+            $hargaKeranjangDetail = 0;
+
+            foreach ($keranjangDetailAll as $item) {
+                $hargaKeranjangDetail += $item["harga"];
+            }
+
+            $keranjang = $this->keranjang->where("id", $keranjangDetail["keranjang"]["id"])->first();
+
+            $keranjang->update([
+                "totalHarga" => $hargaKeranjangDetail
+            ]);
+
+            DB::commit();
+
+            return response()->json([
+                "status" => true,
+                "message" => "Qty Berhasil di Simpan"
+            ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            die($e->getMessage());
+        }
     }
 }
