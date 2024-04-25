@@ -10,26 +10,36 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" aria-current="page" href="#">
+                        <i class="fa fa-home"></i> Home
+                    </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
+                @if (!empty(Auth::user()))
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="fa fa-book"></i> Riwayat Transaksi
+                        </a>
+                    </li>
+                @endif
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
                 @if (empty(Auth::user()))
                     <li class="nav-item">
-                        <a href="{{ url('/login') }}" class="nav-link">Login</a>
+                        <a href="{{ url('/login') }}" class="nav-link">
+                            <i class="fa fa-sign-in"></i> Login
+                        </a>
                     </li>
                 @else
                     <li class="nav-item">
+                        @if (empty(Auth::user()))
+                        @endif
                         <a href="" class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="fa fa-cart-shopping"></i> Keranjang
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ url('/logout') }}" class="nav-link">
-                            Logout
+                            <i class="fa fa-sign-out"></i> Logout
                         </a>
                     </li>
                 @endif
@@ -45,7 +55,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">
-                            Keranjang Belanja
+                            <i class="fa fa-shopping-cart"></i> Keranjang Belanja
                         </h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -61,7 +71,8 @@
                                                 *
                                             </small>
                                         </label>
-                                        <input type="text" class="form-control" name="nama-customer" id="nama-customer" placeholder="Masukkan Nama Customer">
+                                        <input type="text" class="form-control" name="nama-customer"
+                                            id="nama-customer" placeholder="Masukkan Nama Customer">
                                     </div>
                                 </div>
                             </div>
@@ -88,16 +99,13 @@
                                                     <div class="row align-items-center">
                                                         <div class="col-md-4 mb-3">
                                                             <input type="number" class="form-control" name="qty-produk"
-                                                                id="qty-produk" value="{{ $item['qty'] }}" min="1">
+                                                                id="qty-produk-{{ $item['id'] }}"
+                                                                value="{{ $item['qty'] }}" min="1">
                                                         </div>
-                                                        <div class="col-md-4 mb-3">
-                                                            <button class="btn btn-danger btn-xs" style="margin-right: 10px"
-                                                                id="qty-minus" onclick="qtyMinus($item['id'])">
-                                                                <i class="fa fa-minus"></i>
-                                                            </button>
-                                                            <button class="btn btn-primary btn-xs" id="qty-plus"
-                                                                onclick="qtyPlus($item['id'])">
-                                                                <i class="fa fa-plus"></i>
+                                                        <div class="col-md-6 mb-3">
+                                                            <button class="btn btn-primary btn-xs btn-simpan"
+                                                                data-id="{{ $item['id'] }}">
+                                                                <i class="fa fa-edit"></i> Simpan
                                                             </button>
                                                         </div>
                                                     </div>
@@ -123,3 +131,41 @@
         </div>
     @endif
 @endif
+
+@push('javascript')
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.btn-simpan').click(function(e) {
+                e.preventDefault();
+                let csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+                let idKeranjangDetail = $(this).data('id');
+                let qty = $(this).closest('.card-body').find('input[name="qty-produk"]').val();
+
+                $.ajax({
+                    url: "{{ url('/keranjang') }}" + "/" + idKeranjangDetail + "/update-qty",
+                    type: "POST",
+                    data: {
+                        _token: csrf_token,
+                        qtyNew: qty,
+                        _method: "PUT"
+                    },
+                    success: function(response) {
+                        if (response.status == true) {
+                            Swal.fire({
+                                title: "Berhasil!",
+                                text: response.message,
+                                icon: "success"
+                            });
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                })
+            });
+        });
+    </script>
+@endpush
