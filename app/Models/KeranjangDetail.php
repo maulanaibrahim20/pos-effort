@@ -26,4 +26,9 @@ class KeranjangDetail extends Model
     {
         return $this->belongsTo(Produk::class, "produkId");
     }
+
+    public function keranjang()
+    {
+        return $this->belongsTo(Keranjang::class, "keranjangId");
+    }
 }
