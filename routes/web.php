@@ -28,6 +28,7 @@ Route::get("/landingPage", [AppController::class, "landingPage"]);
 Route::get("/keranjang/{id_produk}", [AppController::class, "keranjang"]);
 Route::get("/keranjang/{id_produk}/detail", [AppController::class, "detailProduk"]);
 Route::post("/keranjang/{id_produk}/detailQty", [AppController::class, "detailQty"]);
+Route::put("/keranjang/{idKeranjangDetail}/update-qty", [AppController::class, "updateQty"]);
 Route::post("/checkout", [AppController::class, "checkout"]);
 
 Route::get("/transaksi/{no_invoice}", [AppController::class, "invoice"]);
