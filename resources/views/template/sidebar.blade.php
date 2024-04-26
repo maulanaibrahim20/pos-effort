@@ -67,7 +67,7 @@
                                 class="side-menu__label">Produk</span></a>
                     </li>
                     <li class="sub-category">
-                        <h3>Semi Master</h3>
+                        <h3>Manage Data</h3>
                     </li>
                     <li>
                         <a class="side-menu__item {{ Request::segment(3) == 'grouping_kategori_bahan' ? 'active' : '' }}"
@@ -81,10 +81,10 @@
                                 class="side-menu__icon fa fa-balance-scale"></i><span class="side-menu__label">Group Satuan
                                 Bahan</span></a>
                     </li>
-                    <li class="sub-category">
+                    {{-- <li class="sub-category">
                         <h3>Transaksi</h3>
-                    </li>
-                    <li>
+                    </li> --}}
+                    {{-- <li>
                         <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
                                 class="side-menu__icon fe fe-dollar-sign"></i><span
                                 class="side-menu__label">Pengeluaran</span></a>
@@ -108,19 +108,19 @@
                         <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
                                 class="side-menu__icon fe fe-shopping-cart"></i><span class="side-menu__label">Transaksi
                                 Baru</span></a>
-                    </li>
-                    <li class="sub-category">
+                    </li> --}}
+                    {{-- <li class="sub-category">
                         <h3>Report</h3>
-                    </li>
-                    <li>
+                        </li> --}}
+                    {{-- <li>
                         <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
                                 class="side-menu__icon fe fe-file-text"></i><span
                                 class="side-menu__label">Laporan</span></a>
-                    </li>
-                    <li class="sub-category">
+                    </li> --}}
+                    {{-- <li class="sub-category">
                         <h3>Pengaturan</h3>
-                    </li>
-                    <li>
+                    </li> --}}
+                    {{-- <li>
                         <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
                                 class="side-menu__icon fe fe-users"></i><span class="side-menu__label">User</span></a>
                     </li>
@@ -128,7 +128,7 @@
                         <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
                                 class="side-menu__icon fe fe-settings"></i><span
                                 class="side-menu__label">Pengaturan</span></a>
-                    </li>
+                    </li> --}}
                 @endcan
                 @can('pelanggan')
                 @endcan

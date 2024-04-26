@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingPage\AppController;
 use App\Http\Controllers\Master\KategoriBahanController;
 use App\Http\Controllers\Master\BahanController;
@@ -52,7 +53,6 @@ Route::middleware(['autentikasi'])->group(function () {
     Route::group(['middleware' => ['can:super_admin']], function () {
         Route::prefix('super_admin')->group(function () {
             Route::prefix('master')->group(function () {
-
                 Route::resource('kategori_bahan', KategoriBahanController::class);
                 Route::get("kategori_bahan/{id}/edit", [KategoriBahanController::class, "edit"]);
                 Route::resource('bahan', BahanController::class);
@@ -73,9 +73,7 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::resource('grouping_kategori_bahan', GroupingKategoriBahanController::class);
                 Route::resource('grouping_satuan_bahan', GroupingSatuanBahanController::class);
             });
-            Route::get('/dashboard', function () {
-                return view('super_admin.pages.dashboard.index');
-            });
+            Route::get('/dashboard', [DashboardController::class, 'super_admin']);
         });
     });
 
