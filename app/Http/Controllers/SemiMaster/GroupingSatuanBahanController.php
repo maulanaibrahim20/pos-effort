@@ -71,6 +71,17 @@ class GroupingSatuanBahanController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        $data = [
+            'edit' => $this->groupingBahan->where("id", $id)->first(),
+            'bahan' => $this->bahan::orderBy('namaBahan', 'asc')->get(),
+            'satuanBahan' => $this->satuanBahan::orderBy('satuanBahan', 'asc')->get(),
+        ];
+
+        return view('super_admin.pages.semi_master.grouping_satuan_bahan.edit', $data);
+    }
+
     public function update(Request $request, $id)
     {
         $messages_modal = [

@@ -75,6 +75,7 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::resource('grouping_kategori_bahan', GroupingKategoriBahanController::class);
                 Route::get('grouping_kategori_bahan/{id}/edit', [GroupingKategoriBahanController::class, 'edit']);
                 Route::resource('grouping_satuan_bahan', GroupingSatuanBahanController::class);
+                Route::get('grouping_satuan_bahan/{id}/edit', [GroupingSatuanBahanController::class, 'edit']);
             });
             Route::get('/dashboard', [DashboardController::class, 'super_admin']);
         });
