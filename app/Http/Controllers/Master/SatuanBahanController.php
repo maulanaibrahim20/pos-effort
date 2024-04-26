@@ -62,6 +62,13 @@ class SatuanBahanController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        $data["edit"] = $this->satuanBahan->where("id", $id)->first();
+
+        return view('super_admin.pages.master.satuan_bahan.edit', $data);
+    }
+
     public function update(Request $request, $id)
     {
         try {
