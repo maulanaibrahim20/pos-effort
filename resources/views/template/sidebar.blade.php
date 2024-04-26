@@ -3,16 +3,18 @@
     <div class="app-sidebar">
         <div class="side-header">
             @if (Auth::user()->role_id == 1)
-                <a class="header-brand1" href="{{ url('/admin/dashboard') }}">
+                <a class="header-brand1" href="{{ url('/super_admin/dashboard') }}">
                 @elseif (Auth::user()->role_id == 2)
                     <a class="header-brand1" href="{{ url('/member/dashboard') }}">
             @endif
-            <img src="{{ url('/assets') }}/images/brand/logo.png" class="header-brand-img main-logo" alt="Sparic logo">
-            <img src="{{ url('/assets') }}/images/brand/logo-light.png" class="header-brand-img darklogo"
-                alt="Sparic logo">
-            <img src="{{ url('/assets') }}/images/brand/icon.png" class="header-brand-img icon-logo" alt="Sparic logo">
-            <img src="{{ url('/assets') }}/images/brand/icon2.png" class="header-brand-img icon-logo2"
-                alt="Sparic logo">
+            <img src="{{ url('/assets') }}/images/brand/logo1.png" class="header-brand-img main-logo" alt="Sparic logo"
+                style="width: 200px; height: auto;">
+            <img src="{{ url('/assets') }}/images/brand/logo1.png" class="header-brand-img darklogo" alt="Sparic logo"
+                style="width: 200px; height: auto;">
+            <img src="{{ url('/assets') }}/images/brand/icon.png" class="header-brand-img icon-logo" alt="Sparic logo"
+                style="width: 100px; height: auto;">
+            <img src="{{ url('/assets') }}/images/brand/icon2.png" class="header-brand-img icon-logo2" alt="Sparic logo"
+                style="width: 100px; height: auto;">
             </a>
         </div>
         <!-- logo-->

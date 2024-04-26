@@ -6,7 +6,6 @@
                     href="https://www.instagram.com/fiiraaaaaaaaaaa/" target="_blank">Ghefira Tsalsa Nur Azizah</a>
                 All rights reserved.
             </div>
-
         </div>
     </div>
 </footer>

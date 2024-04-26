@@ -28,7 +28,6 @@
                                 @endif
                             </p>
                             <hr>
-
                             @if (empty(Auth::user()))
                                 <a onclick="cekAuth()" class="btn btn-primary shadow">
                                     <i class="fa fa-edit"></i> Pesan

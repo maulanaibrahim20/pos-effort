@@ -13,8 +13,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary br-7" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary br-7">Send message</button>
+        @include('template.component.button.button_modal')
     </div>
 </form>
 

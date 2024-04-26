@@ -11,8 +11,8 @@
         content="html admin template, bootstrap admin template premium, premium responsive admin template, admin dashboard template bootstrap, bootstrap simple admin template premium, web admin template, bootstrap admin template, premium admin template html5, best bootstrap admin template, premium admin panel template, admin template">
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ url('/assets') }}/images/brand/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ url('/assets') }}/images/brand/favicon.ico">
+    <link rel="icon" href="{{ url('/assets') }}/images/brand/icon1.png" type="image/x-icon">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url('/assets') }}/images/brand/icon1.png">
 
     <!-- Title -->
     <title>{{ config('app.name') }}</title>
@@ -26,7 +26,7 @@
 
     <!--Global-Loader-->
     <div id="global-loader">
-        <img src="{{ url('/assets') }}/images/loader.svg" alt="loader">
+        <img src="{{ url('/assets') }}/images/icon1.svg" style="width: 150px; height: auto;" alt="loader">
     </div>
 
     <div class="page">
@@ -170,7 +170,6 @@
                             </div>
                         </div> --}}
                         <!-- End page-header -->
-
                         @yield('content')
                     </div>
                     <!-- container end -->
