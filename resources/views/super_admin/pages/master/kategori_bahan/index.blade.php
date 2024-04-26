@@ -73,7 +73,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
-                <div id="modal-content-edit">
+                <div class="modal-body" id="modal-content-edit">
                     <!-- Content Body Modal -->
                 </div>
             </div>

@@ -78,8 +78,9 @@
                                         </td>
                                         <td class="text-center">
                                             <button type="button" class="btn br-7 btn-warning" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal3{{ $data->id }}"> <i
-                                                    class="fa fa-edit"></i></button>
+                                                data-bs-target="#exampleModal3" onclick="editModal('{{ $data['id'] }}')">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
                                             <form id="deleteForm{{ $data->id }}"
                                                 action="{{ url('/super_admin/master/kategori_bahan/' . $data->id) }}"
                                                 style="display: inline;" method="POST">
@@ -100,50 +101,20 @@
     </div>
 
     {{-- start edit modal --}}
-    @foreach ($produk as $item)
-        <div class="modal fade" id="exampleModal3{{ $item->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="example-Modal3">Edit Data</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        </button>
-                    </div>
-                    <form action="{{ url('super_admin/master/produk/' . $item->id) }}" method="POST"
-                        enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="recipient-name" class="form-control-label">Nama Kategori Bahan</label>
-                                <select name="kategori_modal" class="form-control select2 form-select" id="kategori">
-                                    <option value="">-- Pilih --</option>
-                                    <option value="makanan" {{ $item->kategori == 'Makanan' ? 'selected' : '' }}>Makanan
-                                    </option>
-                                    <option value="minuman" {{ $item->kategori == 'Minuman' ? 'selected' : '' }}>Minuman
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Harga</label>
-                                <input id="editHargaInput" class="form-control" value="{{ $item->hargaProduk }}"
-                                    name="harga_modal" type="text">
-                            </div>
-                            <div class="form-group">
-                                <label for="place-bottom-right" class="form-label">Foto</label>
-                                <input type="file" name="foto_modal" class="dropify" data-height="200">
-                                <td><img src="{{ asset('' . $item->fotoProduk) }}" style="width:100px;height:100">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary br-7" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary br-7">Send message</button>
-                        </div>
-                    </form>
+    <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="example-Modal3">Edit Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div id="modal-content-edit">
+                    {{-- isi dari content modal --}}
                 </div>
             </div>
         </div>
-    @endforeach
+    </div>
     {{-- end edit modal --}}
 @endsection
 @section('script')
@@ -205,6 +176,22 @@
                 $('#hargaInput').val(harga);
             });
         });
+
+        function editModal(id) {
+            $.ajax({
+                url: '/super_admin/master/produk/' + id + '/edit',
+                type: 'GET',
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    $("#modal-content-edit").html(response)
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            })
+        }
         $('.changeStatusBtn').on('click', function(e) {
             e.preventDefault();
             var id = $(this).data('id');

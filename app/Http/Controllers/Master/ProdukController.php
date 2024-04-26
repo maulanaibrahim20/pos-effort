@@ -80,6 +80,13 @@ class ProdukController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        $data["edit"] = $this->produk->where("id", $id)->first();
+
+        return view('super_admin.pages.master.produk.edit', $data);
+    }
+
     public function update(Request $request, $id)
     {
         $messages_modal = [

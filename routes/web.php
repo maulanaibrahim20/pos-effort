@@ -61,6 +61,7 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::get('satuan_bahan/{id}/edit', [SatuanBahanController::class, 'edit']);
                 Route::post('satuan_bahan/changeStatus/{id}', [SatuanBahanController::class, 'changeStatus']);
                 Route::resource('produk', ProdukController::class);
+                Route::get('produk/{id}/id', [ProdukController::class, 'edit']);
                 Route::post('produk/changeStatus/{id}', [ProdukController::class, 'changeStatus']);
 
                 Route::get('member', function () {
