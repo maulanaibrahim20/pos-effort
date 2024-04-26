@@ -70,6 +70,17 @@ class GroupingKategoriBahanController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        $data = [
+            'edit' => $this->groupingBahan->where("id", $id)->first(),
+            'kategoriBahan' => $this->kategoriBahan::orderBy('namaKategori', 'asc')->get(),
+            'bahan' => $this->bahan::orderBy('namaBahan', 'asc')->get(),
+        ];
+
+        return view('super_admin.pages.semi_master.grouping_kategori_bahan.edit', $data);
+    }
+
     public function update(Request $request, $id)
     {
         try {
@@ -101,7 +112,6 @@ class GroupingKategoriBahanController extends Controller
             return back()->with('error', 'Error Data Grouping Kategori Gagal Diubah!');
         }
     }
-
     public function destroy($id)
     {
         try {
