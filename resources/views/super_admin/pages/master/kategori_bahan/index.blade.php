@@ -1,5 +1,5 @@
 @extends('index')
-@section('title', 'Kategori Bahan')
+@section('title', 'Master Kategori Bahan')
 @section('content')
     <div class="page-header d-sm-flex d-block">
         <ol class="breadcrumb mb-sm-0 mb-3">
@@ -85,21 +85,6 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function() {
-            $('#submitBtn').click(function() {
-                var nama = $('#nama').val();
-                if (!nama) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Oops...',
-                        text: 'Nama harus diisi!.',
-                    });
-                    return;
-                }
-                $('#kategoriForm').submit();
-            });
-        });
-
         $('.deleteBtn').on('click', function(e) {
             e.preventDefault();
             var id = $(this).data('id');

@@ -15,7 +15,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ url('/assets') }}/images/brand/favicon.ico">
 
     <!-- Title -->
-    <title>@yield('title')</title>
+    <title>{{ config('app.name') }} | @yield('title')</title>
 
     @include('template.component.style_css')
 
@@ -318,6 +318,26 @@
 
     @include('template.component.style_js')
     @include('sweetalert::alert')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('success'))
+        <script type="text/javascript">
+            Swal.fire({
+                title: "Berhasil",
+                text: "{{ session('success') }}",
+                icon: "success"
+            });
+        </script>
+    @endif
+    @if (session('error'))
+        <script type="text/javascript">
+            Swal.fire({
+                title: "Gagal",
+                text: "{{ session('error') }}",
+                icon: "error",
+            });
+        </script>
+    @endif
+    @yield('js')
 
 
 </body>

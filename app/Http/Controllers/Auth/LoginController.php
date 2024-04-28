@@ -24,22 +24,20 @@ class LoginController extends Controller
         return view('auth.login.index');
     }
 
-    public function proccess(LoginRequest $request)
+    public function proccess(Request $request)
     {
         $user = $this->user->whereEmail($request->email)->first();
         if (!$user) {
-            Alert::error('Maaf Akun Anda Tidak Terdaftar');
-            return redirect(route('login.index'))->with('error', 'Maaf Akun Anda Tidak Terdaftar');
+            return redirect(route('login.index'))->with('error', 'Periksa kembali Email Dan Password Anda!');
         }
         if (!Hash::check($request->password, $user->password)) {
-            Alert::error('Maaf Pasword Anda Salah!');
             return back()->with('error', 'Maaf Password Anda Salah!');
         }
-        if (Auth::attempt($request->validated())) {
+        if (Auth::attempt(["email" => $request->email, "password" => $request->password])) {
             $request->session()->regenerate();
 
             if ($user->akses == 1) {
-                return redirect('/super_admin/dashboard');
+                return redirect()->to('/super_admin/dashboard')->with('success', 'Anda Berhasil Login Selamat Datang' . Auth::user()->name);
             } elseif ($user->akses == 2) {
                 return redirect('/pelanggan/home');
             }

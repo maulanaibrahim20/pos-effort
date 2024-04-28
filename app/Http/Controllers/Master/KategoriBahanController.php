@@ -51,10 +51,6 @@ class KategoriBahanController extends Controller
             DB::commit();
             Alert::success('success', 'Success Data Kategori Bahan Berhasil Ditambahkan!');
             return redirect()->back()->with('success', 'Success Data Kategori Bahan Berhasil Ditambahkan!');
-        } catch (\Illuminate\Validation\ValidationException $th) {
-            DB::rollback();
-            Alert::error('error', 'Error Data Kategori Bahan Gagal Ditambahkan!' . $th->validator);
-            return redirect()->back()->with('error', 'Error Data Kategori Bahan Gagal Ditambahkan!');
         } catch (\Exception $e) {
             DB::rollback();
             Alert::error('error', 'Error Data Kategori Bahan Gagal Ditambahkan!' . $e->getMessage());
