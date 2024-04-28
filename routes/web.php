@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\LandingPage\AppController;
 use App\Http\Controllers\Master\KategoriBahanController;
 use App\Http\Controllers\Master\BahanController;
@@ -52,6 +53,11 @@ Route::middleware(['auth'])->name('web.')->group(function () {
 Route::middleware(['autentikasi'])->group(function () {
     Route::group(['middleware' => ['can:super_admin']], function () {
         Route::prefix('super_admin')->group(function () {
+            Route::prefix('profil')->group(function () {
+                Route::get('user', [EditProfileController::class, 'index']);
+                Route::put('user/{id}', [EditProfileController::class, 'update']);
+                Route::put('user/update_password/{id}', [EditProfileController::class, 'UpdatePassword']);
+            });
             Route::prefix('master')->group(function () {
                 Route::resource('kategori_bahan', KategoriBahanController::class);
                 Route::get("kategori_bahan/{id}/edit", [KategoriBahanController::class, "edit"]);

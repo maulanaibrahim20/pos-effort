@@ -119,18 +119,18 @@
                                 class="side-menu__icon fe fe-file-text"></i><span
                                 class="side-menu__label">Laporan</span></a>
                     </li> --}}
-                    {{-- <li class="sub-category">
+                    <li class="sub-category">
                         <h3>Pengaturan</h3>
-                    </li> --}}
-                    {{-- <li>
-                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
-                                class="side-menu__icon fe fe-users"></i><span class="side-menu__label">User</span></a>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
-                                class="side-menu__icon fe fe-settings"></i><span
-                                class="side-menu__label">Pengaturan</span></a>
-                    </li> --}}
+                        <a class="side-menu__item {{ Request::segment(3) == 'user' ? 'active' : '' }}"
+                            href="{{ url('/super_admin/profil/user') }}"><i class="side-menu__icon fe fe-user"></i><span
+                                class="side-menu__label">Profile Saya</span></a>
+                    </li>
+                    <li>
+                        <a class="side-menu__item" href="{{ url('/logout') }}"><i
+                                class="side-menu__icon fe fe-log-out"></i><span class="side-menu__label">Logout</span></a>
+                    </li>
                 @endcan
                 @can('pelanggan')
                 @endcan
