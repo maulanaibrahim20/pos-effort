@@ -1,5 +1,7 @@
 @extends('landing-page.main')
 
+@push("title", "Invoice " . $invoice["invoiceId"])
+
 @push('content-page')
 
 <div class="container mt-4 mb-4">
@@ -65,7 +67,7 @@
                     @if ($invoice["tipeTransaksi"] != null)
 
                         <tr>
-                            <td style="width: 150px;">Status Transaksi</td>
+                            <td style="width: 150px;">Tipe Transaksi</td>
                             <td style="width: 20px">:</td>
                             <td>
                                 <span class="fw-bold">
