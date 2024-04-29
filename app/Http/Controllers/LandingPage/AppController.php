@@ -232,7 +232,7 @@ class AppController extends Controller
             $transaksi = $this->transaksi->create([
                 "invoiceId" => "TRX-" . date("YmdHis"),
                 "namaUser" => $request["nama-customer"],
-                "totalHarga" => 10000,
+                "totalHarga" => 0,
                 "kasirId" => Auth::user()->id,
                 "status" => 1 // PENDING
             ]);
