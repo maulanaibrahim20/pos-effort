@@ -2,6 +2,7 @@ APP_NAME=PointOfSales
 APP_ENV=local
 APP_KEY=base64:LTPZNzUAj96+Jm7Rd/64OIjLJg1up48YjdgYrvprBd4=
 APP_DEBUG=true
+# ubah app_url dari localhost ke bawah ini sesuai dengan url project
 APP_URL=http://127.0.0.1:8000
 
 LOG_CHANNEL=stack
@@ -57,5 +58,6 @@ VITE_PUSHER_PORT="${PUSHER_PORT}"
 VITE_PUSHER_SCHEME="${PUSHER_SCHEME}"
 VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
+# tambahkan ini di envnya
 XENDIT_APP_KEY=xnd_development_b08GFNgK4ERdx3do9HtFXOnMAcJlrj75tGJh15Nd1OA9YxuOY342GBmESts4T
 XENDIT_URL=https://checkout-staging.xendit.co/web/
