@@ -10,13 +10,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">
+                    <a class="nav-link" aria-current="page" href="{{ url('/') }}">
                         <i class="fa fa-home"></i> Home
                     </a>
                 </li>
                 @if (!empty(Auth::user()))
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="{{ url('/riwayat-transaksi') }}" class="nav-link">
                             <i class="fa fa-book"></i> Riwayat Transaksi
                         </a>
                     </li>
