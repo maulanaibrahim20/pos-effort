@@ -8,21 +8,62 @@
             Nomor Transaksi : {{ $invoice["invoiceId"] }}
         </div>
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <span class="fw-bold">
-                        <i class="fa fa-user"></i> Data Pelanggan
-                    </span>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-3">Nama :</div>
-                        <div class="col-md-6">
-                            {{ $invoice["namaUser"] }}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3"></div>
-            </div>
+            <img src="{{ URL::asset('assets/images/brand/logo1.png') }}" alt="Image Logo" style="width: 300px; height: auto">
+            <table class="mt-3 mb-3">
+                <tbody>
+                    <tr>
+                        <td style="width: 150px;">Kasir</td>
+                        <td style="width: 20px">:</td>
+                        <td>
+                            <strong>
+                                {{ $invoice['users']['nama'] }}
+                            </strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;">Nama Customer</td>
+                        <td style="width: 20px">:</td>
+                        <td>
+                            <strong>
+                                {{ $invoice['namaUser'] }}
+                            </strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;">Nomor HP</td>
+                        <td style="width: 20px">:</td>
+                        <td>
+                            <strong>
+                                {{ $invoice['nomorHpAktif'] == null ? '-' : $invoice['nomorHpAktif'] }}
+                            </strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;">Total Harga</td>
+                        <td style="width: 20px">:</td>
+                        <td>
+                            <strong>
+                                Rp. {{ number_format($invoice["totalHarga"]) }}
+                            </strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;">Status Transaksi</td>
+                        <td style="width: 20px">:</td>
+                        <td>
+                            @if ($invoice["statusOrder"] == "PAID" || $invoice["statusOrder"] == "SETTLED")
+                                <span class="badge bg-success">
+                                    <i class="fa fa-check"></i> Sudah Bayar
+                                </span>
+                            @elseif($invoice["statusOrder"] == "UNPAID")
+                                <span class="badge bg-danger">
+                                    <i class="fa fa-times"></i> Belum Bayar
+                                </span>
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -57,6 +98,26 @@
                     </tr>
                 </tfoot>
             </table>
+
+            @if ($invoice["statusOrder"] == "UNPAID")
+                <p class="fw-bold">
+                    Pilih Metode Pembayaran :
+                </p>
+                <button class="btn btn-primary shadow mb-2">
+                    <i class="fa fa-edit"></i> Cash
+                </button>
+                <a href="{{ config('xendit.url') }}{{ $invoice['xenditId'] }}" target="_blank" class="btn btn-success shadow mb-2">
+                    <i class="fa fa-book"></i> Transfer
+                </a>
+            @elseif($invoice["statusOrder"] == "PAID" || $invoice["statusOrder"] == "SETTLED")
+                <div class="alert alert-success">
+                    <div class="text-center">
+                        Sudah Melakukan Pembayaran, Eksternal ID : <b>{{ $invoice["xenditId"] }}</b>
+                    </div>
+                </div>
+            @else
+
+            @endif
         </div>
     </div>
 </div>
