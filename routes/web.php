@@ -35,6 +35,8 @@ Route::post("/checkout", [AppController::class, "checkout"]);
 
 Route::get("/transaksi/{no_invoice}", [AppController::class, "invoice"]);
 
+Route::get("/riwayat-transaksi", [AppController::class, "riwayatTransaksi"]);
+
 Route::middleware(['guest'])->group(function () {
 
     Route::prefix('login')->name('login.')->group(function () {
