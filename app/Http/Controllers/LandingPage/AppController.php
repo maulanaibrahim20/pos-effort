@@ -11,13 +11,15 @@ use App\Models\TransaksiDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Xendit\Xendit;
 
 class AppController extends Controller
 {
-    protected $keranjang, $keranjangDetail, $produk, $transaksi, $transaksiDetail;
+    protected $keranjang, $keranjangDetail, $produk, $transaksi, $transaksiDetail, $serverKey;
 
     public function __construct()
     {
+        $this->serverKey = config("xendit.xendit_key");
         $this->keranjang = new Keranjang();
         $this->keranjangDetail = new KeranjangDetail();
         $this->produk = new Produk();
@@ -218,6 +220,8 @@ class AppController extends Controller
 
             DB::beginTransaction();
 
+            Xendit::setApiKey($this->serverKey);
+
             $keranjang = $this->keranjang->where("userId", Auth::user()->id)
                 ->where("status", 1)
                 ->first();
@@ -228,7 +232,7 @@ class AppController extends Controller
             $transaksi = $this->transaksi->create([
                 "invoiceId" => "TRX-" . date("YmdHis"),
                 "namaUser" => $request["nama-customer"],
-                "totalHarga" => 0,
+                "totalHarga" => 10000,
                 "kasirId" => Auth::user()->id,
                 "status" => 1 // PENDING
             ]);
@@ -248,7 +252,25 @@ class AppController extends Controller
                 "totalHarga" => $keranjang["totalHarga"]
             ]);
 
+            $amount = $keranjang["totalHarga"];
+
             $keranjang->delete();
+
+            $params = [
+                "external_id" => $transaksi["invoiceId"],
+                "amount" => $amount,
+                "description" => "Pembayaran Transfer",
+                "invoice_duration" => 1800,
+                "currency" => "IDR",
+                "success_redirect_url" => env("APP_URL") . "/riwayat-transaksi"
+            ];
+
+            $createInvoiceRequest = \Xendit\Invoice::create($params);
+
+            $this->transaksi->where("id", $transaksi["id"])->update([
+                "statusOrder" => "UNPAID",
+                "xenditId" => $createInvoiceRequest["id"]
+            ]);
 
             DB::commit();
 
@@ -320,6 +342,23 @@ class AppController extends Controller
                 "status" => true,
                 "message" => "Qty Berhasil di Simpan"
             ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            die($e->getMessage());
+        }
+    }
+
+    public function riwayatTransaksi()
+    {
+        try {
+
+            DB::beginTransaction();
+
+            echo "ada";
+
+            DB::commit();
 
         } catch (\Exception $e) {
             DB::rollBack();
