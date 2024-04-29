@@ -20,6 +20,7 @@ return new class extends Migration
             $table->double("totalHarga");
             $table->string("kasirId", 50);
             $table->tinyInteger("status")->default(1);
+            $table->enum("tipeTransaksi", ["CASH", "TRANSFER"])->nullable();
             $table->string("statusOrder", 50)->nullable();
             $table->string("paymentChannel", 100)->nullable();
         });
