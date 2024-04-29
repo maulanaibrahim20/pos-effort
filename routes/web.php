@@ -37,6 +37,9 @@ Route::get("/transaksi/{no_invoice}", [AppController::class, "invoice"]);
 
 Route::get("/riwayat-transaksi", [AppController::class, "riwayatTransaksi"]);
 
+Route::get("/pembayaran-cash/{id}", [AppController::class, "pembayaranCash"]);
+Route::put("/pembayaran-cash/{id}", [AppController::class, "updateCashAmount"]);
+
 Route::middleware(['guest'])->group(function () {
 
     Route::prefix('login')->name('login.')->group(function () {
