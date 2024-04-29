@@ -27,10 +27,6 @@ class CallbackController extends Controller
             $reqHeaders = $request->header('x-callback-token');
             $xIncomingCallbackTokenHeader = isset($reqHeaders) ? $reqHeaders : "";
 
-            $response = Http::withHeaders([
-                'Authorization' => 'Basic ' . base64_encode($this->serverKey)
-            ])->get("https://api.xendit.co/v2/invoices/" . $request->invoice_id);
-
             if ($xIncomingCallbackTokenHeader) {
                 if ($request->status == 'PAID' || $request->status == 'SETTLED') {
                     $transaksi = $this->transaksi->where("xenditId", $request->id)->first();
@@ -50,7 +46,9 @@ class CallbackController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
 
-            return redirect("/");
+            return response()->json([
+                "status" => false
+            ])
         }
     }
 }
