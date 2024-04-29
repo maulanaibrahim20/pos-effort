@@ -62,6 +62,30 @@
                             @endif
                         </td>
                     </tr>
+                    @if ($invoice["tipeTransaksi"] != null)
+
+                        <tr>
+                            <td style="width: 150px;">Status Transaksi</td>
+                            <td style="width: 20px">:</td>
+                            <td>
+                                <span class="fw-bold">
+                                    {{ $invoice["tipeTransaksi"] }}
+                                </span>
+                            </td>
+                        </tr>
+
+                        @if (!empty($invoice["paymentChannel"]))
+                            <tr>
+                                <td style="width: 150px;">Payment Channel</td>
+                                <td style="width: 20px">:</td>
+                                <td>
+                                    <span class="fw-bold">
+                                        {{ $invoice["paymentChannel"] }}
+                                    </span>
+                                </td>
+                            </tr>
+                        @endif
+                    @endif
                 </tbody>
             </table>
             <table class="table table-bordered table-striped">
