@@ -356,9 +356,53 @@ class AppController extends Controller
 
             DB::beginTransaction();
 
-            echo "ada";
+            DB::commit();
+
+            return view("landing-page.riwayat-transaksi");
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            die($e->getMessage());
+        }
+    }
+
+    public function pembayaranCash($id)
+    {
+        try {
+
+            DB::beginTransaction();
+
+            $data["transaksi"] = $this->transaksi->where("id", $id)->first();
 
             DB::commit();
+
+            return view("landing-page.amount-invoice", $data);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            die($e->getMessage());
+        }
+    }
+
+    public function updateCashAmount(Request $request, $id)
+    {
+        try {
+
+            DB::beginTransaction();
+
+            $transaksi = $this->transaksi->where("id", $id)->first();
+
+            $transaksi->update([
+                "tipeTransaksi" => "CASH",
+                "statusOrder" => "PAID",
+                "xenditId" => NULL
+            ]);
+
+            DB::commit();
+
+            return redirect()->back();
 
         } catch (\Exception $e) {
             DB::rollBack();
