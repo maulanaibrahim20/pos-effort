@@ -23,12 +23,14 @@ class ProdukDetailSeeder extends Seeder
 
         ProdukDetail::create([
             "groupingSatuanBahanId" => $groupingSatuanBahan1->id,
-            "produkId" => $produk1->id
+            "produkId" => $produk1->id,
+            "quantityStokBahan" => 2
         ]);
 
         ProdukDetail::create([
             "groupingSatuanBahanId" => $groupingSatuanBahan2->id,
-            "produkId" => $produk2->id
+            "produkId" => $produk2->id,
+            "quantityStokBahan" => 3
         ]);
     }
 }

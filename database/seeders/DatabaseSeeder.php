@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             GroupingKategoriBahanSeeder::class,
             GroupingSatuanBahanSeeder::class,
             ProdukSeeder::class,
-            ProdukDetailSeeder::class
+            ProdukDetailSeeder::class,
+            StokBahanSeeder::class
         ]);
     }
 }

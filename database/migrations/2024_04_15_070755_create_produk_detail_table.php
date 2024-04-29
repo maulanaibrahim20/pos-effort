@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid("id")->primary();
             $table->string("groupingSatuanBahanId", 50);
             $table->string("produkId", 50);
+            $table->integer("quantityStokBahan")->default(0)->nullable();
         });
     }
 
