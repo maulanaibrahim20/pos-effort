@@ -19,4 +19,9 @@ class Transaksi extends Model
     public $primaryKey = "id";
 
     public $timestamps = false;
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, "kasirId", "id");
+    }
 }
