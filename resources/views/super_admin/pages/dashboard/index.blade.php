@@ -75,7 +75,7 @@
         </div>
         <!-- col end -->
         <div class="col-sm-12 col-lg-6 col-md-6 col-xxl-3">
-            <a href="#" class="card overflow-hidden">
+            <a href="{{ url('/super_admin/transaksi') }}" class="card overflow-hidden">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">

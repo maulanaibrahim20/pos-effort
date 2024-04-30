@@ -11,6 +11,7 @@ use App\Http\Controllers\Master\ProdukController;
 use App\Http\Controllers\Master\SatuanBahanController;
 use App\Http\Controllers\SemiMaster\GroupingKategoriBahanController;
 use App\Http\Controllers\SemiMaster\GroupingSatuanBahanController;
+use App\Http\Controllers\Transaksi\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -88,6 +89,8 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::resource('grouping_satuan_bahan', GroupingSatuanBahanController::class);
                 Route::get('grouping_satuan_bahan/{id}/edit', [GroupingSatuanBahanController::class, 'edit']);
             });
+            Route::get('/transaksi', [TransaksiController::class, 'index']);
+            Route::post('transaksi/filterByStatus', [TransaksiController::class, 'filterByStatus']);
             Route::get('/dashboard', [DashboardController::class, 'super_admin']);
         });
     });

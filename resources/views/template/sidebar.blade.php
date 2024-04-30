@@ -83,34 +83,15 @@
                                 class="side-menu__icon fa fa-balance-scale"></i><span class="side-menu__label">Group Satuan
                                 Bahan</span></a>
                     </li>
-                    {{-- <li class="sub-category">
+                    <li class="sub-category">
                         <h3>Transaksi</h3>
-                    </li> --}}
-                    {{-- <li>
-                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
-                                class="side-menu__icon fe fe-dollar-sign"></i><span
-                                class="side-menu__label">Pengeluaran</span></a>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
-                                class="side-menu__icon fe fe-arrow-down-circle"></i><span
-                                class="side-menu__label">Pembelian</span></a>
+                        <a class="side-menu__item {{ Request::segment(2) == 'transaksi' ? 'active' : '' }}"
+                            href="{{ url('/super_admin/transaksi') }}"><i
+                                class="side-menu__icon fe fe-trending-up"></i><span class="side-menu__label">Transaksi
+                            </span></a>
                     </li>
-                    <li>
-                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
-                                class="side-menu__icon fe fe-arrow-up-circle"></i><span
-                                class="side-menu__label">Penjualan</span></a>
-                    </li>
-                    <li>
-                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
-                                class="side-menu__icon fe fe-shopping-bag"></i><span class="side-menu__label">Transaksi
-                                Lama</span></a>
-                    </li>
-                    <li>
-                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
-                                class="side-menu__icon fe fe-shopping-cart"></i><span class="side-menu__label">Transaksi
-                                Baru</span></a>
-                    </li> --}}
                     {{-- <li class="sub-category">
                         <h3>Report</h3>
                         </li> --}}
@@ -119,21 +100,21 @@
                                 class="side-menu__icon fe fe-file-text"></i><span
                                 class="side-menu__label">Laporan</span></a>
                     </li> --}}
-                    <li class="sub-category">
-                        <h3>Pengaturan</h3>
-                    </li>
-                    <li>
-                        <a class="side-menu__item {{ Request::segment(3) == 'user' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/profil/user') }}"><i class="side-menu__icon fe fe-user"></i><span
-                                class="side-menu__label">Profile Saya</span></a>
-                    </li>
-                    <li>
-                        <a class="side-menu__item" href="{{ url('/logout') }}"><i
-                                class="side-menu__icon fe fe-log-out"></i><span class="side-menu__label">Logout</span></a>
-                    </li>
                 @endcan
                 @can('pelanggan')
                 @endcan
+                <li class="sub-category">
+                    <h3>Pengaturan</h3>
+                </li>
+                <li>
+                    <a class="side-menu__item {{ Request::segment(3) == 'user' ? 'active' : '' }}"
+                        href="{{ url('/super_admin/profil/user') }}"><i class="side-menu__icon fe fe-user"></i><span
+                            class="side-menu__label">Profile Saya</span></a>
+                </li>
+                <li>
+                    <a class="side-menu__item" href="{{ url('/logout') }}"><i
+                            class="side-menu__icon fe fe-log-out"></i><span class="side-menu__label">Logout</span></a>
+                </li>
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"
                     width="24" height="24" viewBox="0 0 24 24">
