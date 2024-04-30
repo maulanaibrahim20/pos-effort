@@ -54,6 +54,8 @@
                                         Total</th>
                                     <th class="fw-semibold fs-14 border-bottom-0">
                                         Status</th>
+                                    <th class="fw-semibold fs-14 border-bottom-0">
+                                        Jenis Transaksi</th>
                                     <th class="fw-semibold fs-14 border-bottom-0 text-center">
                                         Action</th>
                                 </tr>
@@ -80,6 +82,18 @@
                                                         Bayar</span>
                                                 @elseif ($data['statusOrder'] == 'PAID')
                                                     <span class="badge text-white bg-success fw-semibold fs-11">Sudah
+                                                        Bayar</span>
+                                                @endif
+                                            </td>
+                                            <td class="fs-15 fw-semibold">
+                                                @if ($data['tipeTransaksi'] == 'CASH')
+                                                    <span
+                                                        class="badge rounded-pill badge-gradient-success me-1 my-1">Cash</span>
+                                                @elseif ($data['tipeTransaksi'] == 'TRANSFER')
+                                                    <span class="badge rounded-pill badge-gradient-primary me-1 my-1">Online
+                                                        Payment</span>
+                                                @elseif ($data['tipeTransaksi'] == '')
+                                                    <span class="badge rounded-pill badge-gradient-danger me-1 my-1">Belum
                                                         Bayar</span>
                                                 @endif
                                             </td>
@@ -114,6 +128,18 @@
                                                         Bayar</span>
                                                 @elseif ($filter['statusOrder'] == 'PAID')
                                                     <span class="badge text-white bg-success fw-semibold fs-11">Sudah
+                                                        Bayar</span>
+                                                @endif
+                                            </td>
+                                            <td class="fs-15 fw-semibold">
+                                                @if ($data['tipeTransaksi'] == 'CASH')
+                                                    <span
+                                                        class="badge rounded-pill badge-gradient-success me-1 my-1">Cash</span>
+                                                @elseif ($data['tipeTransaksi'] == 'TRANSFER')
+                                                    <span class="badge rounded-pill badge-gradient-primary me-1 my-1">Online
+                                                        Payment</span>
+                                                @elseif ($data['tipeTransaksi'] == '')
+                                                    <span class="badge rounded-pill badge-gradient-danger me-1 my-1">Belum
                                                         Bayar</span>
                                                 @endif
                                             </td>
