@@ -62,7 +62,7 @@
                             </thead>
                             <tbody>
                                 @if (empty(session('filterBayar')))
-                                    @forelse ($transaksi as $data)
+                                    @foreach ($transaksi as $data)
                                         <tr class="border-bottom">
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center">
@@ -104,11 +104,9 @@
                                                 </button>
                                             </td>
                                         </tr>
-                                    @empty
-                                        <p>Data Tidak Tersedia</p>
-                                    @endforelse
+                                    @endforeach
                                 @else
-                                    @forelse (session('filterBayar') as $filter)
+                                    @foreach (session('filterBayar') as $filter)
                                         <tr class="border-bottom">
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center">
@@ -132,13 +130,13 @@
                                                 @endif
                                             </td>
                                             <td class="fs-15 fw-semibold">
-                                                @if ($data['tipeTransaksi'] == 'CASH')
+                                                @if ($filter['tipeTransaksi'] == 'CASH')
                                                     <span
                                                         class="badge rounded-pill badge-gradient-success me-1 my-1">Cash</span>
-                                                @elseif ($data['tipeTransaksi'] == 'TRANSFER')
+                                                @elseif ($filter['tipeTransaksi'] == 'TRANSFER')
                                                     <span class="badge rounded-pill badge-gradient-primary me-1 my-1">Online
                                                         Payment</span>
-                                                @elseif ($data['tipeTransaksi'] == '')
+                                                @elseif ($filter['tipeTransaksi'] == '')
                                                     <span class="badge rounded-pill badge-gradient-danger me-1 my-1">Belum
                                                         Bayar</span>
                                                 @endif
@@ -150,9 +148,7 @@
                                                 </button>
                                             </td>
                                         </tr>
-                                    @empty
-                                        <p>Data Tidak Tersedia</p>
-                                    @endforelse
+                                    @endforeach
                                 @endif
                             </tbody>
                         </table>
