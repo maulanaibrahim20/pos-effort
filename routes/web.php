@@ -65,13 +65,6 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::put('user/update_password/{id}', [EditProfileController::class, 'UpdatePassword']);
             });
             Route::prefix('master')->group(function () {
-                Route::resource('kategori_bahan', KategoriBahanController::class);
-                Route::get("kategori_bahan/{id}/edit", [KategoriBahanController::class, "edit"]);
-                Route::resource('bahan', BahanController::class);
-                Route::get('bahan/{id}/edit', [BahanController::class, "edit"]);
-                Route::resource('satuan_bahan', SatuanBahanController::class);
-                Route::get('satuan_bahan/{id}/edit', [SatuanBahanController::class, 'edit']);
-                Route::post('satuan_bahan/changeStatus/{id}', [SatuanBahanController::class, 'changeStatus']);
                 Route::resource('produk', ProdukController::class);
                 Route::get('produk/{id}/edit', [ProdukController::class, 'edit']);
                 Route::post('produk/changeStatus/{id}', [ProdukController::class, 'changeStatus']);
@@ -84,10 +77,6 @@ Route::middleware(['autentikasi'])->group(function () {
                 });
             });
             Route::prefix('semi_master')->group(function () {
-                Route::resource('grouping_kategori_bahan', GroupingKategoriBahanController::class);
-                Route::get('grouping_kategori_bahan/{id}/edit', [GroupingKategoriBahanController::class, 'edit']);
-                Route::resource('grouping_satuan_bahan', GroupingSatuanBahanController::class);
-                Route::get('grouping_satuan_bahan/{id}/edit', [GroupingSatuanBahanController::class, 'edit']);
             });
             Route::get('/transaksi', [TransaksiController::class, 'index']);
             Route::post('transaksi/filterByStatus', [TransaksiController::class, 'filterByStatus']);
