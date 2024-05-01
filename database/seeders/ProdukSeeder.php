@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Mitra;
 use App\Models\Produk;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,18 +14,23 @@ class ProdukSeeder extends Seeder
      */
     public function run(): void
     {
+        $mitra = Mitra::first();
         Produk::create([
             "kategori" => "Makanan",
-            "nama" => "Rendang Mahal",
+            "namaProduk" => "Rendang Mahal",
+            "slugProduk" => "rendang-mahal",
             "status" => 1,
-            "hargaProduk" => 10000
+            "hargaProduk" => 10000,
+            "mitraId" => $mitra['id']
         ]);
 
         Produk::create([
             "kategori" => "Minuman",
-            "nama" => "Red Velvet",
+            "namaProduk" => "Rendang Mahal",
+            "slugProduk" => "rendang-mahal",
             "status" => 1,
-            "hargaProduk" => 30000
+            "hargaProduk" => 30000,
+            "mitraId" => $mitra['id']
         ]);
     }
 }

@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('keranjang', function (Blueprint $table) {
-            $table->uuid("id")->primary();
-            $table->string("userId", 50);
-            $table->date("tanggal");
-            $table->double("totalHarga");
+        Schema::create('karyawan', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('userId', 50);
             $table->string('mitraId', 50);
-            $table->enum("status", [1, 0])->default(1);
+            $table->string('nomorHpAktif', 50);
+            $table->text('alamat');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('keranjang');
+        Schema::dropIfExists('karyawan');
     }
 };

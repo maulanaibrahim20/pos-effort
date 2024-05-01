@@ -17,17 +17,27 @@ class UserSeeder extends Seeder
         User::create([
             'nama' => 'Maulana Ibrahim',
             'email' => 'maul@gmail.com',
+            'username' => 'maul',
             'password' => bcrypt('maulana123'),
             'akses' => 1,
-            'status' => 1,
+            'active' => 1,
         ]);
 
         User::create([
             'nama' => 'Ultramen Polindra',
             'email' => 'ultramen@gmail.com',
+            'username' => 'ultramen',
             'password' => bcrypt('ultramen123'),
-            'akses' => 1,
-            'status' => 1,
+            'akses' => 2,
+            'active' => 1,
+        ]);
+        User::create([
+            'nama' => 'Ultramen Gamaci',
+            'email' => 'ultramenG@gmail.com',
+            'username' => 'ultramenG',
+            'password' => bcrypt('ultramen123'),
+            'akses' => 3,
+            'active' => 1,
         ]);
     }
 }

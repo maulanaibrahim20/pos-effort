@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('produk', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->enum("kategori", ["Makanan", "Minuman"]);
-            $table->string("nama", 150);
+            $table->string("namaProduk", 100);
+            $table->string("slugProduk");
             $table->enum("status", [1, 0])->default(0);
             $table->double("hargaProduk");
             $table->string("fotoProduk")->nullable();
+            $table->string("mitraId", 50);
         });
     }
 

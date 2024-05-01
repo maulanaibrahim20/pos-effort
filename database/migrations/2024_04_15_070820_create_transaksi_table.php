@@ -14,14 +14,17 @@ return new class extends Migration
         Schema::create('transaksi', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->string("invoiceId", 50);
-            $table->string("xenditId", 150)->nullable();
+            $table->string("xenditId", 50)->nullable();
             $table->string("namaUser", 100);
-            $table->string("nomorHpAktif", 30)->nullable();
+            $table->string("nomorHpAktif", 50)->nullable();
             $table->double("totalHarga");
-            $table->string("kasirId", 50);
-            $table->tinyInteger("status")->default(1);
+            $table->string("usernameKasir", 50);
+            $table->string("mitraId", 50);
+            $table->string("namaMitra", 150);
             $table->enum("tipeTransaksi", ["CASH", "TRANSFER"])->nullable();
-            $table->string("statusOrder", 50)->nullable();
+            $table->tinyInteger("statusOrder")->nullable();
+            $table->datetime("tanggalOrder");
+            $table->datetime("tanggalBayar")->nullable();
             $table->string("paymentChannel", 100)->nullable();
         });
     }

@@ -27,7 +27,8 @@ class User extends Authenticatable
     {
         $aksesNames = [
             1 => 'Super Admin',
-            2 => 'Pelanggan',
+            2 => 'Admin',
+            3 => 'Karyawan',
         ];
 
         return $aksesNames[$this->akses] ?? 'Tidak Diketahui';

@@ -2,9 +2,9 @@
     <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
     <div class="app-sidebar">
         <div class="side-header">
-            @if (Auth::user()->role_id == 1)
+            @if (Auth::user()->akses == 1)
                 <a class="header-brand1" href="{{ url('/super_admin/dashboard') }}">
-                @elseif (Auth::user()->role_id == 2)
+                @elseif (Auth::user()->akses == 2)
                     <a class="header-brand1" href="{{ url('/member/dashboard') }}">
             @endif
             <img src="{{ url('/assets') }}/images/brand/logo1.png" class="header-brand-img main-logo" alt="Sparic logo"
@@ -47,41 +47,14 @@
                         <h3>Master Data</h3>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(3) == 'kategori_bahan' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/master/kategori_bahan') }}"><i
-                                class="side-menu__icon fe fe-box"></i><span class="side-menu__label">Kategori
-                                Bahan</span></a>
-                    </li>
-                    <li>
-                        <a class="side-menu__item {{ Request::segment(3) == 'bahan' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/master/bahan') }}"><i
-                                class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Bahan</span></a>
-                    </li>
-                    <li>
-                        <a class="side-menu__item {{ Request::segment(3) == 'satuan_bahan' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/master/satuan_bahan') }}"><i
-                                class="side-menu__icon fe fe-hard-drive"></i><span class="side-menu__label">Satuan
-                                Bahan</span></a>
+                        <a class="side-menu__item {{ Request::segment(3) == 'produk' ? 'active' : '' }}"
+                            href="{{ url('') }}"><i class="side-menu__icon fe fe-truck"></i><span
+                                class="side-menu__label">Produk</span></a>
                     </li>
                     <li>
                         <a class="side-menu__item {{ Request::segment(3) == 'produk' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/master/produk') }}"><i class="side-menu__icon fe fe-truck"></i><span
-                                class="side-menu__label">Produk</span></a>
-                    </li>
-                    <li class="sub-category">
-                        <h3>Manage Data</h3>
-                    </li>
-                    <li>
-                        <a class="side-menu__item {{ Request::segment(3) == 'grouping_kategori_bahan' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/semi_master/grouping_kategori_bahan') }}"><i
-                                class="side-menu__icon fa fa-truck"></i><span class="side-menu__label">Group Kategori
-                                Bahan</span></a>
-                    </li>
-                    <li>
-                        <a class="side-menu__item {{ Request::segment(3) == 'grouping_satuan_bahan' ? 'active' : '' }}"
-                            href="{{ url('/super_admin/semi_master/grouping_satuan_bahan') }}"><i
-                                class="side-menu__icon fa fa-balance-scale"></i><span class="side-menu__label">Group Satuan
-                                Bahan</span></a>
+                            href="{{ url('') }}"><i class="side-menu__icon fe fe-truck"></i><span
+                                class="side-menu__label">Stok Produk</span></a>
                     </li>
                     <li class="sub-category">
                         <h3>Transaksi</h3>
@@ -92,17 +65,25 @@
                                 class="side-menu__icon fe fe-trending-up"></i><span class="side-menu__label">Transaksi
                             </span></a>
                     </li>
-                    {{-- <li class="sub-category">
+                    <li class="sub-category">
                         <h3>Report</h3>
-                        </li> --}}
-                    {{-- <li>
+                    </li>
+                    <li>
                         <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
                                 class="side-menu__icon fe fe-file-text"></i><span
                                 class="side-menu__label">Laporan</span></a>
-                    </li> --}}
+                    </li>
                 @endcan
                 @can('pelanggan')
                 @endcan
+                <li class="sub-category">
+                    <h3>Penjualan</h3>
+                </li>
+                <li>
+                    <a class="side-menu__item" href="{{ url('/') }}"><i
+                            class="side-menu__icon fe fe-shopping-bag"></i><span
+                            class="side-menu__label">Kasir</span></a>
+                </li>
                 <li class="sub-category">
                     <h3>Pengaturan</h3>
                 </li>

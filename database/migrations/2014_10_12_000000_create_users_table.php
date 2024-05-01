@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->string("nama", 150);
+            $table->string("username", 100);
             $table->string('email', 255)->unique();
             $table->string('password');
             $table->string("foto")->nullable();
-            $table->tinyInteger("akses")->comment("1 = Super Admin, 2 = Pelanggan");
-            $table->enum("status", [1, 0])->default(0);
+            $table->enum("akses", ['1', '2', '3'])->default('1')->comment("Tipe akses pengguna: 1 = Super Admin, 2 = Admin, 3 = Karyawan");
+            $table->enum("active", [1, 0])->default(0);
             $table->timestamps();
         });
     }

@@ -101,7 +101,7 @@ Route::middleware(['autentikasi'])->group(function () {
                 return view('welcome');
             });
             Route::get('/dashboard', function () {
-                return view('pelanggan.pages.dashboard.index');
+                return view('member.pages.dashboard.index');
             });
         });
     });
