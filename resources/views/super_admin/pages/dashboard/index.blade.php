@@ -61,7 +61,7 @@
                                 <div>
                                     <p class="mb-0 fw-semibold text-dark lh-1">Kategori Bahan</p>
                                     <div class="fs-12 text-muted mb-5">Total Kategori Bahan</div>
-                                    <div class="fs-30 fw-semibold mb-0 lh-1">{{ $total_kategori }}
+                                    <div class="fs-30 fw-semibold mb-0 lh-1">
                                     </div>
                                 </div>
                                 <div class="text-end d-flex flex-column align-items-center">
