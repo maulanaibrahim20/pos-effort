@@ -33,4 +33,9 @@ class User extends Authenticatable
 
         return $aksesNames[$this->akses] ?? 'Tidak Diketahui';
     }
+
+    public function mitra()
+    {
+        return $this->hasOne(Mitra::class, 'userId');
+    }
 }

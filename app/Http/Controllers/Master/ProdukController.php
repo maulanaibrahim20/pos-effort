@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 use App\Http\Controllers\Controller;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\File;
@@ -27,16 +28,20 @@ class ProdukController extends Controller
             'breadcrumb_active' => 'Table Produk',
             'button_create' => 'Tambah Produk',
         ];
+        $mitra = Auth::user()->mitra->id;
         $data = [
-            'produk' => $this->produk->all(),
+            'produk' => $this->produk::where('mitraId', $mitra)->get(),
         ];
-
-        return view('super_admin.pages.master.produk.index', $content, $data);
+        return view('admin.pages.master.produk.index', $content, $data);
     }
 
     public function store(Request $request)
     {
         $messages = [
+            'namaProduk.required' => 'Nama produk harus diisi.',
+            'namaProduk.string' => 'Nama produk harus berupa teks.',
+            'namaProduk.min' => 'Panjang nama produk minimal :min karakter.',
+            'namaProduk.max' => 'Panjang nama produk maksimal :max karakter.',
             'kategori.required' => 'Kategori harus diisi.',
             'kategori.string' => 'Kategori harus berupa teks.',
             'harga.required' => 'Harga harus diisi.',
@@ -47,9 +52,9 @@ class ProdukController extends Controller
             'foto.mimes' => 'Format foto harus jpeg, png, jpg.',
             'foto.max' => 'Ukuran foto maksimal 2048 KB.',
         ];
-
         $request->validate([
-            'kategori' => 'required|string',
+            'namaProduk' => 'required|string|min:3|max:100',
+            'kategori' => 'required|',
             'harga' => 'required|numeric|min:500|max:100000',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ], $messages);
@@ -62,17 +67,21 @@ class ProdukController extends Controller
             $imagePath = 'produk_thumbnail/' . $newImageName;
 
             $request->file('foto')->move(public_path('produk_thumbnail'), $newImageName);
+            $mitraId = Auth::user()->mitra->id;
 
             $this->produk->create([
+                'namaProduk' => $request->namaProduk,
+                'slugProduk' => Str::slug($request->namaProduk),
                 'kategori' => $request->kategori,
                 'hargaProduk' => $request->harga,
                 'fotoProduk' => $imagePath,
-                'status' => '0',
+                'status' => '1',
+                'mitraId' => $mitraId,
             ]);
 
             DB::commit();
             Alert::success('success', 'Success Produk Berhasil Ditambahkan!');
-            return redirect('/super_admin/master/produk')->with('success', 'Success Produk Berhasil Ditambahkan!');
+            return back()->with('success', 'Success Produk Berhasil Ditambahkan!');
         } catch (\Exception $e) {
             DB::rollback();
             Alert::error('error', 'Gagal Menambahkan Produk' . $e->getMessage());
@@ -84,24 +93,29 @@ class ProdukController extends Controller
     {
         $data["edit"] = $this->produk->where("id", $id)->first();
 
-        return view('super_admin.pages.master.produk.edit', $data);
+        return view('admin.pages.master.produk.edit', $data);
     }
 
     public function update(Request $request, $id)
     {
         $messages_modal = [
+            'namaProduk_modal.required' => 'Nama produk harus diisi.',
+            'namaProduk_modal.string' => 'Nama produk harus berupa teks.',
+            'namaProduk_modal.min' => 'Panjang nama produk minimal :min karakter.',
+            'namaProduk_modal.max' => 'Panjang nama produk maksimal :max karakter.',
             'kategori_modal.required' => 'Kategori harus diisi.',
             'kategori_modal.string' => 'Kategori harus berupa teks.',
             'harga_modal.required' => 'Harga harus diisi.',
             'harga_modal.numeric' => 'Harga harus berupa angka.',
             'harga_modal.min' => 'Harga minimal adalah :min.',
-            'harga_modal.max' => 'Harga maksimal adalah :max',
+            'harga_modal.max' => 'Harga maksimal adalah :max.',
             'foto_modal.image' => 'Foto harus berupa gambar.',
             'foto_modal.mimes' => 'Format foto harus jpeg, png, jpg.',
             'foto_modal.max' => 'Ukuran foto maksimal 2048 KB.',
         ];
 
         $request->validate([
+            'namaProduk_modal' => 'required|string|min:3|max:100',
             'kategori_modal' => 'required|string',
             'harga_modal' => 'required|numeric|min:500|max:100000',
             'foto_modal' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -123,13 +137,15 @@ class ProdukController extends Controller
                 $produk->fotoProduk = $imagePath;
             }
 
+            $produk->namaProduk = $request->namaProduk_modal;
+            $produk->slugProduk = Str::slug($request->namaProduk_modal);
             $produk->kategori = $request->kategori_modal;
             $produk->hargaProduk = $request->harga_modal;
             $produk->save();
 
             DB::commit();
             Alert::success('success', 'Produk Berhasil Diperbarui!');
-            return redirect('/super_admin/master/produk')->with('success', 'Produk Berhasil Diperbarui!');
+            return back()->with('success', 'Produk Berhasil Diperbarui!');
         } catch (\Exception $e) {
             DB::rollback();
             Alert::error('error', 'Gagal Memperbarui Produk: ' . $e->getMessage());

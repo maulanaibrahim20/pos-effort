@@ -65,9 +65,6 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::put('user/update_password/{id}', [EditProfileController::class, 'UpdatePassword']);
             });
             Route::prefix('master')->group(function () {
-                Route::resource('produk', ProdukController::class);
-                Route::get('produk/{id}/edit', [ProdukController::class, 'edit']);
-                Route::post('produk/changeStatus/{id}', [ProdukController::class, 'changeStatus']);
 
                 Route::get('member', function () {
                     return view('super_admin.pages.member.index');
@@ -86,6 +83,11 @@ Route::middleware(['autentikasi'])->group(function () {
 
     Route::group(['middleware' => ['can:admin']], function () {
         Route::prefix('admin')->group(function () {
+            Route::prefix('master')->group(function () {
+                Route::resource('produk', ProdukController::class);
+                Route::post('produk/changeStatus/{id}', [ProdukController::class, 'changeStatus']);
+                Route::get('produk/{id}/edit', [ProdukController::class, 'edit']);
+            });
             Route::get('/home', function () {
                 return view('welcome');
             });

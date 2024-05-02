@@ -48,11 +48,11 @@
                     </li>
                     <li>
                         <a class="side-menu__item {{ Request::segment(3) == 'produk' ? 'active' : '' }}"
-                            href="{{ url('') }}"><i class="side-menu__icon fe fe-truck"></i><span
+                            href="{{ url('/super_admin/master/produk') }}"><i class="side-menu__icon fe fe-truck"></i><span
                                 class="side-menu__label">Produk</span></a>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(3) == 'produk' ? 'active' : '' }}"
+                        <a class="side-menu__item {{ Request::segment(3) == '' ? 'active' : '' }}"
                             href="{{ url('') }}"><i class="side-menu__icon fe fe-truck"></i><span
                                 class="side-menu__label">Stok Produk</span></a>
                     </li>
@@ -74,16 +74,16 @@
                                 class="side-menu__label">Laporan</span></a>
                     </li>
                 @endcan
-                @can('pelanggan')
+                @can('admin')
+                    <li class="sub-category">
+                        <h3>Master Data</h3>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(3) == 'produk' ? 'active' : '' }}"
+                            href="{{ url('/admin/master/produk') }}"><i class="side-menu__icon fe fe-truck"></i><span
+                                class="side-menu__label">Produk</span></a>
+                    </li>
                 @endcan
-                <li class="sub-category">
-                    <h3>Penjualan</h3>
-                </li>
-                <li>
-                    <a class="side-menu__item" href="{{ url('/') }}"><i
-                            class="side-menu__icon fe fe-shopping-bag"></i><span
-                            class="side-menu__label">Kasir</span></a>
-                </li>
                 <li class="sub-category">
                     <h3>Pengaturan</h3>
                 </li>

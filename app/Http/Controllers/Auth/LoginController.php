@@ -39,7 +39,9 @@ class LoginController extends Controller
             if ($user->akses == 1) {
                 return redirect()->to('/super_admin/dashboard')->with('success', 'Anda Berhasil Login Selamat Datang' . Auth::user()->name);
             } elseif ($user->akses == 2) {
-                return redirect('/pelanggan/home');
+                return redirect('/admin/dashboard');
+            } elseif ($user->akses == 3) {
+                return redirect('/karyawan/dashboard');
             }
         }
         return back()->with('error', 'Gagal melakukan autentikasi');

@@ -20,4 +20,9 @@ class Mitra extends Model
     public $autoIncrement = false;
 
     public $timestamps = false;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userId');
+    }
 }
