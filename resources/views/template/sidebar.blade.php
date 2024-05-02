@@ -91,6 +91,15 @@
                             href="{{ url('/admin/master/produk') }}"><i class="side-menu__icon fe fe-truck"></i><span
                                 class="side-menu__label">Produk</span></a>
                     </li>
+                    <li class="sub-category">
+                        <h3>Transaksi</h3>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(3) == 'stok_produk' ? 'active' : '' }}"
+                            href="{{ url('/admin/transaksi/stok_produk') }}"><i
+                                class="side-menu__icon fa fa-cube"></i><span class="side-menu__label">Stok
+                                Produk</span></a>
+                    </li>
                 @endcan
                 <li class="sub-category">
                     <h3>Pengaturan</h3>

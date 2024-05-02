@@ -75,7 +75,7 @@ class ProdukController extends Controller
                 'kategori' => $request->kategori,
                 'hargaProduk' => $request->harga,
                 'fotoProduk' => $imagePath,
-                'status' => '1',
+                'status' => '0',
                 'mitraId' => $mitraId,
             ]);
 

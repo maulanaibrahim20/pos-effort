@@ -19,4 +19,9 @@ class Produk extends Model
     public $primaryKey = "id";
 
     public $timestamps = false;
+
+    public function stokProduk()
+    {
+        return $this->hasMany(StokProduk::class, 'produkId', 'id');
+    }
 }

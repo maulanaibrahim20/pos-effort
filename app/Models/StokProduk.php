@@ -21,4 +21,9 @@ class StokProduk extends Model
     public $autoIncrement = false;
 
     public $timestamps = false;
+
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class, 'produkId', 'id');
+    }
 }

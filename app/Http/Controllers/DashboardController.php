@@ -4,19 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\KategoriBahan;
 use App\Models\Produk;
+use App\Models\StokProduk;
 use App\Models\Transaksi;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    protected $user, $produk, $transaksi;
+    protected $user, $produk, $transaksi, $stokProduk;
 
-    public function __construct(User $user, Produk $produk, Transaksi $transaksi)
+    public function __construct(User $user, Produk $produk, Transaksi $transaksi, StokProduk $stokProduk)
     {
         $this->user = $user;
         $this->produk = $produk;
         $this->transaksi = $transaksi;
+        $this->stokProduk = $stokProduk;
     }
     public function super_admin()
     {
@@ -32,6 +35,7 @@ class DashboardController extends Controller
     {
         return view('admin.pages.dashboard.index');
     }
+
 
     public function karyawan()
     {

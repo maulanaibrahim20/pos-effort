@@ -11,6 +11,7 @@ use App\Http\Controllers\Master\ProdukController;
 use App\Http\Controllers\Master\SatuanBahanController;
 use App\Http\Controllers\SemiMaster\GroupingKategoriBahanController;
 use App\Http\Controllers\SemiMaster\GroupingSatuanBahanController;
+use App\Http\Controllers\Transaksi\StokProdukController;
 use App\Http\Controllers\Transaksi\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
@@ -88,8 +89,10 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::post('produk/changeStatus/{id}', [ProdukController::class, 'changeStatus']);
                 Route::get('produk/{id}/edit', [ProdukController::class, 'edit']);
             });
-            Route::get('/home', function () {
-                return view('welcome');
+            Route::prefix('transaksi')->group(function () {
+                Route::get('stok_produk', [StokProdukController::class, 'index']);
+                Route::post('tambah_qty', [StokProdukController::class, 'tambahQty']);
+                Route::post('changeStatus/{id}', [StokProdukController::class, 'changeStatus']);
             });
             Route::get('/dashboard', [DashboardController::class, 'admin']);
         });

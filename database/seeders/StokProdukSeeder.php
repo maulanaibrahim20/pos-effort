@@ -15,7 +15,7 @@ class StokProdukSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::first();
+        $user = User::where('akses', 2)->first();
         $produk = Produk::orderBy('namaProduk', 'ASC')->take(2)->get();
         foreach ($produk as $produkItem) {
             StokProduk::create([

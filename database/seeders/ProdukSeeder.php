@@ -19,16 +19,16 @@ class ProdukSeeder extends Seeder
             "kategori" => "Makanan",
             "namaProduk" => "Rendang Mahal",
             "slugProduk" => "rendang-mahal",
-            "status" => 1,
+            "status" => '0',
             "hargaProduk" => 10000,
             "mitraId" => $mitra['id']
         ]);
 
         Produk::create([
             "kategori" => "Minuman",
-            "namaProduk" => "Rendang Mahal",
-            "slugProduk" => "rendang-mahal",
-            "status" => 1,
+            "namaProduk" => "Rendang Murah",
+            "slugProduk" => "rendang-murah",
+            "status" => '0',
             "hargaProduk" => 30000,
             "mitraId" => $mitra['id']
         ]);
