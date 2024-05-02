@@ -91,16 +91,12 @@ Route::middleware(['autentikasi'])->group(function () {
             Route::get('/home', function () {
                 return view('welcome');
             });
-            Route::get('/dashboard', function () {
-                return view('member.pages.dashboard.index');
-            });
+            Route::get('/dashboard', [DashboardController::class, 'admin']);
         });
     });
     Route::group(['middleware' => ['can:karyawan']], function () {
         Route::prefix('karyawan')->group(function () {
-            Route::get('/dashboard', function () {
-                return view('member.pages.dashboard.index');
-            });
+            Route::get('/dashboard', [DashboardController::class, 'karyawan']);
         });
     });
 });

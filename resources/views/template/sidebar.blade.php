@@ -5,7 +5,9 @@
             @if (Auth::user()->akses == 1)
                 <a class="header-brand1" href="{{ url('/super_admin/dashboard') }}">
                 @elseif (Auth::user()->akses == 2)
-                    <a class="header-brand1" href="{{ url('/member/dashboard') }}">
+                    <a class="header-brand1" href="{{ url('/admin/dashboard') }}">
+                    @elseif (Auth::user()->akses == 3)
+                        <a class="header-brand1" href="{{ url('/karyawan/dashboard') }}">
             @endif
             <img src="{{ url('/assets') }}/images/brand/logo1.png" class="header-brand-img main-logo" alt="Sparic logo"
                 style="width: 200px; height: auto;">
@@ -37,7 +39,13 @@
                     @elseif(Auth::user()->akses == 2)
                         <li>
                             <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
-                                href="{{ url('/pelanggan/dashboard') }}"><i class="side-menu__icon fa fa-home"></i><span
+                                href="{{ url('/admin/dashboard') }}"><i class="side-menu__icon fa fa-home"></i><span
+                                    class="side-menu__label">Dashboard</span></a>
+                        </li>
+                    @elseif(Auth::user()->akses == 3)
+                        <li>
+                            <a class="side-menu__item {{ Request::segment(2) == 'dashboard' ? 'active' : '' }}"
+                                href="{{ url('/karyawan/dashboard') }}"><i class="side-menu__icon fa fa-home"></i><span
                                     class="side-menu__label">Dashboard</span></a>
                         </li>
                     @endif

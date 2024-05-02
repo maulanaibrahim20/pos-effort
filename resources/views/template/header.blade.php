@@ -142,6 +142,10 @@
                                         <div class="text-center">
                                             <h5 class="text-dark mb-0 fw-semibold">{{ Auth::user()->nama }}</h5>
                                             <span class="text-muted fs-12">{{ Auth::user()->akses_name }}</span>
+                                            @if (Auth::user()->akses == 2)
+                                                <span class="text-muted fs-12">
+                                                    {{ Auth::user()->mitra->namaMitra }}</span>
+                                            @endif
                                         </div>
                                     </div>
                                     <a class="dropdown-item text-dark fw-semibold border-top" href="profile.html">

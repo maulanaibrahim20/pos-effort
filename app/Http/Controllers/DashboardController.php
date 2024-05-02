@@ -27,4 +27,14 @@ class DashboardController extends Controller
         ];
         return view('super_admin.pages.dashboard.index', $data);
     }
+
+    public function admin()
+    {
+        return view('admin.pages.dashboard.index');
+    }
+
+    public function karyawan()
+    {
+        return view('karyawan.pages.dashboard.index');
+    }
 }
