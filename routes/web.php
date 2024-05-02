@@ -84,11 +84,18 @@ Route::middleware(['autentikasi'])->group(function () {
         });
     });
 
-    Route::group(['middleware' => ['can:pelanggan']], function () {
-        Route::prefix('pelanggan')->group(function () {
+    Route::group(['middleware' => ['can:admin']], function () {
+        Route::prefix('admin')->group(function () {
             Route::get('/home', function () {
                 return view('welcome');
             });
+            Route::get('/dashboard', function () {
+                return view('member.pages.dashboard.index');
+            });
+        });
+    });
+    Route::group(['middleware' => ['can:karyawan']], function () {
+        Route::prefix('karyawan')->group(function () {
             Route::get('/dashboard', function () {
                 return view('member.pages.dashboard.index');
             });

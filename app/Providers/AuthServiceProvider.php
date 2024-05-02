@@ -33,11 +33,18 @@ class AuthServiceProvider extends ServiceProvider
                 return $user->akses == 1;
             }
         });
-        Gate::define("pelanggan", function ($user) {
+        Gate::define("admin", function ($user) {
             if (empty($user->akses)) {
                 return redirect("/logout");
             } else {
                 return $user->akses == 2;
+            }
+        });
+        Gate::define("karyawan", function ($user) {
+            if (empty($user->akses)) {
+                return redirect("/logout");
+            } else {
+                return $user->akses == 3;
             }
         });
     }
