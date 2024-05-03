@@ -20,4 +20,14 @@ class Karyawan extends Model
     public $autoIncrement = false;
 
     public $timestamps = false;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userId');
+    }
+
+    public function mitra()
+    {
+        return $this->belongsTo(Mitra::class, 'mitraId');
+    }
 }

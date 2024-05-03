@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\LandingPage\AppController;
+use App\Http\Controllers\Master\AkunKaryawanController;
 use App\Http\Controllers\Master\KategoriBahanController;
 use App\Http\Controllers\Master\BahanController;
 use App\Http\Controllers\Master\ProdukController;
@@ -88,6 +89,8 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::resource('produk', ProdukController::class);
                 Route::post('produk/changeStatus/{id}', [ProdukController::class, 'changeStatus']);
                 Route::get('produk/{id}/edit', [ProdukController::class, 'edit']);
+                Route::resource('karyawan', AkunKaryawanController::class);
+                Route::get('karyawan/{id}/edit', [AkunKaryawanController::class, 'edit']);
             });
             Route::prefix('transaksi')->group(function () {
                 Route::get('stok_produk', [StokProdukController::class, 'index']);

@@ -201,14 +201,14 @@
             });
         </script>
     @endif
-    @if (session('error'))
+    {{-- @if (session('error'))
         <script type="text/javascript">
             Swal.fire({
                 title: "{{ session('error') }}",
                 icon: "error"
             });
         </script>
-    @endif
+    @endif --}}
     @yield('script')
 
 </body>

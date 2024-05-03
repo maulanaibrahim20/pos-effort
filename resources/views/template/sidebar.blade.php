@@ -91,6 +91,11 @@
                             href="{{ url('/admin/master/produk') }}"><i class="side-menu__icon fe fe-truck"></i><span
                                 class="side-menu__label">Produk</span></a>
                     </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(3) == 'karyawan' ? 'active' : '' }}"
+                            href="{{ url('/admin/master/karyawan') }}"><i class="side-menu__icon fe fe-users"></i><span
+                                class="side-menu__label">Kelola Karyawan</span></a>
+                    </li>
                     <li class="sub-category">
                         <h3>Transaksi</h3>
                     </li>
