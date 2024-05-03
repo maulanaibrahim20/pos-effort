@@ -90,20 +90,20 @@ class AkunKaryawanController extends Controller
                     File::delete(public_path($karyawan->user->foto));
                 }
                 $imageExtension = $request->file('fotoKaryawan')->getClientOriginalExtension();
-                $newImageName = 'thumbnail_' . (count(File::files(public_path('karyawan_image'))) + 1) . '.' . $imageExtension;
+                $newImageName = 'karyawan_' . (count(File::files(public_path('karyawan_image'))) + 1) . '.' . $imageExtension;
                 $imagePath = 'karyawan_image/' . $newImageName;
                 $request->file('fotoKaryawan')->move(public_path('karyawan_image'), $newImageName);
 
                 $karyawan->user->foto = $imagePath;
             }
             $karyawan->update([
-                'alamat' => $request['alamatKaryawan'],
-                'nomorHpAktif' => $request['noTelpKaryawan'],
+                'alamat' => $request->alamatKaryawan,
+                'nomorHpAktif' => $request->noTelpKaryawan,
             ]);
             $karyawan->user->update([
-                'nama' => $request['namaKaryawan'],
-                'username' => $request['namaKaryawan'],
-                'email' => $request['emailKaryawan'],
+                'nama' => $request->namaKaryawan,
+                'username' => $request->namaKaryawan,
+                'email' => $request->emailKaryawan,
             ]);
 
             DB::commit();
@@ -121,12 +121,19 @@ class AkunKaryawanController extends Controller
     {
         try {
             DB::beginTransaction();
-            $karyawan = $this->karyawan->findOrFail($id);
-            $karyawan->delete();
-            $karyawan->user->delete();
-            DB::commit();
-            Alert::success('success', 'Success Data Karyawan Untuk ' . Auth::user()->mitra->namaMitra . ' Berhasil Dohapus!');
-            return back()->with('success', 'Success Data Karyawan Untuk ' . Auth::user()->mitra->namaMitra . ' Berhasil Dihapus!');
+            $karyawan = $this->karyawan::find($id);
+            if ($karyawan) {
+                if (File::exists(public_path($karyawan->user->foto))) {
+                    File::delete(public_path($karyawan->user->foto));
+                }
+                $karyawan->delete();
+                $karyawan->user->delete();
+                DB::commit();
+                Alert::success('success', 'Success Data Karyawan Untuk ' . Auth::user()->mitra->namaMitra . ' Berhasil Dihapus!');
+                return back()->with('success', 'Success Data Karyawan Untuk ' . Auth::user()->mitra->namaMitra . ' Berhasil Dihapus!');
+            } else {
+                throw new \Exception('Data Karyawan tidak ditemukan.');
+            }
         } catch (\Exception $e) {
             DB::rollback();
             Alert::error('Error', 'Error Data Karyawan Untuk ' . Auth::user()->mitra->namaMitra . ' Gagal Dihapus!' . $e->getMessage());
