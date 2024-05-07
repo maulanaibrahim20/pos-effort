@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterMitraController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\LandingPage\AppController;
 use App\Http\Controllers\Master\AkunKaryawanController;
+use App\Http\Controllers\Master\AkunMitraController;
 use App\Http\Controllers\Master\KategoriBahanController;
 use App\Http\Controllers\Master\BahanController;
 use App\Http\Controllers\Master\ProdukController;
@@ -51,6 +53,9 @@ Route::middleware(['guest'])->group(function () {
         Route::post('/proccess', [LoginController::class, 'proccess'])
             ->name('proccess');
     });
+
+    Route::get('/register', [RegisterMitraController::class, 'index']);
+    Route::post('/register/proccess', [RegisterMitraController::class, 'proccess']);
 });
 
 Route::middleware(['auth'])->name('web.')->group(function () {
@@ -67,15 +72,8 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::put('user/update_password/{id}', [EditProfileController::class, 'UpdatePassword']);
             });
             Route::prefix('master')->group(function () {
-
-                Route::get('member', function () {
-                    return view('super_admin.pages.member.index');
-                });
-                Route::get('supplier', function () {
-                    return view('super_admin.pages.supplier.index');
-                });
-            });
-            Route::prefix('semi_master')->group(function () {
+                Route::resource('mitra', AkunMitraController::class);
+                Route::get('mitra/{id}/edit', [AkunMitraController::class, 'edit']);
             });
             Route::get('/transaksi', [TransaksiController::class, 'index']);
             Route::post('transaksi/filterByStatus', [TransaksiController::class, 'filterByStatus']);

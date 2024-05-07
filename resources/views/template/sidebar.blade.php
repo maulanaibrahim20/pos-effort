@@ -60,9 +60,9 @@
                                 class="side-menu__label">Produk</span></a>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(3) == '' ? 'active' : '' }}"
-                            href="{{ url('') }}"><i class="side-menu__icon fe fe-truck"></i><span
-                                class="side-menu__label">Stok Produk</span></a>
+                        <a class="side-menu__item {{ Request::segment(3) == 'mitra' ? 'active' : '' }}"
+                            href="{{ url('/super_admin/master/mitra') }}"><i class="side-menu__icon fe fe-users"></i><span
+                                class="side-menu__label">Akun Mitra</span></a>
                     </li>
                     <li class="sub-category">
                         <h3>Transaksi</h3>
@@ -105,19 +105,30 @@
                                 class="side-menu__icon fa fa-cube"></i><span class="side-menu__label">Stok
                                 Produk</span></a>
                     </li>
+                    <li class="sub-category">
+                        <h3>Pengaturan</h3>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(3) == 'stok_produk' ? 'active' : '' }}"
+                            href="{{ url('/admin/transaksi/stok_produk') }}"><i
+                                class="side-menu__icon fa fa-bank"></i><span class="side-menu__label">
+                                Pengaturan Mitra</span>
+                        </a>
+                    </li>
                 @endcan
-                <li class="sub-category">
-                    <h3>Pengaturan</h3>
-                </li>
-                <li>
-                    <a class="side-menu__item {{ Request::segment(3) == 'user' ? 'active' : '' }}"
-                        href="{{ url('/super_admin/profil/user') }}"><i class="side-menu__icon fe fe-user"></i><span
-                            class="side-menu__label">Profile Saya</span></a>
-                </li>
-                <li>
-                    <a class="side-menu__item" href="{{ url('/logout') }}"><i
-                            class="side-menu__icon fe fe-log-out"></i><span class="side-menu__label">Logout</span></a>
-                </li>
+                @if (Auth::user()->akses == 2)
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(3) == 'user' ? 'active' : '' }}"
+                            href="{{ url('/admin/profil/user') }}"><i class="side-menu__icon fe fe-user"></i><span
+                                class="side-menu__label">Profile
+                                Saya</span></a>
+                    </li>
+                    <li>
+                        <a class="side-menu__item" href="{{ url('/logout') }}"><i
+                                class="side-menu__icon fe fe-log-out"></i><span
+                                class="side-menu__label">Logout</span></a>
+                    </li>
+                @endif
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"
                     width="24" height="24" viewBox="0 0 24 24">

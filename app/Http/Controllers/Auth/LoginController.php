@@ -28,20 +28,25 @@ class LoginController extends Controller
     {
         $user = $this->user->whereEmail($request->email)->first();
         if (!$user) {
-            return redirect(route('login.index'))->with('error', 'Periksa kembali Email Dan Password Anda!');
+            return redirect(route('login.index'))->with('error', 'Periksa kembali Email dan Password Anda!');
         }
         if (!Hash::check($request->password, $user->password)) {
-            return back()->with('error', 'Maaf Password Anda Salah!');
+            return back()->with('error', 'Maaf, Password Anda Salah!');
         }
+
+        if ($user->akses == 2 && $user->active == 0) {
+            return back()->with('warning', 'Akun Anda Belum Diaktifkan, Silahkan Hubungi Admin!');
+        }
+
         if (Auth::attempt(["email" => $request->email, "password" => $request->password])) {
             $request->session()->regenerate();
 
             if ($user->akses == 1) {
-                return redirect()->to('/super_admin/dashboard')->with('success', 'Anda Berhasil Login Selamat Datang' . Auth::user()->name);
+                return redirect()->to('/super_admin/dashboard')->with('success', 'Anda Berhasil Login. Selamat Datang, ' . Auth::user()->name);
             } elseif ($user->akses == 2) {
-                return redirect('/admin/dashboard');
+                return redirect('/admin/dashboard')->with('success', 'Anda Berhasil Login. Selamat Datang, ' . Auth::user()->name);
             } elseif ($user->akses == 3) {
-                return redirect('/karyawan/dashboard');
+                return redirect('/karyawan/dashboard')->with('success', 'Anda Berhasil Login. Selamat Datang, ' . Auth::user()->name);
             }
         }
         return back()->with('error', 'Gagal melakukan autentikasi');

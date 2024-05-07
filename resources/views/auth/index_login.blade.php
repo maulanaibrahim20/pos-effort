@@ -303,10 +303,11 @@
 
     <!--Global-Loader-->
     <div id="global-loader">
-        <img src="{{ url('/assets') }}/images/loader.svg" alt="loader">
+        <img src="{{ url('/assets') }}/images/icon1.svg" style="width: 150px; height: auto;" alt="loader">
     </div>
 
     <!-- page -->
+    @yield('regis')
     <div class="page h-100">
 
         <!-- page-content -->
@@ -325,6 +326,15 @@
                 title: "Berhasil",
                 text: "{{ session('success') }}",
                 icon: "success"
+            });
+        </script>
+    @endif
+    @if (session('warning'))
+        <script type="text/javascript">
+            Swal.fire({
+                title: "Gagal",
+                text: "{{ session('warning') }}",
+                icon: "warning"
             });
         </script>
     @endif

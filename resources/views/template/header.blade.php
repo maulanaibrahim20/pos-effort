@@ -134,8 +134,13 @@
                             <div class="dropdown d-flex profile-1">
                                 <a href="javascript:void(0)" data-bs-toggle="dropdown"
                                     class="nav-link leading-none d-flex">
-                                    <img src="{{ url('/assets') }}/images/users/male/profile.png" alt="profile-user"
-                                        class="avatar  profile-user brround cover-image">
+                                    @if (Auth::user()->foto)
+                                        <img src="{{ asset('' . Auth::user()->foto) }}" alt="profile-user"
+                                            class="avatar  profile-user brround cover-image">
+                                    @else
+                                        <img src="{{ url('/assets') }}/images/users/male/profile.png" alt="profile-user"
+                                            class="avatar  profile-user brround cover-image">
+                                    @endif
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" data-bs-popper="none">
                                     <div class="drop-heading">

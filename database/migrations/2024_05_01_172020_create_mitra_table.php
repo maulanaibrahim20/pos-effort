@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('userId', 50);
             $table->string('namaMitra', 150);
             $table->string('nomorHp', 50);
-            $table->string('validasiMitraId', 50);
-            $table->string('fotoMitra');
+            $table->string('validasiMitraId', 50)->nullable();
+            $table->string('fotoMitra')->nullable();
             $table->enum('statusMitra', ['0', '1'])->default(0);
             $table->timestamps();
         });

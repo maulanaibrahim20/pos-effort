@@ -39,6 +39,12 @@
                                             <div>
                                                 <button type="submit" class="btn btn-primary d-grid w-100">Log in</button>
                                             </div>
+                                            <div class="col-12 mt-4">
+                                                <p>belum punya akun?</p>
+                                                <a href="{{ url('/register') }}"
+                                                    class="btn btn-link box-shadow-0 px-0">Daftar
+                                                    Sebagai Mitra</a>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
