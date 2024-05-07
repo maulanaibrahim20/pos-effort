@@ -25,4 +25,9 @@ class Mitra extends Model
     {
         return $this->belongsTo(User::class, 'userId');
     }
+
+    public function karyawan()
+    {
+        return $this->belongsTo(Karyawwan::class, 'mitraId');
+    }
 }

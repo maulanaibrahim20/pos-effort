@@ -20,7 +20,7 @@ class MitraSeeder extends Seeder
             'namaMitra' => 'Kopkar Polindra',
             'nomorHp' => '081234567890',
             'validasiMitraId' => '1234567890',
-            'statusMitra' => 1,
+            'statusMitra' => '1',
             'fotoMitra' => 'null',
         ]);
     }

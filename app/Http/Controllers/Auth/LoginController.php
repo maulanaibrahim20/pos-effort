@@ -34,8 +34,31 @@ class LoginController extends Controller
             return back()->with('error', 'Maaf, Password Anda Salah!');
         }
 
+        //mengecek jika user belum aktif atau belum diaktifkan oleh admin
         if ($user->akses == 2 && $user->active == 0) {
             return back()->with('warning', 'Akun Anda Belum Diaktifkan, Silahkan Hubungi Admin!');
+        }
+        //mengecek jika user adalah mitra dan status mitra belum diaktifkan oleh admin
+        if ($user->akses == 2) {
+            $mitra = $user->mitra;
+            if ($mitra && $mitra->statusMitra == 0) {
+                return back()->with('warning', 'Akun Mitra Anda Belum Diaktifkan, Silahkan Hubungi Admin!');
+            }
+        }
+
+        //mengecek jika user adalah karyawan dan belum diaktifkan oleh mitra
+        if ($user->akses == 3 && $user->active == 0) {
+            return back()->with('warning', 'Akun Anda Belum Diaktifkan, Silahkan Hubungi Mitra Anda!');
+        }
+        //mengecek jika user adalah karyawan dan mitranya belum  diaktifkan oleh admin
+        if ($user->akses == 3) {
+            $karyawan = $user->karyawan;
+            if ($karyawan) {
+                $mitra = $karyawan->mitra;
+                if ($mitra && $mitra->statusMitra == 0) {
+                    return back()->with('warning', 'Akun Mitra Anda Belum Diaktifkan, Silahkan Hubungi Mitra Anda!');
+                }
+            }
         }
 
         if (Auth::attempt(["email" => $request->email, "password" => $request->password])) {

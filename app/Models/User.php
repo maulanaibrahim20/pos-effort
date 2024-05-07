@@ -38,4 +38,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Mitra::class, 'userId');
     }
+
+    public function karyawan()
+    {
+        return $this->hasOne(Karyawan::class, 'userId');
+    }
 }
