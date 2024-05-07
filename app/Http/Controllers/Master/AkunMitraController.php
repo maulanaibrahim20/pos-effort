@@ -172,4 +172,27 @@ class AkunMitraController extends Controller
             return back()->with('error', 'Error Akun Mitra Untuk  Gagal Dihapus!');
         }
     }
+
+    public function changeStatus($id)
+    {
+        try {
+            DB::beginTransaction();
+            $mitra = $this->mitra::find($id);
+            $userId = auth()->id();
+            if ($mitra) {
+                $mitra->statusMitra = $mitra->statusMitra == '0' ? '1' : '0';
+                $mitra->validasiMitraId = $userId;
+                $mitra->save();
+                DB::commit();
+                Alert::success('Berhasil', 'Status Akun Mitra berhasil diubah.');
+                return back()->with('success', 'Status Akun Mitra berhasil diubah.');
+            } else {
+                throw new \Exception('Akun Mitra tidak ditemukan.');
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            Alert::error('Error', 'Gagal mengubah status Akun Mitra: ' . $e->getMessage());
+            return back()->with('error', 'Gagal mengubah status Akun Mitra: ' . $e->getMessage());
+        }
+    }
 }

@@ -35,7 +35,9 @@
                             <tr>
                                 <th class="wd-15p border-bottom-0">No</th>
                                 <th class="wd-15p border-bottom-0">Nama</th>
+                                <th class="wd-15p border-bottom-0">Nama Mitra</th>
                                 <th class="wd-15p border-bottom-0">No Telepon</th>
+                                <th class="wd-15p border-bottom-0">validasi mitra</th>
                                 <th class="wd-15p border-bottom-0">status</th>
                                 <th class="text-center wd-10p border-bottom-0">Actions</th>
                             </tr>
@@ -55,18 +57,37 @@
                                             @endif
                                             <div class="d-flex mt-1 flex-column ms-2">
                                                 <h6 class="mb-0 fs-14 fw-semibold text-dark">
-                                                    {{ $data['namaMitra'] }}</h6>
-                                                <span class="fs-12 text-muted">{{ $data['user']['nama'] }}</span>
+                                                    {{ $data['user']['nama'] }}</h6>
+                                                <span class="fs-12 text-muted">{{ $data['user']['email'] }}</span>
                                             </div>
                                         </div>
                                     </td>
+                                    <td>{{ $data['namaMitra'] }}</td>
                                     <td>{{ $data['nomorHp'] }}</td>
+                                    <td>{{ $data['validasiMitraId'] }}</td>
                                     <td>
-                                        @if ($data['statusMitra'] == 1)
-                                            <span class="badge bg-secondary-transparent me-1 my-1 fw-semibold">Aktif</span>
-                                        @else
-                                            <span class="badge bg-danger-transparent me-1 my-1 fw-semibold">Tidak
-                                                Aktif</span>
+                                        @if ($data['statusMitra'] == '1')
+                                            <form id="changeStatus{{ $data->id }}"
+                                                action="{{ url('/super_admin/master/mitra/changeStatus/' . $data->id) }}"
+                                                style="display: inline;" method="POST">
+                                                @csrf
+                                                <button type="button"
+                                                    class="btn btn-outline-success mt-1 mb-1 me-3 changeStatusBtn"
+                                                    data-id="{{ $data->id }}">
+                                                    <span>Aktif</span>
+                                                </button>
+                                            </form>
+                                        @elseif ($data['statusMitra'] == '0')
+                                            <form id="changeStatus{{ $data['id'] }}"
+                                                action="{{ url('/super_admin/master/mitra/changeStatus/' . $data['id']) }}"
+                                                style="display: inline;" method="POST">
+                                                @csrf
+                                                <button type="button"
+                                                    class="btn btn-outline-danger mt-1 mb-1 me-3 changeStatusBtn"
+                                                    data-id="{{ $data['id'] }}">
+                                                    <span>Nonaktif</span>
+                                                </button>
+                                            </form>
                                         @endif
                                     </td>
                                     <td class="text-center">
@@ -148,6 +169,27 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     deleteForm.submit();
+                }
+            });
+        });
+        $('.changeStatusBtn').on('click', function(e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            var changeStatus = $('#changeStatus' + id);
+            var statusText = $(this).text().trim() === 'Aktif' ? 'Status Mitra akan diubah menjadi Nonaktif!' :
+                'Status Mitra akan diubah menjadi Aktif!';
+            Swal.fire({
+                title: 'Anda yakin?',
+                text: statusText,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, ubah!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    changeStatus.submit();
                 }
             });
         });

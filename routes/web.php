@@ -74,6 +74,7 @@ Route::middleware(['autentikasi'])->group(function () {
             Route::prefix('master')->group(function () {
                 Route::resource('mitra', AkunMitraController::class);
                 Route::get('mitra/{id}/edit', [AkunMitraController::class, 'edit']);
+                Route::post('mitra/changeStatus/{id}', [AkunMitraController::class, 'changeStatus']);
             });
             Route::get('/transaksi', [TransaksiController::class, 'index']);
             Route::post('transaksi/filterByStatus', [TransaksiController::class, 'filterByStatus']);
