@@ -116,19 +116,34 @@
                         </a>
                     </li>
                 @endcan
-                @if (Auth::user()->akses == 2)
-                    <li>
+                <li class="sub-category">
+                    <h3>Pengaturan</h3>
+                </li>
+                <li>
+                    @if (Auth::user()->akses == 1)
+                        <a class="side-menu__item {{ Request::segment(3) == 'user' ? 'active' : '' }}"
+                            href="{{ url('/super_admin/profil/user') }}"><i
+                                class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Profile
+                                Saya</span>
+                        </a>
+                    @elseif(Auth::user()->akses == 2)
                         <a class="side-menu__item {{ Request::segment(3) == 'user' ? 'active' : '' }}"
                             href="{{ url('/admin/profil/user') }}"><i class="side-menu__icon fe fe-user"></i><span
                                 class="side-menu__label">Profile
-                                Saya</span></a>
-                    </li>
-                    <li>
-                        <a class="side-menu__item" href="{{ url('/logout') }}"><i
-                                class="side-menu__icon fe fe-log-out"></i><span
-                                class="side-menu__label">Logout</span></a>
-                    </li>
-                @endif
+                                Saya</span>
+                        </a>
+                    @elseif (Auth::user()->akses == 3)
+                        <a class="side-menu__item {{ Request::segment(3) == 'user' ? 'active' : '' }}"
+                            href="{{ url('/karyawan/profil/user') }}"><i class="side-menu__icon fe fe-user"></i><span
+                                class="side-menu__label">Profile
+                                Saya</span>
+                        </a>
+                    @endif
+                </li>
+                <li>
+                    <a class="side-menu__item" href="{{ url('/logout') }}"><i
+                            class="side-menu__icon fe fe-log-out"></i><span class="side-menu__label">Logout</span></a>
+                </li>
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"
                     width="24" height="24" viewBox="0 0 24 24">

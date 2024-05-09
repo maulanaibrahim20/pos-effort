@@ -70,6 +70,9 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::get('user', [EditProfileController::class, 'index']);
                 Route::put('user/{id}', [EditProfileController::class, 'update']);
                 Route::put('user/update_password/{id}', [EditProfileController::class, 'UpdatePassword']);
+                Route::get('user/edit_password/{id}/edit', [EditProfileController::class, 'editPassword']);
+                Route::put('user/update_gambar/{id}', [EditProfileController::class, 'editGambar']);
+                Route::get('user/edit_gambar/{id}/edit', [EditProfileController::class, 'updateGambar']);
             });
             Route::prefix('master')->group(function () {
                 Route::resource('mitra', AkunMitraController::class);
@@ -97,6 +100,9 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::post('tambah_qty', [StokProdukController::class, 'tambahQty']);
                 Route::post('changeStatus/{id}', [StokProdukController::class, 'changeStatus']);
             });
+            // Route::prefix('profile')->group(function(){
+            //     Route::
+            // });
             Route::get('/dashboard', [DashboardController::class, 'admin']);
         });
     });
