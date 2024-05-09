@@ -70,9 +70,9 @@ class EditProfileController extends Controller
                 'password' => bcrypt($request->password),
             ]);
 
-            return redirect()->to('/super_admin/profil/user')->with('success', 'Password berhasil diubah.');
+            return redirect()->back()->with('success', 'Password berhasil diubah.');
         } catch (\Exception $e) {
-            return redirect()->to('/super_admin/profil/user')->with('error', 'Password gagal diubah. Error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Password gagal diubah. Error: ' . $e->getMessage());
         }
     }
 

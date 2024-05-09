@@ -128,8 +128,8 @@
                         </a>
                     @elseif(Auth::user()->akses == 2)
                         <a class="side-menu__item {{ Request::segment(3) == 'user' ? 'active' : '' }}"
-                            href="{{ url('/admin/profil/user') }}"><i class="side-menu__icon fe fe-user"></i><span
-                                class="side-menu__label">Profile
+                            href="{{ url('/admin/profil_admin/user') }}"><i
+                                class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Profile
                                 Saya</span>
                         </a>
                     @elseif (Auth::user()->akses == 3)
