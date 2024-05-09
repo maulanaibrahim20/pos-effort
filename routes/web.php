@@ -89,6 +89,7 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::post('produk/changeStatus/{id}', [ProdukController::class, 'changeStatus']);
                 Route::get('produk/{id}/edit', [ProdukController::class, 'edit']);
                 Route::resource('karyawan', AkunKaryawanController::class);
+                Route::post('karyawan/changeStatus/{userId}', [AkunKaryawanController::class, 'changeStatus']);
                 Route::get('karyawan/{id}/edit', [AkunKaryawanController::class, 'edit']);
             });
             Route::prefix('transaksi')->group(function () {

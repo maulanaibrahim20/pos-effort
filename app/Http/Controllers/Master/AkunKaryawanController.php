@@ -140,4 +140,31 @@ class AkunKaryawanController extends Controller
             return back()->with('error', 'Error Data Karyawan Untuk ' . Auth::user()->mitra->namaMitra . ' Gagal Dihapus!');
         }
     }
+
+    public function changeStatus($userId)
+    {
+        try {
+            DB::beginTransaction();
+            $karyawan = $this->karyawan::where('userId', $userId)->first();
+
+            if (!$karyawan) {
+                return redirect()->back()->with('error', 'Karyawan tidak ditemukan');
+            }
+
+            $user = $this->user::findOrFail($userId);
+
+            if (!$user) {
+                return redirect()->back()->with('error', 'User tidak ditemukan');
+            }
+
+            $user->active = ($user->active == '0') ? '1' : '0';
+            $user->save();
+            DB::commit();
+            return back()->with('success', 'Success Status Karyawan Berhasil Diubah!');
+        } catch (\Exception $e) {
+            DB::rollback();
+            Alert::error('Error', 'Gagal mengubah status produk: ' . $e->getMessage());
+            return back()->with('error', 'Gagal mengubah status produk: ' . $e->getMessage());
+        }
+    }
 }

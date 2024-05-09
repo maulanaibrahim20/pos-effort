@@ -39,6 +39,7 @@
                                 <th class="wd-15p border-bottom-0">No Telepon</th>
                                 <th class="wd-15p border-bottom-0">Mitra</th>
                                 <th class="wd-15p border-bottom-0">Alamat</th>
+                                <th class="wd-15p border-bottom-0">Status</th>
                                 <th class="text-center wd-10p border-bottom-0">Actions</th>
                             </tr>
                         </thead>
@@ -65,6 +66,27 @@
                                     <td>{{ $data['nomorHpAktif'] }}</td>
                                     <td>{{ $data['mitra']['namaMitra'] }}</td>
                                     <td>{{ $data['alamat'] }}</td>
+                                    <td>
+                                        @if ($data['user']['active'] == '1')
+                                            <form
+                                                action="{{ url('/admin/master/karyawan/changeStatus/' . $data['userId']) }}"
+                                                style="display: inline;" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-outline-success mt-1 mb-1 me-3 ">
+                                                    <span>Aktif</span>
+                                                </button>
+                                            </form>
+                                        @elseif ($data['user']['active'] == '0')
+                                            <form
+                                                action="{{ url('/admin/master/karyawan/changeStatus/' . $data['userId']) }}"
+                                                style="display: inline;" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-outline-danger mt-1 mb-1 me-3 ">
+                                                    <span>Nonaktif</span>
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </td>
                                     <td class="text-center">
                                         <button type="button" class="btn br-7 btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#VerticallyEdit" onclick="editModal('{{ $data['id'] }}')">
@@ -127,6 +149,31 @@
                 }
             })
         }
+        $('.changeStatusBtn').on('click', function(e) {
+            e.preventDefault();
+            var userId = $(this).data('id'); // Mengambil userId dari atribut data-id
+            var changeStatus = $('#changeStatus' + userId); // Menggunakan userId untuk mencari formulir
+            var statusText = $(this).find('span').text().trim() === 'Aktif' ? 'Data akan diubah menjadi Nonaktif!' :
+                'Data akan diubah menjadi Aktif!';
+
+
+            console.log(userId);
+            Swal.fire({
+                title: 'Anda yakin?',
+                text: statusText,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, ubah!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    changeStatus.submit();
+                }
+            });
+        });
+
         $('.deleteBtn').on('click', function(e) {
             e.preventDefault();
             var id = $(this).data('id');
