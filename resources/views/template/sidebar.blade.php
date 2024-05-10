@@ -109,7 +109,7 @@
                         <h3>Pengaturan</h3>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(3) == 'stok_produk' ? 'active' : '' }}"
+                        <a class="side-menu__item {{ Request::segment(3) == '#' ? 'active' : '' }}"
                             href="{{ url('/admin/transaksi/stok_produk') }}"><i
                                 class="side-menu__icon fa fa-bank"></i><span class="side-menu__label">
                                 Pengaturan Mitra</span>
@@ -133,8 +133,8 @@
                                 Saya</span>
                         </a>
                     @elseif (Auth::user()->akses == 3)
-                        <a class="side-menu__item {{ Request::segment(3) == 'user' ? 'active' : '' }}"
-                            href="{{ url('/karyawan/profil/user') }}"><i class="side-menu__icon fe fe-user"></i><span
+                        <a class="side-menu__item {{ Request::segment(3) == 'saya' ? 'active' : '' }}"
+                            href="{{ url('/karyawan/profile/saya') }}"><i class="side-menu__icon fe fe-user"></i><span
                                 class="side-menu__label">Profile
                                 Saya</span>
                         </a>

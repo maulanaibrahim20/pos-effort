@@ -1,4 +1,5 @@
 @extends('index')
 @section('title', 'Dashboard karyawan')
-dashboard Karyawan
+@section('content')
+    dashboard Karyawan
 @endsection

@@ -5,15 +5,11 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterMitraController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EditProfileController;
+use App\Http\Controllers\EditProfileKaryawanController;
 use App\Http\Controllers\LandingPage\AppController;
 use App\Http\Controllers\Master\AkunKaryawanController;
 use App\Http\Controllers\Master\AkunMitraController;
-use App\Http\Controllers\Master\KategoriBahanController;
-use App\Http\Controllers\Master\BahanController;
 use App\Http\Controllers\Master\ProdukController;
-use App\Http\Controllers\Master\SatuanBahanController;
-use App\Http\Controllers\SemiMaster\GroupingKategoriBahanController;
-use App\Http\Controllers\SemiMaster\GroupingSatuanBahanController;
 use App\Http\Controllers\Transaksi\StokProdukController;
 use App\Http\Controllers\Transaksi\TransaksiController;
 use Illuminate\Support\Facades\Route;
@@ -114,6 +110,14 @@ Route::middleware(['autentikasi'])->group(function () {
     Route::group(['middleware' => ['can:karyawan']], function () {
         Route::prefix('karyawan')->group(function () {
             Route::get('/dashboard', [DashboardController::class, 'karyawan']);
+            Route::prefix('profile')->group(function () {
+                Route::get('/saya', [EditProfileKaryawanController::class, 'index']);
+                Route::put('/saya/update/{id}', [EditProfileKaryawanController::class, 'update']);
+                Route::get('/saya/update_password/{id}/edit', [EditProfileKaryawanController::class, 'editPassword']);
+                Route::put('/saya/update_password/{id}', [EditProfileKaryawanController::class, 'updatePassword']);
+                Route::get('/saya/update_gambar/{id}/edit', [EditProfileKaryawanController::class, 'editGambar']);
+                Route::put('/saya/update_gambar/{id}', [EditProfileKaryawanController::class, 'updateGambar']);
+            });
         });
     });
 });
