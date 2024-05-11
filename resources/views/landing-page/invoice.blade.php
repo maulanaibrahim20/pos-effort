@@ -1,3 +1,7 @@
+@php
+    use Carbon\Carbon;
+@endphp
+
 @extends('landing-page.main')
 
 @push('title', 'Invoice ' . $invoice['invoiceId'])
@@ -19,7 +23,7 @@
                             <td style="width: 20px">:</td>
                             <td>
                                 <strong>
-                                    {{ $invoice['users']['nama'] }}
+                                    {{ $invoice['mitra']['user']['nama'] }}
                                 </strong>
                             </td>
                         </tr>
@@ -65,6 +69,18 @@
                                 @endif
                             </td>
                         </tr>
+                        <tr>
+                            <td style="width: 150px;">Tanggal Order</td>
+                            <td style="width: 20px">:</td>
+                            <td>
+                                @php
+                                    $tanggalCarbon = Carbon::createFromFormat('Y-m-d H:i:s', $invoice['tanggalOrder']);
+                                    $tanggalFormatBaru = $tanggalCarbon->translatedFormat('d F Y H:i:s');
+                                @endphp
+
+                                {{ $tanggalFormatBaru }}
+                            </td>
+                        </tr>
                         @if ($invoice['tipeTransaksi'] != null)
 
                             <tr>
@@ -78,6 +94,25 @@
                             </tr>
 
                             @if (!empty($invoice['paymentChannel']))
+                                <tr>
+                                    <td style="width: 150px;">Tanggal Bayar</td>
+                                    <td style="width: 20px">:</td>
+                                    <td>
+                                        <span class="fw-bold">
+                                            @php
+                                                $tanggalCarbonNew = Carbon::createFromFormat(
+                                                    'Y-m-d H:i:s',
+                                                    $invoice['tanggalBayar'],
+                                                );
+                                                $tanggalFormatBaruNew = $tanggalCarbonNew->translatedFormat(
+                                                    'd F Y H:i:s',
+                                                );
+                                            @endphp
+                                            {{ $tanggalFormatBaruNew }}
+                                        </span>
+                                    </td>
+                                </tr>
+
                                 <tr>
                                     <td style="width: 150px;">Payment Channel</td>
                                     <td style="width: 20px">:</td>
@@ -104,8 +139,12 @@
                         @php
                             $nomor = 0;
                             $jumlahhQty = 0;
+                            $totalQtyAll = 0;
                         @endphp
                         @foreach ($transaksiDetail as $item)
+                            @php
+                                $totalQtyAll += $item["qtyProduk"];
+                            @endphp
                             <tr>
                                 <td class="text-center">{{ ++$nomor }}.</td>
                                 <td>{{ $item['namaProduk'] }}</td>
@@ -120,7 +159,7 @@
                             <td class="text-center fw-bold">
                                 Rp. {{ number_format($invoice['totalHarga']) }}
                             </td>
-                            <td class="text-center fw-bold">{{ $jumlahhQty }}</td>
+                            <td class="text-center fw-bold">{{ $totalQtyAll }}</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -133,16 +172,15 @@
                         onclick="cashPayment(`{{ $invoice['id'] }}`)">
                         <i class="fa fa-edit"></i> Cash
                     </button>
-                    <a href="{{ config('xendit.url') }}{{ $invoice['xenditId'] }}" target="_blank"
-                        class="btn btn-success shadow mb-2">
+                    <a href="{{ config('xendit.url') }}{{ $invoice['xenditId'] }}" class="btn btn-success shadow mb-2">
                         <i class="fa fa-book"></i> Transfer
                     </a>
                 @elseif($invoice['statusOrder'] == 'PAID' || $invoice['statusOrder'] == 'SETTLED')
                     <div class="alert alert-success">
                         <div class="text-center">
                             Sudah Melakukan Pembayaran
-                            @if ($invoice["paymentChannel"] !== NULL)
-                            , Eksternal ID : <b>{{ $invoice['xenditId'] }}</b>
+                            @if ($invoice['paymentChannel'] !== null)
+                                , Eksternal ID : <b>{{ $invoice['xenditId'] }}</b>
                             @endif
                         </div>
                     </div>
@@ -177,8 +215,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        function cashPayment(id)
-        {
+        function cashPayment(id) {
             $.ajax({
                 url: "{{ url('/pembayaran-cash') }}" + "/" + id,
                 type: "GET",

@@ -27,6 +27,20 @@
                                     </span>
                                 @endif
                             </p>
+                            <span>
+                                Stok :
+                                <strong>
+                                    @php
+                                        $stok = 0;
+                                    @endphp
+                                    @foreach ($item->stokProduk as $item)
+                                        @php
+                                            $stok += $item->qty;
+                                        @endphp
+                                    @endforeach
+                                    {{ $stok }}
+                                </strong>
+                            </span>
                             <hr>
                             @if (empty(Auth::user()))
                                 <a onclick="cekAuth()" class="btn btn-primary shadow">

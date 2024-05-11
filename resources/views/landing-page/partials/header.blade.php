@@ -33,9 +33,16 @@
                     <li class="nav-item">
                         @if (empty(Auth::user()))
                         @endif
-                        <a href="" class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="fa fa-cart-shopping"></i> Keranjang
-                        </a>
+
+                        @if (!empty($keranjangDetail))
+                            <a href="" class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="fa fa-cart-shopping"></i> Keranjang
+                            </a>
+                        @else
+                            <button onclick="keranjangEmpty()" type="button" class="nav-link">
+                                <i class="fa fa-cart-shopping"></i> Keranjang
+                            </button>
+                        @endif
                     </li>
                     <li class="nav-item">
                         <a href="{{ url('/logout') }}" class="nav-link">
@@ -86,7 +93,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <span class="produk fw-bold">
-                                                    {{ $item['produk']['nama'] }}
+                                                    {{ $item['produk']['namaProduk'] }}
                                                 </span>
                                                 <br>
                                                 <small>
@@ -167,5 +174,14 @@
                 })
             });
         });
+    </script>
+    <script type="text/javascript">
+        function keranjangEmpty() {
+            Swal.fire({
+                title: "Maaf!",
+                text: "Data Keranjang Saat Ini Belum Ada",
+                icon: "error"
+            });
+        }
     </script>
 @endpush
