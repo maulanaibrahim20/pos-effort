@@ -19,7 +19,7 @@ class ProdukSeeder extends Seeder
             "kategori" => "Makanan",
             "namaProduk" => "Rendang Mahal",
             "slugProduk" => "rendang-mahal",
-            "status" => '0',
+            "status" => '1',
             "hargaProduk" => 10000,
             "mitraId" => $mitra['id']
         ]);
@@ -28,7 +28,7 @@ class ProdukSeeder extends Seeder
             "kategori" => "Minuman",
             "namaProduk" => "Rendang Murah",
             "slugProduk" => "rendang-murah",
-            "status" => '0',
+            "status" => '1',
             "hargaProduk" => 30000,
             "mitraId" => $mitra['id']
         ]);
