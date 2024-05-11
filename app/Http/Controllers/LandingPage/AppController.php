@@ -29,20 +29,33 @@ class AppController extends Controller
 
     public function home()
     {
-        $data = [
-            "produk" => $this->produk->where("status", 1)->get(),
-        ];
+        try {
 
-        if (!empty(Auth::user())) {
-            $data["keranjang"] = $this->keranjang->where("userId", Auth::user()->id)->first();
+            DB::beginTransaction();
 
-            if (!empty($data["keranjang"])) {
-                $data["keranjangDetail"] = $this->keranjangDetail->where("keranjangId", $data["keranjang"]["id"])
-                    ->get();
+            $data = [
+                "produk" => $this->produk->where("mitraId", Auth::user()->karyawan->mitra->id)->where("status", 1)->get(),
+            ];
+
+            if (!empty(Auth::user())) {
+                $data["keranjang"] = $this->keranjang->where("userId", Auth::user()->id)->first();
+
+                if (!empty($data["keranjang"])) {
+                    $data["keranjangDetail"] = $this->keranjangDetail->where("keranjangId", $data["keranjang"]["id"])
+                        ->get();
+                }
             }
-        }
 
-        return view("landing-page.home", $data);
+            DB::commit();
+
+            return view("landing-page.home", $data);
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return redirect()->to("/")->with("error", $e->getMessage());
+        }
     }
 
     public function landingPage()
@@ -64,14 +77,15 @@ class AppController extends Controller
             if ($countKeranjang == 0) {
                 $cart = $this->keranjang->create([
                     "userId" => Auth::user()->id,
-                    "tanggal" => date("Y-m-d"),
+                    "tanggal" => date("Y-m-d H:i:s"),
                     "totalHarga" => 0,
+                    "mitraId" => Auth::user()->karyawan->mitra->id,
                     "status" => 1
                 ]);
 
                 $detailCart = $this->keranjangDetail->create([
                     "keranjangId" => $cart["id"],
-                    "produkId" => $idProduk,
+                    "produkId" => $produk["id"],
                     "qty" => 1,
                     "harga" => $produk["hargaProduk"]
                 ]);
@@ -118,7 +132,7 @@ class AppController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
 
-            die($e->getMessage());
+            return redirect()->to("/")->with("error", $e->getMessage());
         }
     }
 
@@ -137,7 +151,7 @@ class AppController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
 
-            die($e->getMessage());
+            return back()->with("error", $e->getMessage());
         }
     }
 
@@ -210,7 +224,7 @@ class AppController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
 
-            die($e->getMessage());
+            return back()->with("error", $e->getMessage());
         }
     }
 
@@ -233,6 +247,10 @@ class AppController extends Controller
                 "invoiceId" => "TRX-" . date("YmdHis"),
                 "namaUser" => $request["nama-customer"],
                 "totalHarga" => 0,
+                "usernameKasir" => Auth::user()->username,
+                "mitraId" => Auth::user()->karyawan->mitra->id,
+                "namaMitra" => Auth::user()->karyawan->mitra->namaMitra,
+                "tanggalOrder" => date("Y-m-d"),
                 "kasirId" => Auth::user()->id,
                 "status" => 1 // PENDING
             ]);
@@ -240,7 +258,7 @@ class AppController extends Controller
             foreach ($keranjangDetail as $item) {
                 $this->transaksiDetail->create([
                     "transaksiId" => $transaksi["id"],
-                    "namaProduk" => $item["produk"]["nama"],
+                    "namaProduk" => $item["produk"]["namaProduk"],
                     "hargaProduk" => $item["produk"]["hargaProduk"],
                     "qtyProduk" => $item["qty"]
                 ]);
@@ -274,12 +292,12 @@ class AppController extends Controller
 
             DB::commit();
 
-            return redirect()->to("/transaksi/" . $transaksi["invoiceId"]);
+            return redirect()->to("/transaksi/" . $transaksi["invoiceId"])->with("success", "Data Berhasil di Simpan");
 
         } catch (\Exception $e) {
             DB::rollBack();
 
-            die($e->getMessage());
+            return redirect()->to("/")->with("error", $e->getMessage());
         }
     }
 
@@ -303,7 +321,7 @@ class AppController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
 
-            die($e->getMessage());
+            return back()->with("error", $e->getMessage());
         }
     }
 
@@ -346,7 +364,7 @@ class AppController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
 
-            die($e->getMessage());
+            return back()->with("error", $e->getMessage());
         }
     }
 
@@ -356,14 +374,21 @@ class AppController extends Controller
 
             DB::beginTransaction();
 
+            $data = [
+                "transaksi" => $this->transaksi->where("mitraId", Auth::user()->karyawan->mitra->id)
+                    ->where("tipeTransaksi", "!=", NULL)
+                    ->orderBy("tanggalBayar", "DESC")
+                    ->get()
+            ];
+
             DB::commit();
 
-            return view("landing-page.riwayat-transaksi");
+            return view("landing-page.riwayat-transaksi", $data);
 
         } catch (\Exception $e) {
             DB::rollBack();
 
-            die($e->getMessage());
+            return redirect()->to("/")->with("error", $e->getMessage());
         }
     }
 
@@ -382,7 +407,7 @@ class AppController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
 
-            die($e->getMessage());
+            return back()->with("error", $e->getMessage());
         }
     }
 
@@ -397,17 +422,18 @@ class AppController extends Controller
             $transaksi->update([
                 "tipeTransaksi" => "CASH",
                 "statusOrder" => "PAID",
+                "tanggalBayar" => date("Y-m-d H:i:s"),
                 "xenditId" => NULL
             ]);
 
             DB::commit();
 
-            return redirect()->back();
+            return redirect()->to("/riwayat-transaksi")->with("success", "Pembayaran Cash Berhasil dilakukan");
 
         } catch (\Exception $e) {
             DB::rollBack();
 
-            die($e->getMessage());
+            return back()->with("error", $e->getMessage());
         }
     }
 }

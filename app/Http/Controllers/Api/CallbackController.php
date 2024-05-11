@@ -33,6 +33,7 @@ class CallbackController extends Controller
 
                     $transaksi["tipeTransaksi"] = "TRANSFER";
                     $transaksi["statusOrder"] = $request->status;
+                    $transaksi["tanggalBayar"] = date("Y-m-d H:i:s");
                     $transaksi["paymentChannel"] = $request->payment_channel;
                     $transaksi->update();
                 }
