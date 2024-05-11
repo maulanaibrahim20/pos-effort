@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string("mitraId", 50);
             $table->string("namaMitra", 150);
             $table->enum("tipeTransaksi", ["CASH", "TRANSFER"])->nullable();
-            $table->tinyInteger("statusOrder")->nullable();
+            $table->string("statusOrder", 100)->nullable();
             $table->datetime("tanggalOrder");
             $table->datetime("tanggalBayar")->nullable();
             $table->string("paymentChannel", 100)->nullable();
