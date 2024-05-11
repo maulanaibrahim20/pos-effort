@@ -20,8 +20,8 @@ class Transaksi extends Model
 
     public $timestamps = false;
 
-    public function users()
+    public function mitra()
     {
-        return $this->belongsTo(User::class, "kasirId", "id");
+        return $this->belongsTo(Mitra::class, "mitraId");
     }
 }
