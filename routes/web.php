@@ -26,8 +26,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // LandingPage
-Route::get("/", [AppController::class, "home"]);
-Route::get("/landingPage", [AppController::class, "landingPage"]);
+
 Route::get("/keranjang/{id_produk}", [AppController::class, "keranjang"]);
 Route::get("/keranjang/{id_produk}/detail", [AppController::class, "detailProduk"]);
 Route::post("/keranjang/{id_produk}/detailQty", [AppController::class, "detailQty"]);
@@ -60,6 +59,8 @@ Route::middleware(['auth'])->name('web.')->group(function () {
 });
 
 Route::middleware(['autentikasi'])->group(function () {
+    Route::get("/", [AppController::class, "home"]);
+
     Route::group(['middleware' => ['can:super_admin']], function () {
         Route::prefix('super_admin')->group(function () {
             Route::prefix('profil')->group(function () {
