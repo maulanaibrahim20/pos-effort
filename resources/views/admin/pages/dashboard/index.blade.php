@@ -14,40 +14,40 @@
                     <div class="statistics-info">
                         <div class="row text-center">
                             <div class="col-lg-3 col-md-6 mt-4 mb-4">
-                                <div class="counter-status">
+                                <a href="{{ url('/admin/master/karyawan') }}" class="counter-status">
                                     <div class="counter-icon text-danger">
                                         <i class="si si-people"></i>
                                     </div>
-                                    <p class="mb-2">Employees</p>
-                                    <h2 class="counter text-primary mb-0">2569</h2>
-                                </div>
+                                    <p class="mb-2">Karyawan</p>
+                                    <h2 class="counter text-primary mb-0">{{ $total_karyawan }}</h2>
+                                </a>
                             </div>
                             <div class="col-lg-3 col-md-6 mt-4 mb-4">
-                                <div class="counter-status">
+                                <a href="{{ url('/admin/master/produk') }}" class="counter-status">
                                     <div class="counter-icon border-danger">
                                         <i class="si si-rocket text-danger"></i>
                                     </div>
-                                    <p class="mb-2">Total Sales</p>
-                                    <h2 class="counter text-danger mb-0">1765</h2>
-                                </div>
+                                    <p class="mb-2">Produk</p>
+                                    <h2 class="counter text-danger mb-0">{{ $total_produk }}</h2>
+                                </a>
                             </div>
                             <div class="col-lg-3 col-md-6  mt-4 mb-4">
-                                <div class="counter-statuss">
+                                <a href="{{ url('/admin/transaksi/stok_produk') }}" class="counter-statuss">
                                     <div class="counter-icon border-success">
                                         <i class="si si-docs text-success"></i>
                                     </div>
-                                    <p class="mb-2">Total Projects</p>
-                                    <h2 class="counter text-success mb-0">846</h2>
-                                </div>
+                                    <p class="mb-2">Stok Produk</p>
+                                    <h2 class="counter text-success mb-0">{{ $total_stok }}</h2>
+                                </a>
                             </div>
                             <div class="col-lg-3 col-md-6 mt-4 mb-4">
-                                <div class="counter-status">
+                                <a href="{{ url('/admin/transaksi/laporan/transaksi') }}" class="counter-status">
                                     <div class="counter-icon border-info">
                                         <i class="si si-graph text-info"></i>
                                     </div>
-                                    <p class="mb-2">Growth</p>
-                                    <h2 class="counter text-info mb-0">7253</h2>
-                                </div>
+                                    <p class="mb-2">Transaksi</p>
+                                    <h2 class="counter text-info mb-0">{{ $total_transaksi }}</h2>
+                                </a>
                             </div>
                         </div>
                     </div>

@@ -12,6 +12,7 @@ use App\Http\Controllers\Master\AkunMitraController;
 use App\Http\Controllers\Master\ProdukController;
 use App\Http\Controllers\SuperAdmin\KaryawanController as SuperAdminKaryawanController;
 use App\Http\Controllers\SuperAdmin\ProdukController as SuperAdminProdukController;
+use App\Http\Controllers\Transaksi\LaporanTransaksiController;
 use App\Http\Controllers\Transaksi\StokProdukController;
 use App\Http\Controllers\Transaksi\TransaksiController;
 use Illuminate\Support\Facades\Route;
@@ -98,6 +99,10 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::get('karyawan/{id}/edit', [AkunKaryawanController::class, 'edit']);
             });
             Route::prefix('transaksi')->group(function () {
+                Route::prefix('laporan')->group(function () {
+                    Route::get('transaksi', [LaporanTransaksiController::class, 'index']);
+                    Route::post('transaksi/filterByStatus', [LaporanTransaksiController::class, 'filterByStatus']);
+                });
                 Route::get('stok_produk', [StokProdukController::class, 'index']);
                 Route::post('tambah_qty', [StokProdukController::class, 'tambahQty']);
                 Route::post('changeStatus/{id}', [StokProdukController::class, 'changeStatus']);

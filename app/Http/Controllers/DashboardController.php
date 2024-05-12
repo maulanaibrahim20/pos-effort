@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Karyawan;
 use App\Models\KategoriBahan;
 use App\Models\Mitra;
 use App\Models\Produk;
@@ -13,15 +14,16 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    protected $user, $produk, $transaksi, $stokProduk, $mitra;
+    protected $user, $produk, $transaksi, $stokProduk, $mitra, $karyawan;
 
-    public function __construct(User $user, Produk $produk, Transaksi $transaksi, StokProduk $stokProduk, Mitra $mitra)
+    public function __construct(User $user, Produk $produk, Transaksi $transaksi, StokProduk $stokProduk, Mitra $mitra, Karyawan $karyawan)
     {
         $this->user = $user;
         $this->produk = $produk;
         $this->transaksi = $transaksi;
         $this->stokProduk = $stokProduk;
         $this->mitra = $mitra;
+        $this->karyawan = $karyawan;
     }
     public function super_admin()
     {
@@ -36,7 +38,15 @@ class DashboardController extends Controller
 
     public function admin()
     {
-        return view('admin.pages.dashboard.index');
+        $mitraId = Auth::user()->mitra->id;
+        $userId = Auth::user()->id;
+        $data = [
+            'total_karyawan' => $this->karyawan::where('mitraId', $mitraId)->count(),
+            'total_transaksi' => $this->transaksi::where('mitraId', $mitraId)->count(),
+            'total_produk' => $this->produk::where('mitraId', $mitraId)->count(),
+            'total_stok' => $this->stokProduk::where('userId', $userId)->sum('qty'),
+        ];
+        return view('admin.pages.dashboard.index', $data);
     }
 
 

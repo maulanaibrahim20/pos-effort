@@ -107,9 +107,10 @@
                         <h3>Report</h3>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
-                                class="side-menu__icon fe fe-file-text"></i><span
-                                class="side-menu__label">Laporan</span></a>
+                        <a class="side-menu__item {{ Request::segment(4) == 'transaksi' ? 'active' : '' }}"
+                            href="{{ url('/admin/transaksi/laporan/transaksi') }}"><i
+                                class="side-menu__icon fe fe-file-text"></i><span class="side-menu__label">Laporan
+                                Transaksi</span></a>
                     </li>
                     <li class="sub-category">
                         <h3>Pengaturan</h3>
