@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Keranjang;
 use App\Models\KeranjangDetail;
 use App\Models\Produk;
+use App\Models\StokProduk;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ use Xendit\Xendit;
 
 class AppController extends Controller
 {
-    protected $keranjang, $keranjangDetail, $produk, $transaksi, $transaksiDetail, $serverKey;
+    protected $keranjang, $keranjangDetail, $produk, $transaksi, $stokProduk, $transaksiDetail, $serverKey;
 
     public function __construct()
     {
@@ -25,6 +26,7 @@ class AppController extends Controller
         $this->produk = new Produk();
         $this->transaksi = new Transaksi();
         $this->transaksiDetail = new TransaksiDetail();
+        $this->stokProduk = new StokProduk();
     }
 
     public function home()
@@ -37,19 +39,39 @@ class AppController extends Controller
                 "produk" => $this->produk->where("mitraId", Auth::user()->karyawan->mitra->id)->where("status", 1)->get(),
             ];
 
+            $stokProduk = $this->stokProduk->whereIn("produkId", $data["produk"]->pluck("id"))->get();
+
+            $transaksis = $this->transaksiDetail->whereIn("idProduk", $data["produk"]->pluck("id"))->get();
+
+            foreach ($data["produk"] as $key => $produk) {
+                $produkStok = $stokProduk->where("produkId", $produk->id)->sum("qty");
+                $transaksiStok = $transaksis->where("idProduk", $produk->id)->sum("qtyProduk");
+                $produk->stok = $produkStok - $transaksiStok;
+
+                if ($produk["stok"] <= 0) {
+                    unset($data["produk"][$key]);
+                }
+            }
+
             if (!empty(Auth::user())) {
                 $data["keranjang"] = $this->keranjang->where("userId", Auth::user()->id)->first();
 
                 if (!empty($data["keranjang"])) {
                     $data["keranjangDetail"] = $this->keranjangDetail->where("keranjangId", $data["keranjang"]["id"])
                         ->get();
+
+                    foreach ($data["keranjangDetail"] as $keranjangDetail) {
+                        $produk = $data["produk"]->where("id", $keranjangDetail->produkId)->first();
+                        if ($produk) {
+                            $keranjangDetail->max_qty = $produk->stok - $keranjangDetail->qty;
+                        }
+                    }
                 }
             }
 
             DB::commit();
 
             return view("landing-page.home", $data);
-
         } catch (\Exception $e) {
 
             DB::rollBack();
@@ -144,6 +166,10 @@ class AppController extends Controller
             $data = [
                 "produk" => $this->produk->where("id", $idProduk)->first()
             ];
+
+            $produkStok = $this->stokProduk->where("produkId", $data["produk"]->id)->sum("qty");
+            $transaksiStok = $this->transaksiDetail->where("idProduk", $data["produk"]->id)->sum("qtyProduk");
+            $data["produk"]->stok = $produkStok - $transaksiStok;
 
             DB::commit();
 
@@ -258,6 +284,7 @@ class AppController extends Controller
             foreach ($keranjangDetail as $item) {
                 $this->transaksiDetail->create([
                     "transaksiId" => $transaksi["id"],
+                    "idProduk" => $item["produk"]["id"],
                     "namaProduk" => $item["produk"]["namaProduk"],
                     "hargaProduk" => $item["produk"]["hargaProduk"],
                     "qtyProduk" => $item["qty"]
@@ -293,7 +320,6 @@ class AppController extends Controller
             DB::commit();
 
             return redirect()->to("/transaksi/" . $transaksi["invoiceId"])->with("success", "Data Berhasil di Simpan");
-
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -317,7 +343,6 @@ class AppController extends Controller
             DB::commit();
 
             return view("landing-page.invoice", $data);
-
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -360,7 +385,6 @@ class AppController extends Controller
                 "status" => true,
                 "message" => "Qty Berhasil di Simpan"
             ], 200);
-
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -384,7 +408,6 @@ class AppController extends Controller
             DB::commit();
 
             return view("landing-page.riwayat-transaksi", $data);
-
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -403,7 +426,6 @@ class AppController extends Controller
             DB::commit();
 
             return view("landing-page.amount-invoice", $data);
-
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -429,7 +451,6 @@ class AppController extends Controller
             DB::commit();
 
             return redirect()->to("/riwayat-transaksi")->with("success", "Pembayaran Cash Berhasil dilakukan");
-
         } catch (\Exception $e) {
             DB::rollBack();
 
