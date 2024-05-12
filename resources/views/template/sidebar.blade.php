@@ -64,6 +64,12 @@
                             href="{{ url('/super_admin/master/mitra') }}"><i class="side-menu__icon fe fe-users"></i><span
                                 class="side-menu__label">Akun Mitra</span></a>
                     </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(3) == 'karyawan' ? 'active' : '' }}"
+                            href="{{ url('/super_admin/master/karyawan') }}"><i
+                                class="side-menu__icon fa fa-vcard-o"></i><span class="side-menu__label">Akun
+                                Karyawan</span></a>
+                    </li>
                     <li class="sub-category">
                         <h3>Transaksi</h3>
                     </li>
@@ -72,14 +78,6 @@
                             href="{{ url('/super_admin/transaksi') }}"><i
                                 class="side-menu__icon fe fe-trending-up"></i><span class="side-menu__label">Transaksi
                             </span></a>
-                    </li>
-                    <li class="sub-category">
-                        <h3>Report</h3>
-                    </li>
-                    <li>
-                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
-                                class="side-menu__icon fe fe-file-text"></i><span
-                                class="side-menu__label">Laporan</span></a>
                     </li>
                 @endcan
                 @can('admin')
@@ -104,6 +102,14 @@
                             href="{{ url('/admin/transaksi/stok_produk') }}"><i
                                 class="side-menu__icon fa fa-cube"></i><span class="side-menu__label">Stok
                                 Produk</span></a>
+                    </li>
+                    <li class="sub-category">
+                        <h3>Report</h3>
+                    </li>
+                    <li>
+                        <a class="side-menu__item {{ Request::segment(2) == '' ? 'active' : '' }}" href="#"><i
+                                class="side-menu__icon fe fe-file-text"></i><span
+                                class="side-menu__label">Laporan</span></a>
                     </li>
                     <li class="sub-category">
                         <h3>Pengaturan</h3>
@@ -134,8 +140,8 @@
                         </a>
                     @elseif (Auth::user()->akses == 3)
                         <a class="side-menu__item {{ Request::segment(3) == 'saya' ? 'active' : '' }}"
-                            href="{{ url('/karyawan/profile/saya') }}"><i class="side-menu__icon fe fe-user"></i><span
-                                class="side-menu__label">Profile
+                            href="{{ url('/karyawan/profile/saya') }}"><i
+                                class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Profile
                                 Saya</span>
                         </a>
                     @endif

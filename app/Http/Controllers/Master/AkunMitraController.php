@@ -183,6 +183,13 @@ class AkunMitraController extends Controller
                 $mitra->statusMitra = $mitra->statusMitra == '0' ? '1' : '0';
                 $mitra->validasiMitraId = $userId;
                 $mitra->save();
+
+                $user = $mitra->user;
+                if ($user) {
+                    $user->active = $user->active  == '0' ? '1' : '0';
+                    $user->save();
+                }
+
                 DB::commit();
                 Alert::success('Berhasil', 'Status Akun Mitra berhasil diubah.');
                 return back()->with('success', 'Status Akun Mitra berhasil diubah.');
