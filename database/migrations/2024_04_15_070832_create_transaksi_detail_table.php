@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('transaksi_detail', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->string("transaksiId", 50);
+            $table->string("idProduk", 50);
             $table->string("namaProduk", 100);
             $table->double("hargaProduk");
             $table->tinyInteger("qtyProduk");
