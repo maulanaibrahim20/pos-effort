@@ -1,5 +1,5 @@
 @extends('index')
-@section('title', 'Master Produk')
+@section('title', 'Master Karyawan')
 @section('content')
     <div class="page-header d-sm-flex d-block">
         <ol class="breadcrumb mb-sm-0 mb-3">
@@ -20,18 +20,20 @@
                             <thead>
                                 <tr>
                                     <th class="wd-15p border-bottom-0">No</th>
-                                    <th class="wd-15p border-bottom-0">Kategori</th>
-                                    <th class="wd-15p border-bottom-0">Harga</th>
+                                    <th class="wd-15p border-bottom-0">Nama Karyawan</th>
                                     <th class="wd-15p border-bottom-0">Mitra</th>
+                                    <th class="wd-15p border-bottom-0">Nomor Hp</th>
+                                    <th class="wd-15p border-bottom-0">Alamat</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($produk as $data)
+                                @foreach ($karyawan as $data)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $data->kategori }}</td>
-                                        <td>Rp. {{ number_format($data->hargaProduk, 0, ',', '.') }}</td>
+                                        <td>{{ $data->user->nama }}</td>
                                         <td>{{ $data->mitra->namaMitra }}</td>
+                                        <td>{{ $data->nomorHpAktif }}</td>
+                                        <td>{{ $data->alamat }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -44,79 +46,6 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function() {
-            @foreach ($produk as $item)
-                $('#exampleModal3{{ $item->id }}').on('shown.bs.modal', function() {
-                    let hargaFormatted = formatRupiah($('#editHargaInput').val());
-                    $('#editHargaInput').val(hargaFormatted);
-                });
-
-                $('#editHargaInput').on('input', function() {
-                    let hargaInput = $(this).val();
-                    let harga = hargaInput.replace(/\D/g, '');
-                    let hargaFormatted = formatRupiah(harga);
-                    $(this).val(hargaFormatted);
-                });
-
-                $('#exampleModal3{{ $item->id }} form').submit(function(event) {
-                    let hargaInput = $('#editHargaInput').val();
-
-                    let harga = hargaInput.replace(/\D/g, '');
-
-                    $('#editHargaInput').val(harga);
-                });
-            @endforeach
-
-
-            function formatRupiah(angka) {
-                var reverse = angka.toString().split('').reverse().join(''),
-                    ribuan = reverse.match(/\d{1,3}/g);
-                ribuan = ribuan.join('.').split('').reverse().join('');
-                return 'Rp.' + ribuan;
-            }
-            $('#hargaInput').on('input', function() {
-                let harga = $(this).val();
-                let hargaFormatted = formatRupiah(harga);
-                $(this).val(hargaFormatted);
-            });
-
-            function formatRupiah(angka) {
-                var number_string = angka.toString().replace(/[^,\d]/g, ''),
-                    split = number_string.split(','),
-                    sisa = split[0].length % 3,
-                    rupiah = split[0].substr(0, sisa),
-                    ribuan = split[0].substr(sisa).match(/\d{1,3}/gi);
-
-                if (ribuan) {
-                    separator = sisa ? '.' : '';
-                    rupiah += separator + ribuan.join('.');
-                }
-
-                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                return 'Rp. ' + rupiah;
-            }
-            $('form').submit(function(event) {
-                let hargaInput = $('#hargaInput').val();
-                let harga = hargaInput.replace(/\D/g, '');
-                $('#hargaInput').val(harga);
-            });
-        });
-
-        function editModal(id) {
-            $.ajax({
-                url: '/super_admin/master/produk/' + id + '/edit',
-                type: 'GET',
-                data: {
-                    id: id
-                },
-                success: function(response) {
-                    $("#modal-content-edit").html(response)
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            })
-        }
         $('.changeStatusBtn').on('click', function(e) {
             e.preventDefault();
             var id = $(this).data('id');

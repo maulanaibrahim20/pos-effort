@@ -24,4 +24,9 @@ class Produk extends Model
     {
         return $this->hasMany(StokProduk::class, 'produkId', 'id');
     }
+
+    public function mitra()
+    {
+        return $this->belongsTo(Mitra::class, 'mitraId');
+    }
 }

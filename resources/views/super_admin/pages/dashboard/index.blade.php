@@ -8,94 +8,65 @@
         </ol><!-- End breadcrumb -->
     </div>
     <div class="row">
-        <div class="col-sm-12 col-lg-6 col-md-6 col-xxl-3">
-            <a href="#" class="card overflow-hidden">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="mb-0 fw-semibold text-dark lh-1">Pengguna</p>
-                                    <div class="fs-12 text-muted mb-5">Total Pengguna</div>
-                                    <div class="fs-30 fw-semibold mb-0 lh-1">{{ $total_user }}
-                                    </div>
-                                </div>
-                                <div class="text-end d-flex flex-column align-items-center">
-                                    <span class="text-primary lh-1 mt-3 fs-26 mt-6"><i class="fe fe-users"></i></span>
-                                </div>
-                            </div>
-                        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <a href="{{ url('/super_admin/master/karyawan') }}" class="card card-counter bg-danger">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="fa fa-users mb-0 text-white-transparent"></i>
+                    </div>
+                    <div class="mt-2 mb-0 text-white">
+                        <h2 class="mb-0">{{ $total_user }}</h2>
+                        <p class="text-white mt-1 mb-0">Karyawan</p>
                     </div>
                 </div>
             </a>
-        </div>
-        <!-- col end -->
-        <div class="col-sm-12 col-lg-6 col-md-6 col-xxl-3">
-            <a href="{{ url('/super_admin/master/produk') }}" class="card overflow-hidden">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="mb-0 fw-semibold text-dark lh-1">Produk</p>
-                                    <div class="fs-12 text-muted mb-5">Total Produk</div>
-                                    <div class="fs-30 fw-semibold mb-0 lh-1">{{ $total_produk }}
-                                    </div>
-                                </div>
-                                <div class="text-end d-flex flex-column align-items-center">
-                                    <span class="text-secondary lh-1 mt-3 fs-26 mt-6"><i class="fe fe-box"></i></span>
-                                </div>
-                            </div>
-                        </div>
+        </div><!-- col end -->
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <a href="{{ url('/super_admin/master/produk') }}" class="card card-counter bg-secondary">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="si si-layers mb-0 text-white-transparent"></i>
+                    </div>
+                    <div class="mt-2 mb-0 text-white">
+                        <h2 class="mb-0">{{ $total_produk }}</h2>
+                        <p class="text-white mt-1 mb-0">Produk </p>
                     </div>
                 </div>
             </a>
-        </div>
-        <!-- col end -->
-        <div class="col-sm-12 col-lg-6 col-md-6 col-xxl-3">
-            <a href="{{ url('/super_admin/master/kategori_bahan') }}" class="card overflow-hidden">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="mb-0 fw-semibold text-dark lh-1">Kategori Bahan</p>
-                                    <div class="fs-12 text-muted mb-5">Total Kategori Bahan</div>
-                                    <div class="fs-30 fw-semibold mb-0 lh-1">
-                                    </div>
-                                </div>
-                                <div class="text-end d-flex flex-column align-items-center">
-                                    <span class="text-warning lh-1 mt-3 fs-26 mt-6"><i class="fe fe-truck"></i></span>
-                                </div>
-                            </div>
-                        </div>
+        </div><!-- col end -->
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <a href="{{ url('/super_admin/master/mitra') }}" class="card card-counter bg-primary">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="fa fa-hospital-o mt-3 mb-0 text-white-transparent"></i>
+                    </div>
+                    <div class="mt-2 mb-0 text-white">
+                        <h2 class="mb-0">{{ $total_mitra }}</h2>
+                        <p class="text-white mt-1 mb-0">Mitra</p>
                     </div>
                 </div>
             </a>
-        </div>
-        <!-- col end -->
-        <div class="col-sm-12 col-lg-6 col-md-6 col-xxl-3">
-            <a href="{{ url('/super_admin/transaksi') }}" class="card overflow-hidden">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <p class="mb-0 fw-semibold text-dark lh-1">Transaksi</p>
-                                    <div class="fs-12 text-muted mb-5">Total Transaksi</div>
-                                    <div class="fs-30 fw-semibold mb-0 lh-1">{{ $total_transaksi }} <i class=""></i>
-                                    </div>
-                                </div>
-                                <div class="text-end d-flex flex-column align-items-center">
-                                    <span class="text-danger lh-1 mt-3 fs-26 mt-6"><i
-                                            class="fe fe-shopping-cart"></i></span>
-                                </div>
-                            </div>
-                        </div>
+        </div><!-- col end -->
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <a href="{{ url('/super_admin/transaksi') }}" class="card card-counter bg-warning">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="fe fe-send mt-3 mb-0 text-white-transparent"></i>
+                    </div>
+                    <div class="mt-2 mb-0 text-white">
+                        <h2 class="mb-0">{{ $total_transaksi }}</h2>
+                        <p class="text-white mt-1 mb-0">Transaksi</p>
                     </div>
                 </div>
             </a>
-        </div>
-        <!-- col end -->
+        </div><!-- col end -->
     </div>
+@endsection
+
+@section('script')
+    <script>
+        function redirectToRoute(route) {
+            window.location.href = route;
+        }
+    </script>
 @endsection
