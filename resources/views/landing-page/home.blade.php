@@ -13,7 +13,7 @@
                             class="card-img-top img-fluid" style="width: 100%" alt="Gambar Produk">
                         <div class="card-body">
                             <h5 class="card-title">
-                                {{ $item['nama'] }}
+                                {{ $item['namaProduk'] }}
                             </h5>
                             <p class="card-text">
                                 Rp. {{ number_format($item['hargaProduk']) }} -
@@ -30,15 +30,7 @@
                             <span>
                                 Stok :
                                 <strong>
-                                    @php
-                                        $stok = 0;
-                                    @endphp
-                                    @foreach ($item->stokProduk as $item)
-                                        @php
-                                            $stok += $item->qty;
-                                        @endphp
-                                    @endforeach
-                                    {{ $stok }}
+                                    {{ $item['stok'] }}
                                 </strong>
                             </span>
                             <hr>

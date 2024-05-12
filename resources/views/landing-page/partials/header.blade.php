@@ -107,7 +107,7 @@
                                                         <div class="col-md-4 mb-3">
                                                             <input type="number" class="form-control" name="qty-produk"
                                                                 id="qty-produk-{{ $item['id'] }}"
-                                                                value="{{ $item['qty'] }}" min="1">
+                                                                value="{{ $item['qty'] }}" min="1" max="{{ $item['max_qty'] }}">
                                                         </div>
                                                         <div class="col-md-6 mb-3">
                                                             <button class="btn btn-primary btn-xs btn-simpan"

@@ -23,7 +23,7 @@
                             <div class="row align-items-center">
                                 <div class="col-md-4 mb-3">
                                     <input type="number" class="form-control" name="qty-produk" id="qty-produk"
-                                        min="1" placeholder="0">
+                                        min="1" placeholder="0" max="{{ $produk['stok'] }}">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <button type="reset" class="btn btn-danger btn-xs" style="margin-right: 10px">
