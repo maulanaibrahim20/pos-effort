@@ -1,3 +1,6 @@
+@php
+    use Carbon\Carbon;
+@endphp
 @extends('index')
 @section('title', 'Transaksi')
 @section('content')
@@ -43,19 +46,19 @@
                             <thead class="bg-light text-dark">
                                 <tr>
                                     <th class="fw-semibold fs-14 border-bottom-0 w-5">
-                                        Order ID</th>
-                                    <th class="fw-semibold fs-14 border-bottom-0">
-                                        Nama Pembeli</th>
+                                        Invoice</th>
                                     <th class="fw-semibold fs-14 border-bottom-0">
                                         Tanggal Order</th>
                                     <th class="fw-semibold fs-14 border-bottom-0">
-                                        Nama Kasir</th>
+                                        Nama Pembeli</th>
+                                    <th class="fw-semibold fs-14 border-bottom-0">
+                                        Mitra</th>
                                     <th class="fw-semibold fs-14 border-bottom-0">
                                         Total</th>
                                     <th class="fw-semibold fs-14 border-bottom-0">
                                         Status</th>
                                     <th class="fw-semibold fs-14 border-bottom-0">
-                                        Jenis Transaksi</th>
+                                        Transaksi</th>
                                     <th class="fw-semibold fs-14 border-bottom-0 text-center">
                                         Action</th>
                                 </tr>
@@ -65,15 +68,37 @@
                                     @foreach ($transaksi as $data)
                                         <tr class="border-bottom">
                                             <td>
-                                                <div class="d-flex justify-content-center align-items-center">
-                                                    <h6 class="mb-0 fw-semibold text-dark">{{ $data['invoiceId'] }}</h6>
-                                                </div>
+                                                <h6 class="mb-0 mt-1 fs-13 text-dark fw-semibold">
+                                                    {{ $data['invoiceId'] }}
+                                                </h6>
+                                            </td>
+                                            <td class="fs-13 fw-semibold text-dark">
+                                                @php
+                                                    $tanggalCarbon = Carbon::createFromFormat(
+                                                        'Y-m-d H:i:s',
+                                                        $data['tanggalOrder'],
+                                                    );
+                                                    $tanggalFormatBaru = $tanggalCarbon->translatedFormat(
+                                                        'd F Y H:i:s',
+                                                    );
+                                                    $tanggalFormatBaru = str_replace(
+                                                        ' 00:00:00',
+                                                        '',
+                                                        $tanggalFormatBaru,
+                                                    );
+                                                @endphp
+                                                <i class="fe fe-calendar me-2"></i>{{ $tanggalFormatBaru }}
                                             </td>
                                             <td class="fs-13 fw-semibold text-dark">{{ $data['namaUser'] }}</td>
-                                            <td class="fs-13 fw-semibold text-dark"><i
-                                                    class="fe fe-calendar me-2"></i>20-11-2020
+                                            <td>
+                                                <div>
+                                                    <span
+                                                        class="text-muted fs-12 fw-semibold">{{ $data['usernameKasir'] }}</span>
+                                                    <h6 class="mb-0 mt-1 fs-13 text-dark fw-semibold">
+                                                        {{ $data['namaMitra'] }}
+                                                    </h6>
+                                                </div>
                                             </td>
-                                            <td class="fs-13 fw-semibold text-dark">{{ $data->users['nama'] }}</td>
                                             <td class="fs-13 fw-semibold text-dark">
                                                 {{ 'Rp ' . number_format($data['totalHarga'], 0, ',', '.') }}</td>
                                             <td class="fs-15 fw-semibold">
@@ -109,15 +134,37 @@
                                     @foreach (session('filterBayar') as $filter)
                                         <tr class="border-bottom">
                                             <td>
-                                                <div class="d-flex justify-content-center align-items-center">
-                                                    <h6 class="mb-0 fw-semibold text-dark">{{ $filter['invoiceId'] }}</h6>
-                                                </div>
+                                                <h6 class="mb-0 mt-1 fs-13 text-dark fw-semibold">
+                                                    {{ $filter['invoiceId'] }}
+                                                </h6>
+                                            </td>
+                                            <td class="fs-13 fw-semibold text-dark">
+                                                @php
+                                                    $tanggalCarbon = Carbon::createFromFormat(
+                                                        'Y-m-d H:i:s',
+                                                        $filter['tanggalOrder'],
+                                                    );
+                                                    $tanggalFormatBaru = $tanggalCarbon->translatedFormat(
+                                                        'd F Y H:i:s',
+                                                    );
+                                                    $tanggalFormatBaru = str_replace(
+                                                        ' 00:00:00',
+                                                        '',
+                                                        $tanggalFormatBaru,
+                                                    );
+                                                @endphp
+                                                <i class="fe fe-calendar me-2"></i>{{ $tanggalFormatBaru }}
                                             </td>
                                             <td class="fs-13 fw-semibold text-dark">{{ $filter['namaUser'] }}</td>
-                                            <td class="fs-13 fw-semibold text-dark"><i
-                                                    class="fe fe-calendar me-2"></i>20-11-2020
+                                            <td>
+                                                <div>
+                                                    <span
+                                                        class="text-muted fs-12 fw-semibold">{{ $filter['usernameKasir'] }}</span>
+                                                    <h6 class="mb-0 mt-1 fs-13 text-dark fw-semibold">
+                                                        {{ $filter['namaMitra'] }}
+                                                    </h6>
+                                                </div>
                                             </td>
-                                            <td class="fs-13 fw-semibold text-dark">{{ $filter->users['nama'] }}</td>
                                             <td class="fs-13 fw-semibold text-dark">
                                                 {{ 'Rp ' . number_format($filter['totalHarga'], 0, ',', '.') }}</td>
                                             <td class="fs-15 fw-semibold">
