@@ -10,6 +10,7 @@ use App\Http\Controllers\LandingPage\AppController;
 use App\Http\Controllers\Master\AkunKaryawanController;
 use App\Http\Controllers\Master\AkunMitraController;
 use App\Http\Controllers\Master\ProdukController;
+use App\Http\Controllers\Pengaturan\PengaturanMitraController;
 use App\Http\Controllers\SuperAdmin\KaryawanController as SuperAdminKaryawanController;
 use App\Http\Controllers\SuperAdmin\ProdukController as SuperAdminProdukController;
 use App\Http\Controllers\Transaksi\LaporanTransaksiController;
@@ -114,6 +115,12 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::get('user/edit_password/{id}/edit', [EditProfileController::class, 'editPassword']);
                 Route::put('user/update_gambar/{id}', [EditProfileController::class, 'editGambar']);
                 Route::get('user/edit_gambar/{id}/edit', [EditProfileController::class, 'updateGambar']);
+            });
+            Route::prefix('pengaturan')->group(function () {
+                Route::get('mitra', [PengaturanMitraController::class, 'index']);
+                Route::put('mitra/{id}', [PengaturanMitraController::class, 'update']);
+                Route::get('mitra/{id}/edit', [PengaturanMitraController::class, 'editGambar']);
+                Route::put('mitra/updateGambar/{id}', [PengaturanMitraController::class, 'updateGambar']);
             });
             Route::get('/dashboard', [DashboardController::class, 'admin']);
         });

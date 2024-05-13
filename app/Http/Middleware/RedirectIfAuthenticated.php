@@ -20,9 +20,9 @@ class RedirectIfAuthenticated
         if (Auth::guard($guards)->check()) {
             if (Auth::user()->akses == 1) {
                 return redirect("/super_admin/dashboard");
-            } else if (Auth::user()->role_id == 2) {
+            } else if (Auth::user()->akses == 2) {
                 return redirect("/admin/dashboard");
-            } else if (Auth::user()->role_id == 3) {
+            } else if (Auth::user()->akses == 3) {
                 return redirect("/karyawan/dashboard");
             }
         }

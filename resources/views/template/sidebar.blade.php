@@ -116,9 +116,9 @@
                         <h3>Pengaturan</h3>
                     </li>
                     <li>
-                        <a class="side-menu__item {{ Request::segment(3) == '#' ? 'active' : '' }}"
-                            href="{{ url('/admin/transaksi/stok_produk') }}"><i
-                                class="side-menu__icon fa fa-bank"></i><span class="side-menu__label">
+                        <a class="side-menu__item {{ Request::segment(3) == 'mitra' ? 'active' : '' }}"
+                            href="{{ url('/admin/pengaturan/mitra') }}"><i class="side-menu__icon fa fa-bank"></i><span
+                                class="side-menu__label">
                                 Pengaturan Mitra</span>
                         </a>
                     </li>
@@ -148,7 +148,7 @@
                     @endif
                 </li>
                 <li>
-                    <a class="side-menu__item" href="{{ url('/logout') }}"><i
+                    <a class="side-menu__item" href="#" id="logoutBtn"><i
                             class="side-menu__icon fe fe-log-out"></i><span class="side-menu__label">Logout</span></a>
                 </li>
             </ul>

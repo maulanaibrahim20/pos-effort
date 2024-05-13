@@ -5,11 +5,6 @@
     <form action="{{ url('admin/master/produk') }}" enctype="multipart/form-data" method="POST">
         @csrf
         <div class="card-body">
-            @if (session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
             @error('namaProduk')
                 <div class="alert alert-danger">
                     {{ $message }}
@@ -40,7 +35,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">Pilih Kategori</label>
-                    <select name="kategori" class="form-control select2 form-select" id="kategori">
+                    <select name="kategori" class="form-control select2 form-select" data-placeholder="Pilih"
+                        id="kategori">
                         <option value="">-- Pilih --</option>
                         <option value="Makanan"> Makanan </option>
                         <option value="Minuman"> Minuman </option>
@@ -65,6 +61,7 @@
                     @enderror
                 </div>
             </div>
+            <button type="reset" class="btn ripple btn-danger">Cancel</button>
             <button type="submit" class="btn ripple btn-primary">Submit</button>
         </div>
     </form>

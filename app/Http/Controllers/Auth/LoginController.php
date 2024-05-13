@@ -31,7 +31,7 @@ class LoginController extends Controller
             return redirect(route('login.index'))->with('error', 'Periksa kembali Email dan Password Anda!');
         }
         if (!Hash::check($request->password, $user->password)) {
-            return back()->with('error', 'Maaf, Password Anda Salah!');
+            return back()->with('error', 'Periksa kembali Email dan Password Anda!');
         }
 
         //mengecek jika user belum aktif atau belum diaktifkan oleh admin

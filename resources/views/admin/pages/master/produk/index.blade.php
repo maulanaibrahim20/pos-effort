@@ -122,8 +122,8 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            @foreach ($produk as $item)
-                $('#exampleModal3{{ $item->id }}').on('shown.bs.modal', function() {
+            @foreach ($produk as $i)
+                $('#exampleModal3{{ $i->id }}').on('shown.bs.modal', function() {
                     let hargaFormatted = formatRupiah($('#editHargaInput').val());
                     $('#editHargaInput').val(hargaFormatted);
                 });
@@ -135,7 +135,7 @@
                     $(this).val(hargaFormatted);
                 });
 
-                $('#exampleModal3{{ $item->id }} form').submit(function(event) {
+                $('#exampleModal3{{ $i->id }} form').submit(function(event) {
                     let hargaInput = $('#editHargaInput').val();
 
                     let harga = hargaInput.replace(/\D/g, '');

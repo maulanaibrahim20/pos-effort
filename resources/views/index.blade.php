@@ -201,14 +201,34 @@
             });
         </script>
     @endif
-    {{-- @if (session('error'))
+    @if (session('error'))
         <script type="text/javascript">
             Swal.fire({
                 title: "{{ session('error') }}",
                 icon: "error"
             });
         </script>
-    @endif --}}
+    @endif
+    <script>
+        $(document).ready(function() {
+            $('#logoutBtn').click(function(event) {
+                event.preventDefault();
+
+                Swal.fire({
+                    title: 'Konfirmasi',
+                    text: 'Apakah Anda yakin ingin logout?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Logout',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "{{ url('/logout') }}";
+                    }
+                });
+            });
+        });
+    </script>
     @yield('script')
 
 </body>
