@@ -65,11 +65,11 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             if ($user->akses == 1) {
-                return redirect()->to('/super_admin/dashboard')->with('success', 'Anda Berhasil Login. Selamat Datang, ' . Auth::user()->name);
+                return redirect()->to('/super_admin/dashboard')->with('success', 'Anda Berhasil Login. Selamat Datang, ' . Auth::user()->nama);
             } elseif ($user->akses == 2) {
-                return redirect('/admin/dashboard')->with('success', 'Anda Berhasil Login. Selamat Datang, ' . Auth::user()->name);
+                return redirect('/admin/dashboard')->with('success', 'Anda Berhasil Login. Selamat Datang, ' . Auth::user()->nama);
             } elseif ($user->akses == 3) {
-                return redirect('/karyawan/dashboard')->with('success', 'Anda Berhasil Login. Selamat Datang, ' . Auth::user()->name);
+                return redirect('/karyawan/dashboard')->with('success', 'Anda Berhasil Login. Selamat Datang, ' . Auth::user()->nama);
             }
         }
         return back()->with('error', 'Gagal melakukan autentikasi');
