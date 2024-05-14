@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
+use App\Models\Mitra;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,26 +14,43 @@ use Illuminate\Support\Str;
 
 class ProdukController extends Controller
 {
-    protected $produk;
+    protected $produk, $mitra;
 
-    public function __construct(Produk $produk)
+    public function __construct(Produk $produk, Mitra $mitra)
     {
         $this->produk = $produk;
+        $this->mitra = $mitra;
     }
     public function index()
     {
-        $content = [
-            'titleCreate' => 'Tambah Data Produk',
-            'title' => 'Table Produk',
-            'breadcrumb' => 'Dashboard',
-            'breadcrumb_active' => 'Table Produk',
-            'button_create' => 'Tambah Produk',
-        ];
-        $mitra = Auth::user()->mitra->id;
-        $data = [
-            'produk' => $this->produk::where('mitraId', $mitra)->get(),
-        ];
-        return view('admin.pages.master.produk.index', $content, $data);
+        try {
+
+            DB::beginTransaction();
+
+            $content = [
+                'titleCreate' => 'Tambah Data Produk',
+                'title' => 'Table Produk',
+                'breadcrumb' => 'Dashboard',
+                'breadcrumb_active' => 'Table Produk',
+                'button_create' => 'Tambah Produk',
+            ];
+
+            $mitra = $this->mitra->where("userId", Auth::user()->id)->first();
+
+            $data = [
+                'produk' => $this->produk::where('mitraId', $mitra->id)->get(),
+            ];
+
+            DB::commit();
+
+            return view('admin.pages.master.produk.index', $content, $data);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return redirect()->to("/admin/master/produk");
+        }
+
     }
 
     public function store(Request $request)
