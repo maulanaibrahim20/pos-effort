@@ -123,10 +123,10 @@
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                <button type="button" class="btn br-7 btn-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#Vertically{{ $data['id'] }}">
+                                                <a href="{{ url('/admin/transaksi/laporan/transaksi/detailTransaksi/' . $data['id']) }}"
+                                                    class="btn br-7 btn-primary">
                                                     <i class="fa fa-eye"></i>
-                                                </button>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -189,10 +189,10 @@
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                <button type="button" class="btn br-7 btn-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#Vertically{{ $filter['id'] }}">
+                                                <a href="{{ url('/admin/transaksi/laporan/transaksi/detailTransaksi/' . $filter['id']) }}"
+                                                    class="btn br-7 btn-primary">
                                                     <i class="fa fa-eye"></i>
-                                                </button>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -204,38 +204,4 @@
             </div>
         </div>
     </div>
-
-    @foreach ($transaksi as $data)
-        <div class="modal fade" id="Vertically{{ $data->id }}">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content modal-content-demo">
-                    <div class="modal-header">
-                        <h6 class="modal-title">Detail Transaksi</h6>
-                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Foto Produk</th>
-                                    <th>Nama Produk</th>
-                                    <th>Qty</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($detailTransaksi[$data->id] as $item)
-                                    <tr>
-                                        <td class="text-center"><img src="{{ url('/assets') }}/images/users/male/33.jpg"
-                                                class="avatar avatar-md brround" alt="person-image"></td>
-                                        <td>{{ $item->namaProduk }}</td>
-                                        <td>{{ $item->qtyProduk }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
 @endsection

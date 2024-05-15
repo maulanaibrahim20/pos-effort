@@ -51,4 +51,19 @@ class LaporanTransaksiController extends Controller
             return back()->with(['filterBayar' => $filter, 'messages' => 'Data Filter ', 'status' => $status]);
         });
     }
+
+    public function detailTransaksi($id)
+    {
+        $content = [
+            'breadcrumb' => 'Dashboard',
+            'breadcrumb_1' => 'Laporan Transaksi',
+            'breadcrumb_active' => 'Detail  Transaksi',
+            'title' => 'Detail  Transaksi',
+        ];
+        $data['transaksi'] = $this->transaksi::where('id', $id)->get();
+        foreach ($data['transaksi'] as $dataTransaksi) {
+            $data['detailTransaksi'][$dataTransaksi->id] = $this->detailTransaksi::where('transaksiId', $dataTransaksi->id)->get();
+        }
+        return view('admin.pages.transaksi.laporan_transaksi.detail_transaksi', $data, $content);
+    }
 }

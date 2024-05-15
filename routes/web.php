@@ -103,6 +103,7 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::prefix('laporan')->group(function () {
                     Route::get('transaksi', [LaporanTransaksiController::class, 'index']);
                     Route::post('transaksi/filterByStatus', [LaporanTransaksiController::class, 'filterByStatus']);
+                    Route::get('transaksi/detailTransaksi/{id}', [LaporanTransaksiController::class, 'detailTransaksi']);
                 });
                 Route::get('stok_produk', [StokProdukController::class, 'index']);
                 Route::post('tambah_qty', [StokProdukController::class, 'tambahQty']);
