@@ -33,10 +33,9 @@
                                     <th class="wd-15p border-bottom-0">Nama Produk</th>
                                     <th class="wd-20p border-bottom-0">Kategori</th>
                                     <th class="wd-15p border-bottom-0">Harga Produk</th>
-                                    <th class="wd-15p border-bottom-0">Qty</th>
-                                    <th class="wd-15p border-bottom-0">Tambah Qty</th>
-                                    <th class="wd-15p border-bottom-0">Status</th>
-                                    {{-- <th class="text-center wd-10p border-bottom-0">Actions</th>g --}}
+                                    <th class="wd-15p border-bottom-0 text-center">Qty</th>
+                                    <th class="wd-15p border-bottom-0 text-center">Tambah Qty</th>
+                                    <th class="wd-15p border-bottom-0 text-center">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,7 +44,6 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->namaProduk }}</td>
                                         <td>{{ $data->kategori }}</td>
-
                                         <td>Rp. {{ number_format($data->hargaProduk, 0, ',', '.') }}</td>
                                         @php
                                             $qty = 0;
@@ -57,14 +55,14 @@
                                                 @endphp
                                             @endif
                                         @endforeach
-                                        <td>{{ $qty }}</td>
-                                        <td>
+                                        <td class="text-center">{{ $qty }}</td>
+                                        <td class="text-center">
                                             <form action="{{ url('/admin/transaksi/tambah_qty') }}" method="POST">
                                                 @csrf
-                                                <div class="row align-items-center">
+                                                <div class="row align-items-center justify-content-center m-0">
                                                     <div class="col-md-4 mb-3">
-                                                        <input type="number" class="form-control" name="qty"
-                                                            min="1">
+                                                        <input type="number" class="form-control text-center"
+                                                            name="qty" min="1">
                                                         <input type="hidden" class="form-control" name="produkId"
                                                             value="{{ $data->id }}" min="1">
                                                     </div>
@@ -76,7 +74,7 @@
                                                 </div>
                                             </form>
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             @if ($data->stokProduk->isEmpty())
                                                 <span
                                                     class="badge rounded-pill bg-warning-transparent me-1 my-1 fw-semibold">Belum
@@ -108,21 +106,6 @@
                                                 @endif
                                             @endif
                                         </td>
-                                        {{-- <td class="text-center">
-                                            <a href="{{ url('/operator/user/uptd/' . $data->id . '/edit') }}"
-                                                class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                            <a href="{{ url('/operator/user/uptd/' . $data->id) }}"
-                                                class="btn btn-primary">
-                                                <i class="ti ti-eye"></i></a>
-                                            <form id="deleteForm{{ $data->id }}"
-                                                action="{{ url('/operator/user/uptd/' . $data->id) }}"
-                                                style="display: inline;" method="POST">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="button" class="btn btn-danger deleteBtn"
-                                                    data-id="{{ $data->id }}"><i class="ti ti-trash"></i></button>
-                                            </form>
-                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>
