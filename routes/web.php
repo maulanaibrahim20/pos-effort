@@ -104,6 +104,7 @@ Route::middleware(['autentikasi'])->group(function () {
                     Route::get('transaksi', [LaporanTransaksiController::class, 'index']);
                     Route::post('transaksi/filterByStatus', [LaporanTransaksiController::class, 'filterByStatus']);
                     Route::get('transaksi/detailTransaksi/{id}', [LaporanTransaksiController::class, 'detailTransaksi']);
+                    Route::get('transaksi/exportFilteredPdf', [LaporanTransaksiController::class, 'exportFilteredPdf']);
                 });
                 Route::get('stok_produk', [StokProdukController::class, 'index']);
                 Route::post('tambah_qty', [StokProdukController::class, 'tambahQty']);

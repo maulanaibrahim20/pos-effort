@@ -16,6 +16,18 @@
             <div class="card">
                 <div class="card-header border-bottom ">
                     <h3 class="card-title mb-0">{{ $title }}</h3>
+                    <div class="dropdown ms-auto">
+                        <form style="display: inline;"
+                            action="{{ url('/admin/transaksi/laporan/transaksi/exportFilteredPdf') }}" method="get"
+                            target="_blank">
+                            @if (session('status'))
+                                <input type="hidden" name="filterBayar" value="{{ session('status') }}">
+                            @endif
+                            <button class="btn btn-outline-default fw-bold text-primary" type="submit">
+                                <i class="fa fa-print fw-semibold"></i> Export PDF
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive mb-12">
