@@ -9,8 +9,12 @@
             @forelse ($produk as $item)
                 <div class="col-md-4 mb-3">
                     <div class="card shadow">
-                        <img src="{{ $item['fotoProduk'] == null ? asset('produk_thumbnail/thumbnail_1.jpg') : '' }}"
-                            class="card-img-top img-fluid" style="width: 100%" alt="Gambar Produk">
+                        @if (empty($item['fotoProduk']))
+                        <img src="{{ asset('produk_thumbnail/thumbnail_1.jpg') }}" class="card-img-top img-fluid" style="width: 100%; height: 250px;" alt="Gambar Produk">
+                        @else
+                        <img src="{{ asset('' . $item['fotoProduk']) }}"
+                            class="card-img-top img-fluid" style="width: 100%; height: 250px" alt="Gambar Produk">
+                        @endif
                         <div class="card-body">
                             <h5 class="card-title">
                                 {{ $item['namaProduk'] }}

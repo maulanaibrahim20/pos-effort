@@ -52,7 +52,14 @@
                                         <td>{{ $data->namaProduk }}</td>
                                         <td>{{ $data->kategori }}</td>
                                         <td>Rp. {{ number_format($data->hargaProduk, 0, ',', '.') }}</td>
-                                        <td><img src="{{ asset('' . $data->fotoProduk) }}" style="width:60px;height:60">
+                                        <td class="text-center">
+                                            @if (empty($data->fotoProduk))
+                                            <strong>
+                                                -
+                                            </strong>
+                                            @else
+                                            <img src="{{ asset('' . $data->fotoProduk) }}" style="width:60px;height:60">
+                                            @endif
                                         <td>
                                             @if ($data->status == '1')
                                                 <form id="changeStatus{{ $data->id }}"
