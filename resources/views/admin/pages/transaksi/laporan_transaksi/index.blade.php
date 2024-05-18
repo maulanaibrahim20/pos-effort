@@ -23,6 +23,7 @@
                             @if (session('status'))
                                 <input type="hidden" name="filterBayar" value="{{ session('status') }}">
                             @endif
+                            {{ session("status") }}
                             <button class="btn btn-outline-default fw-bold text-primary" type="submit">
                                 <i class="fa fa-print fw-semibold"></i> Export PDF
                             </button>

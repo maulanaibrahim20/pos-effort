@@ -33,39 +33,46 @@
         th {
             background-color: #f2f2f2;
         }
+
+        .text-center {
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
     <div class="header">
         <h2>{{ $title }}</h2>
-        <p>Tanggal: {{ $date }}</p>
+        <p>
+            Tanggal Cetak Data :
+            <strong>
+                {{ $date }}
+            </strong>
+        </p>
     </div>
     <div class="content">
         <table>
             <thead>
                 <tr>
-                    <th>Invoice ID</th>
-                    <th>Tanggal Order</th>
+                    <th class="text-center">Invoice ID</th>
+                    <th class="text-center">Tanggal Order</th>
                     <th>Nama User</th>
                     <th>Username Kasir</th>
-                    <th>Nama Mitra</th>
-                    <th>Total Harga</th>
-                    <th>Status Order</th>
-                    <th>Tipe Transaksi</th>
+                    <th class="text-center">Total Harga</th>
+                    <th class="text-center">Status Order</th>
+                    <th class="text-center">Tipe Transaksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($transaksi as $data)
                     <tr>
-                        <td>{{ $data->invoiceId }}</td>
-                        <td>{{ \Carbon\Carbon::parse($data->tanggalOrder)->translatedFormat('d F Y') }}</td>
+                        <td class="text-center">{{ $data->invoiceId }}</td>
+                        <td class="text-center">{{ \Carbon\Carbon::parse($data->tanggalOrder)->translatedFormat('d F Y') }}</td>
                         <td>{{ $data->namaUser }}</td>
                         <td>{{ $data->usernameKasir }}</td>
-                        <td>{{ $data->namaMitra }}</td>
-                        <td>{{ 'Rp ' . number_format($data->totalHarga, 0, ',', '.') }}</td>
-                        <td>{{ $data->statusOrder == 'PAID' ? 'Sudah Bayar' : 'Belum Bayar' }}</td>
-                        <td>{{ $data->tipeTransaksi == 'CASH' ? 'Cash' : ($data->tipeTransaksi == 'TRANSFER' ? 'Online Payment' : 'Belum Bayar') }}
+                        <td class="text-center">{{ 'Rp ' . number_format($data->totalHarga, 0, ',', '.') }}</td>
+                        <td class="text-center">{{ $data->statusOrder == 'PAID' ? 'Sudah Bayar' : 'Belum Bayar' }}</td>
+                        <td class="text-center">{{ $data->tipeTransaksi == 'CASH' ? 'Cash' : ($data->tipeTransaksi == 'TRANSFER' ? 'Online Payment' : 'Belum Bayar') }}
                         </td>
                     </tr>
                 @endforeach

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -83,8 +84,8 @@ class LaporanTransaksiController extends Controller
         $statusBayar = $filterBayar == 'PAID' ? 'Sudah Bayar' : ($filterBayar == 'UNPAID' ? 'Belum Bayar' : 'Semua');
 
         $data = [
-            'title' => 'Laporan Transaksi (' . $statusBayar . ')',
-            'date' => date('d/m/Y'),
+            'title' => 'Laporan Transaksi Keseluruhan (' . $statusBayar . ')',
+            'date' => Carbon::now()->locale('id')->translatedFormat('d F Y'),
         ];
 
         if (empty($filterBayar)) {
@@ -93,7 +94,7 @@ class LaporanTransaksiController extends Controller
             $data['transaksi'] = $filter;
         }
 
-        $pdf = Pdf::loadView('admin.pages.transaksi.laporan_transaksi.pdf.export_pdf', $data);
+        $pdf = Pdf::loadView('admin.pages.transaksi.laporan_transaksi.pdf.export_pdf', $data)->setPaper("a3");
         return $pdf->stream('laporan_transaksi.pdf');
     }
 }
