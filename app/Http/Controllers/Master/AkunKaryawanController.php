@@ -80,6 +80,7 @@ class AkunKaryawanController extends Controller
         return view('admin.pages.master.karyawan.edit', $data);
     }
 
+
     public function update(Request $request, $id)
     {
         try {
@@ -116,6 +117,44 @@ class AkunKaryawanController extends Controller
             return back()->with('error', 'Error Data Karyawan Untuk ' . Auth::user()->mitra->namaMitra . ' Gagal Diubah!');
         }
     }
+
+    public function editPassword($id)
+    {
+        $data["edit"] = $this->karyawan->where("id", $id)->first();
+
+        return view('admin.pages.master.karyawan.editPassword', $data);
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        // Validasi input
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed',
+        ], [
+            'password.required' => 'Password baru harus diisi.',
+            'password.string' => 'Password baru harus berupa teks.',
+            'password.min' => 'Password baru harus minimal 8 karakter.',
+            'password.confirmed' => 'Password dan konfirmasi password tidak cocok.',
+        ]);
+
+        try {
+            DB::beginTransaction();
+            $karyawan = $this->karyawan::findOrFail($id);
+            $karyawan->user->update([
+                'password' => Hash::make($request->password),
+            ]);
+
+            DB::commit();
+
+            Alert::success('success', 'Password karyawan untuk ' . Auth::user()->mitra->namaMitra . ' berhasil diubah!');
+            return back()->with('success', 'Password karyawan untuk ' . Auth::user()->mitra->namaMitra . ' berhasil diubah!');
+        } catch (\Exception $e) {
+            DB::rollback();
+            Alert::error('Error', 'Password karyawan untuk ' . Auth::user()->mitra->namaMitra . ' gagal diubah! ' . $e->getMessage());
+            return back()->with('error', 'Password karyawan untuk ' . Auth::user()->mitra->namaMitra . ' gagal diubah!');
+        }
+    }
+
 
     public function destroy($id)
     {

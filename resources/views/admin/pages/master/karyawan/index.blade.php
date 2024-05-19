@@ -92,6 +92,11 @@
                                             data-bs-target="#VerticallyEdit" onclick="editModal('{{ $data['id'] }}')">
                                             <i class="fa fa-edit"></i>
                                         </button>
+                                        <button type="button" class="btn br-7 btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#editPasswordModalAdmin"
+                                            onclick="editPasswordModalAdmin('{{ $data['id'] }}')">
+                                            <i class="fa fa-lock"></i>
+                                        </button>
                                         <form id="deleteForm{{ $data['id'] }}"
                                             action="{{ url('/admin/master/karyawan/' . $data['id']) }}"
                                             style="display: inline;" method="POST">
@@ -128,8 +133,22 @@
             </div>
         </div>
     </div>
-
     {{-- end modal edit karyawan --}}
+
+    {{-- edit Password Karyawan --}}
+    <div class="modal fade" id="editPasswordModalAdmin">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title">Edit Password Karyawan</h6><button aria-label="Close" class="btn-close"
+                        data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div id="modal-content-edit-passwordKaryawan">
+
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
@@ -143,6 +162,22 @@
                 },
                 success: function(response) {
                     $("#modal-content-edit").html(response)
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            })
+        }
+
+        function editPasswordModalAdmin(id) {
+            $.ajax({
+                url: '/admin/master/karyawan/' + id + '/editPassword',
+                type: 'GET',
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    $("#modal-content-edit-passwordKaryawan").html(response)
                 },
                 error: function(error) {
                     console.log(error);

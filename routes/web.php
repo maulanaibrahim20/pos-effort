@@ -98,6 +98,8 @@ Route::middleware(['autentikasi'])->group(function () {
                 Route::resource('karyawan', AkunKaryawanController::class);
                 Route::post('karyawan/changeStatus/{userId}', [AkunKaryawanController::class, 'changeStatus']);
                 Route::get('karyawan/{id}/edit', [AkunKaryawanController::class, 'edit']);
+                Route::get('karyawan/{id}/editPassword', [AkunKaryawanController::class, 'editPassword']);
+                Route::put('karyawan/updatePassword/{id}', [AkunKaryawanController::class, 'updatePassword']);
             });
             Route::prefix('transaksi')->group(function () {
                 Route::prefix('laporan')->group(function () {
