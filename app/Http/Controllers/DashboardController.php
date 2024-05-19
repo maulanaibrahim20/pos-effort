@@ -52,6 +52,16 @@ class DashboardController extends Controller
 
     public function karyawan()
     {
-        return view('karyawan.pages.dashboard.index');
+        $user = Auth::user();
+        $mitraId = $user->karyawan->mitraId;
+        $usernameKasir = $user->username;
+
+        $data = [
+            'totalProduk' => $this->produk::where('mitraId', $mitraId)->count(),
+            'totalPenjualan' => $this->transaksi::where('usernameKasir', $usernameKasir)->count(),
+            'stokProduk' => $this->produk::where('mitraId', $mitraId)->count(),
+        ];
+
+        return view('karyawan.pages.dashboard.index', $data);
     }
 }

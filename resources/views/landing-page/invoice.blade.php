@@ -143,7 +143,7 @@
                         @endphp
                         @foreach ($transaksiDetail as $item)
                             @php
-                                $totalQtyAll += $item["qtyProduk"];
+                                $totalQtyAll += $item['qtyProduk'];
                             @endphp
                             <tr>
                                 <td class="text-center">{{ ++$nomor }}.</td>
@@ -211,7 +211,6 @@
 @endpush
 
 @push('javascript')
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script type="text/javascript">
@@ -228,5 +227,4 @@
             })
         }
     </script>
-
 @endpush

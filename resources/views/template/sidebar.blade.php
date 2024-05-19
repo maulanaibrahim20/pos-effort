@@ -112,9 +112,22 @@
                                 class="side-menu__icon fe fe-file-text"></i><span class="side-menu__label">Laporan
                                 Transaksi</span></a>
                     </li>
+                @endcan
+                @can('karyawan')
                     <li class="sub-category">
-                        <h3>Pengaturan</h3>
+                        <h3>Penjualan</h3>
                     </li>
+                    <li>
+                        <a class="side-menu__item " href="{{ url('/') }}"><i
+                                class="side-menu__icon fa fa-shopping-cart"></i><span class="side-menu__label">
+                                Penjualan</span>
+                        </a>
+                    </li>
+                @endcan
+                <li class="sub-category">
+                    <h3>Pengaturan</h3>
+                </li>
+                @if (Auth::user()->akses == 2)
                     <li>
                         <a class="side-menu__item {{ Request::segment(3) == 'mitra' ? 'active' : '' }}"
                             href="{{ url('/admin/pengaturan/mitra') }}"><i class="side-menu__icon fa fa-bank"></i><span
@@ -122,10 +135,7 @@
                                 Pengaturan Mitra</span>
                         </a>
                     </li>
-                @endcan
-                <li class="sub-category">
-                    <h3>Pengaturan</h3>
-                </li>
+                @endif
                 <li>
                     @if (Auth::user()->akses == 1)
                         <a class="side-menu__item {{ Request::segment(3) == 'user' ? 'active' : '' }}"

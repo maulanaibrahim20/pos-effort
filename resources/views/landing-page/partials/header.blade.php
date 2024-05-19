@@ -50,6 +50,13 @@
                         </a>
                     </li>
                 @endif
+                @if (Auth::user()->akses == 3)
+                    <li class="nav-item">
+                        <a href="{{ url('/karyawan/dashboard') }}" class="nav-link">
+                            <i class="fa fa-home"></i> Dashboard
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>
@@ -107,7 +114,8 @@
                                                         <div class="col-md-4 mb-3">
                                                             <input type="number" class="form-control" name="qty-produk"
                                                                 id="qty-produk-{{ $item['id'] }}"
-                                                                value="{{ $item['qty'] }}" min="1" max="{{ $item['max_qty'] }}">
+                                                                value="{{ $item['qty'] }}" min="1"
+                                                                max="{{ $item['max_qty'] }}">
                                                         </div>
                                                         <div class="col-md-6 mb-3">
                                                             <button class="btn btn-primary btn-xs btn-simpan"
