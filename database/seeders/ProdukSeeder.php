@@ -17,8 +17,8 @@ class ProdukSeeder extends Seeder
         $mitra = Mitra::first();
         Produk::create([
             "kategori" => "Makanan",
-            "namaProduk" => "Rendang Mahal",
-            "slugProduk" => "rendang-mahal",
+            "namaProduk" => "Mie ayam",
+            "slugProduk" => "mie-ayam",
             "status" => '1',
             "hargaProduk" => 10000,
             "mitraId" => $mitra['id']
@@ -26,8 +26,8 @@ class ProdukSeeder extends Seeder
 
         Produk::create([
             "kategori" => "Minuman",
-            "namaProduk" => "Rendang Murah",
-            "slugProduk" => "rendang-murah",
+            "namaProduk" => "Good Day Freeze",
+            "slugProduk" => "good-day-freeze",
             "status" => '1',
             "hargaProduk" => 30000,
             "mitraId" => $mitra['id']

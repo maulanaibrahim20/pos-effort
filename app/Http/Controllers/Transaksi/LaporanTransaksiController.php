@@ -73,6 +73,7 @@ class LaporanTransaksiController extends Controller
     {
         $filterBayar = $request->filterBayar;
 
+        dd($filterBayar);
         if (empty($filterBayar)) {
             $dataTransaksi = $this->transaksi::where('mitraId', Auth::user()->mitra->id)->get();
         } else {
